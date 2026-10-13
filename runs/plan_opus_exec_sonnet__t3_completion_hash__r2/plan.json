@@ -1,0 +1,146 @@
+{
+  "duration_api_ms": 26383,
+  "stop_reason": "end_turn",
+  "session_id": "afb78701-c3cd-4402-a653-c691ec589f6e",
+  "total_cost_usd": 0.3908085,
+  "usage": {
+    "input_tokens": 12,
+    "cache_creation_input_tokens": 38450,
+    "cache_read_input_tokens": 156957,
+    "output_tokens": 2582,
+    "output_tokens_details": {
+      "thinking_tokens": 228
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 38450,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 605,
+        "cache_read_input_tokens": 37300,
+        "cache_creation_input_tokens": 1150,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1150
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1191,
+      "outputTokens": 20,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.00012910000000000002,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 0,
+      "canonicalModel": "claude-haiku-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    },
+    "claude-opus-5-5": {
+      "inputTokens": 12,
+      "outputTokens": 2582,
+      "cacheReadInputTokens": 156957,
+      "cacheCreationInputTokens": 38450,
+      "webSearchRequests": 0,
+      "costUSD": 0.3906794,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 228,
+      "canonicalModel": "claude-opus-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 8,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "I've found the cause and written the plan, but haven't changed any code yet because plan mode is on.\n\n**Cause:** `split_arg_string()` in `src/click/shell_completion.py:603` uses Python's `shlex` lexer, which by default treats `#` as the start of a comment. It drops `#` and everything after it, so an argument like `foo#bar` becomes `foo`. The bash, zsh, fish and PowerShell completers all use this function, so all four shells are affected. The shell has already dealt with real comments before completion runs, so the Python side never needs to.\n\n**Planned fix** (saved in `<home>\\.claude\\plans\\shell-completion-gives-wrong-cozy-elephant.md`):\n1. **The fix:** add `lex.commenters = \"\"` to `split_arg_string`, plus a version note in its docstring.\n2. **Parser tests:** add cases to `test_split_arg_string` in `tests/test_parser.py` for `a#b`, `#tag`, a quoted `'my#file`, and a standalone `#`.\n3. **Completion test:** add one end-to-end test in `tests/test_shell_completion.py` checking that `a#b` comes through intact.\n4. **Changelog:** add a new \"Version 8.5.1 \u2013 Unreleased\" entry to `CHANGES.md`, since 8.5.0 is already released.\n\n**To check it:** run `pytest tests/test_parser.py tests/test_shell_completion.py`, then the full test suite. A quick manual check, `split_arg_string('cli a#b #c')`, should return `['cli', 'a#b', '#c']`.\n\nShould I go ahead and make these changes?",
+  "ttft_ms": 2090,
+  "type": "result",
+  "duration_ms": 30878,
+  "uuid": "20057def-7e53-490d-ab1b-2a9b648b0608",
+  "ttft_stream_ms": 1511,
+  "time_to_request_ms": 690,
+  "time_to_request_phases_ms": {
+    "other": 19,
+    "system_prompt": 143,
+    "resume_other": 0,
+    "process_user_input": 2,
+    "input_attachments": 13,
+    "input_hooks": 3,
+    "transcript_persist": 8,
+    "tool_pool_refresh": 2,
+    "init_message": 12,
+    "engine_pickup": 1,
+    "message_prep": 1,
+    "model_config_wait": 1,
+    "autocompact": 1,
+    "query_setup": 164,
+    "auto_mode_context_wait": 302,
+    "model_gates": 0,
+    "tool_schema_build": 9,
+    "message_normalization": 1,
+    "client_creation": 4,
+    "request_build": 4
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 172,
+  "time_to_request_cpu_ms": 375,
+  "time_to_request_major_faults": 6088,
+  "input_attachments_detail": {
+    "slowest_producer": "model",
+    "slowest_producer_ms": 9,
+    "cpu_ms": 16,
+    "major_faults": 113
+  },
+  "first_content_frame_ms": 1511,
+  "queued_turn_count": 0,
+  "result_index": 0
+}

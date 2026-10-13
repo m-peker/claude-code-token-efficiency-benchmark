@@ -1,0 +1,145 @@
+{
+  "duration_api_ms": 12934,
+  "stop_reason": "end_turn",
+  "session_id": "caac9636-8625-4bdb-b6f0-8a945df1b95b",
+  "total_cost_usd": 0.0647716,
+  "usage": {
+    "input_tokens": 10,
+    "cache_creation_input_tokens": 7047,
+    "cache_read_input_tokens": 132129,
+    "output_tokens": 1001,
+    "output_tokens_details": {
+      "thinking_tokens": 80
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 7047,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 261,
+        "cache_read_input_tokens": 29471,
+        "cache_creation_input_tokens": 478,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 478
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1193,
+      "outputTokens": 17,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.00012780000000000002,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 0,
+      "canonicalModel": "claude-haiku-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    },
+    "claude-sonnet-5-5": {
+      "inputTokens": 10,
+      "outputTokens": 1001,
+      "cacheReadInputTokens": 132129,
+      "cacheCreationInputTokens": 7047,
+      "webSearchRequests": 0,
+      "costUSD": 0.0646438,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 80,
+      "canonicalModel": "claude-sonnet-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 6,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "I fixed it in `IntRange._clamp` in `src/click/types.py`. With an open bound, the clamped value came out outside the allowed range.\n\nThe cause was the sign. A value below an open `min` was clamped to `min - 1`, and a value above an open `max` to `max + 1`. It now moves inward (`bound + dir`), landing on `min + 1` or `max - 1`. For example, `IntRange(0, 10, min_open=True, clamp=True)` now turns `-5` into `1` instead of `-1`.\n\nClosed bounds were already correct, and `FloatRange` doesn't allow clamping on open bounds, so it wasn't affected.\n\n`tests/test_types.py` passes (41 passed, 2 skipped). I didn't add a regression test for the open-bound case.",
+  "ttft_ms": 1680,
+  "type": "result",
+  "duration_ms": 14903,
+  "uuid": "a6e50bc2-9a4b-4ef4-b56c-c2486ac30621",
+  "ttft_stream_ms": 962,
+  "time_to_request_ms": 49,
+  "time_to_request_phases_ms": {
+    "other": 10,
+    "system_prompt": 6,
+    "resume_other": 1,
+    "process_user_input": 1,
+    "input_attachments": 6,
+    "input_hooks": 2,
+    "transcript_persist": 2,
+    "tool_pool_refresh": 1,
+    "init_message": 6,
+    "engine_pickup": 1,
+    "message_prep": 0,
+    "model_config_wait": 1,
+    "autocompact": 1,
+    "query_setup": 0,
+    "model_gates": 0,
+    "tool_schema_build": 5,
+    "message_normalization": 1,
+    "client_creation": 1,
+    "request_build": 4
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 0,
+  "time_to_request_cpu_ms": 62,
+  "time_to_request_major_faults": 1494,
+  "input_attachments_detail": {
+    "slowest_producer": "model",
+    "slowest_producer_ms": 5,
+    "cpu_ms": 0,
+    "major_faults": 217
+  },
+  "first_content_frame_ms": 962,
+  "queued_turn_count": 0,
+  "result_index": 0
+}

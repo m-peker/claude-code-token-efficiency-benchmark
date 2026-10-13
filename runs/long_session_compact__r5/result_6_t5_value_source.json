@@ -1,0 +1,142 @@
+{
+  "duration_api_ms": 134139,
+  "stop_reason": "end_turn",
+  "session_id": "3fb7b9a4-daa0-4909-bd15-79ff5eadd75a",
+  "total_cost_usd": 0.5914689000000001,
+  "usage": {
+    "input_tokens": 8,
+    "cache_creation_input_tokens": 11333,
+    "cache_read_input_tokens": 111462,
+    "output_tokens": 2142,
+    "output_tokens_details": {
+      "thinking_tokens": 98
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 11333,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1042,
+        "cache_read_input_tokens": 32543,
+        "cache_creation_input_tokens": 2085,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 2085
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1193,
+      "outputTokens": 17,
+      "thinkingTokens": 0,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.00012780000000000002,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000
+    },
+    "claude-sonnet-5-5": {
+      "inputTokens": 11145,
+      "outputTokens": 17684,
+      "thinkingTokens": 578,
+      "cacheReadInputTokens": 910313,
+      "cacheCreationInputTokens": 53151,
+      "webSearchRequests": 0,
+      "costUSD": 0.5913411000000001,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "canonicalModel": "claude-sonnet-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 8,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "Click picks a parameter's value in `Parameter.consume_value` (`src/click/core.py:2481`). It takes the first source that yields a value, in this order:\n\n1. **Command line.** `opts.get(self.name, UNSET)` returns whatever the parser collected (`core.py:2495-2502`). The source is recorded as `ParameterSource.COMMANDLINE`.\n2. **Environment variable** (`core.py:2504-2508`).\n   - `value_from_envvar` reads the option's explicit `envvar`.\n   - `Option.resolve_envvar_value` (`core.py:3517`) then falls back to `{ctx.auto_envvar_prefix}_{NAME}`. That fallback needs `allow_from_autoenv` to be true and the prefix to be set.\n3. **`default_map`** (`core.py:2510-2519`).\n   - `ctx.lookup_default(self.name)` (`core.py:785`) reads `ctx.default_map[name]`, and it calls the value if it is callable.\n   - `Context._default_map_has` (`core.py:761`) tells a missing key apart from a stored `None`, so an explicit `None` in the map still wins over the parameter's own default.\n   - A string value is split for `nargs != 1`, the same way envvars are.\n   - A subcommand's map is `parent.default_map[info_name]`, which is the `Context.__init__` fix from the last turn.\n4. **The parameter's own default** (`core.py:2521-2525`), from `self.get_default(ctx)` (`core.py:2436`). If this is also unset, the value stays `UNSET`.\n\nThe prompt can override all of this. `Option.consume_value` (`core.py:3589`) calls `super()` first. If the result is unset, or comes from `DEFAULT_MAP` or `DEFAULT`, and the option has a `prompt` that is required or has `prompt_required`, it asks the user (`core.py:3634-3641`). The source then becomes `ParameterSource.PROMPT`. Prompting is skipped during resilient parsing, which shell completion uses. The same method also resolves a flag used without a value, using `FLAG_NEEDS_VALUE` and `flag_activation_value` (`core.py:3606-3614`).\n\n`ParameterSource` (`core.py:169`) is an `IntEnum` ordered from most to least explicit: `PROMPT`, `COMMANDLINE`, `ENVIRONMENT`, `DEFAULT_MAP`, `DEFAULT`. That ordering is what lets code write `source < ParameterSource.DEFAULT_MAP` to mean \"the user supplied this\".\n\n`handle_parse_result` (`core.py:2730`) calls `consume_value`, stores the source with `ctx.set_parameter_source`, and then runs `process_value`, which does type conversion, the required check and callbacks. Whatever the source, the value always goes through the type. It also uses the source to decide whether to show a deprecation warning, and to pick a winner when several options write to the same variable name, such as feature-switch flags.\n\nI read all of this in the current `core.py` and changed no files.",
+  "ttft_ms": 2937,
+  "type": "result",
+  "duration_ms": 17546,
+  "uuid": "6d73f8b7-e131-490f-a09e-2cbbebd83823",
+  "ttft_stream_ms": 1928,
+  "time_to_request_ms": 762,
+  "time_to_request_phases_ms": {
+    "other": 252,
+    "system_prompt": 448,
+    "resume_other": 0,
+    "process_user_input": 3,
+    "input_attachments": 9,
+    "input_hooks": 3,
+    "transcript_persist": 2,
+    "tool_pool_refresh": 2,
+    "init_message": 12,
+    "engine_pickup": 1,
+    "message_prep": 1,
+    "model_config_wait": 2,
+    "autocompact": 1,
+    "query_setup": 1,
+    "model_gates": 1,
+    "tool_schema_build": 10,
+    "message_normalization": 3,
+    "client_creation": 3,
+    "request_build": 8
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 314,
+  "time_to_request_cpu_ms": 422,
+  "time_to_request_major_faults": 3496,
+  "input_attachments_detail": {
+    "slowest_producer": "queued_commands",
+    "slowest_producer_ms": 7,
+    "cpu_ms": 0,
+    "major_faults": 200
+  },
+  "first_content_frame_ms": 1929,
+  "queued_turn_count": 0,
+  "result_index": 0
+}

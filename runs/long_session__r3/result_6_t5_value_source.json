@@ -1,0 +1,143 @@
+{
+  "duration_api_ms": 72550,
+  "stop_reason": "end_turn",
+  "session_id": "530e7fc4-1c26-48b2-9d77-1ebe8dab3edd",
+  "total_cost_usd": 0.37315380000000004,
+  "usage": {
+    "input_tokens": 8,
+    "cache_creation_input_tokens": 7081,
+    "cache_read_input_tokens": 176185,
+    "output_tokens": 1560,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 7081,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 834,
+        "cache_read_input_tokens": 45927,
+        "cache_creation_input_tokens": 3475,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 3475
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1193,
+      "outputTokens": 17,
+      "thinkingTokens": 0,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.00012780000000000002,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000
+    },
+    "claude-sonnet-5-5": {
+      "inputTokens": 54,
+      "outputTokens": 7848,
+      "thinkingTokens": 466,
+      "cacheReadInputTokens": 942190,
+      "cacheCreationInputTokens": 26500,
+      "webSearchRequests": 0,
+      "costUSD": 0.373026,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "canonicalModel": "claude-sonnet-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 6,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "Click resolves an option's value in this order, highest precedence first:\n\n1. **Command line.** The parser's result is read from `opts` in `Parameter.consume_value` (`src/click/core.py:2495`). The source is `ParameterSource.COMMANDLINE`.\n2. **Environment variable.** `core.py:2504-2508` calls `value_from_envvar`, which uses `resolve_envvar_value` (`core.py:2669`). Empty strings count as unset.\n   - For options, `resolve_envvar_value` is overridden at `core.py:3517`. If the explicit `envvar` finds nothing, it falls back to `{auto_envvar_prefix}_{NAME}`.\n   - Non-bool flags interpret the string as a boolean in `core.py:3563-3576`.\n3. **`default_map`.** `core.py:2510-2519` calls `ctx.lookup_default` (`core.py:785`). The source is `DEFAULT_MAP`.\n   - A key that is present with a `None` value still counts, via `_default_map_has` (`core.py:761`).\n   - A subcommand's context gets only its own slice of the parent's map, set at `core.py:386-394`. That is the code I changed earlier.\n4. **The parameter's own `default`.** `core.py:2521-2525` calls `get_default` (`core.py:2468`). The source is `DEFAULT`. A callable default is called here.\n\n**Prompts.** `Option.consume_value` (`core.py:3589`) calls the base method above, then may prompt.\n- A prompt happens if the value is unset or came from `default_map` or `default` (`source >= DEFAULT_MAP`). It also requires `prompt` to be set and the option to be `required` or `prompt_required`. The source becomes `PROMPT` (`core.py:3634-3641`).\n- A flag used without a value on the command line (`FLAG_NEEDS_VALUE`) prompts if `prompt` is set. Otherwise it takes `flag_activation_value` (`core.py:3606-3614`).\n- So a prompt never overrides the command line or an environment variable.\n\n**Afterwards.** The chosen value goes through `process_value` and `type_cast_value` (`core.py:2529`), then the required-missing check. `handle_parse_result` (`core.py:2730`) drives the whole sequence and records the source on the context. You can read it with `ctx.get_parameter_source(name)`. The enum is at `core.py:~190-205`.\n\nI didn't modify any files.",
+  "ttft_ms": 2534,
+  "type": "result",
+  "duration_ms": 13590,
+  "uuid": "0d44a0d8-0e78-40d1-9985-b2602e197eb8",
+  "ttft_stream_ms": 1371,
+  "time_to_request_ms": 239,
+  "time_to_request_phases_ms": {
+    "other": 21,
+    "system_prompt": 102,
+    "resume_other": 0,
+    "process_user_input": 2,
+    "input_attachments": 36,
+    "input_hooks": 3,
+    "transcript_persist": 1,
+    "tool_pool_refresh": 2,
+    "init_message": 29,
+    "engine_pickup": 2,
+    "message_prep": 1,
+    "model_config_wait": 2,
+    "autocompact": 1,
+    "query_setup": 1,
+    "model_gates": 1,
+    "tool_schema_build": 16,
+    "message_normalization": 6,
+    "client_creation": 5,
+    "request_build": 8
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 42,
+  "time_to_request_cpu_ms": 374,
+  "time_to_request_major_faults": 3062,
+  "input_attachments_detail": {
+    "slowest_producer": "changed_files",
+    "slowest_producer_ms": 27,
+    "cpu_ms": 62,
+    "major_faults": 464,
+    "changed_files_reread": 0
+  },
+  "first_content_frame_ms": 1372,
+  "queued_turn_count": 0,
+  "result_index": 0
+}

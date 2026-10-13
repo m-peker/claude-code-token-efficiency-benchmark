@@ -1,0 +1,146 @@
+{
+  "duration_api_ms": 13778,
+  "stop_reason": "end_turn",
+  "session_id": "55566528-c89b-434b-b74e-c7a01ae766a0",
+  "total_cost_usd": 0.063335,
+  "usage": {
+    "input_tokens": 8,
+    "cache_creation_input_tokens": 8092,
+    "cache_read_input_tokens": 72366,
+    "output_tokens": 1635,
+    "output_tokens_details": {
+      "thinking_tokens": 175
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 8092,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "global",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 402,
+        "cache_read_input_tokens": 21327,
+        "cache_creation_input_tokens": 1144,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1144
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1193,
+      "outputTokens": 17,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.00012780000000000002,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 0,
+      "canonicalModel": "claude-haiku-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    },
+    "claude-sonnet-5-5": {
+      "inputTokens": 8,
+      "outputTokens": 1635,
+      "cacheReadInputTokens": 72366,
+      "cacheCreationInputTokens": 8092,
+      "webSearchRequests": 0,
+      "costUSD": 0.0632072,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 175,
+      "canonicalModel": "claude-sonnet-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 5,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "I've found the cause and written a plan, but I haven't changed any code. Plan mode is active and `ExitPlanMode` isn't available in this session, so I couldn't hand the plan over for approval.\n\n**Cause:** `IntRange._clamp` (`src/click/types.py:754`) returns `bound - dir`. The caller passes `dir` as the direction to move into the range: `1` for a value below min, `-1` for a value above max. Subtracting it steps outside the range whenever a bound is open.\n\n- `IntRange(0, min_open=True, clamp=True)` given `-5` returns `-1` instead of `1`.\n- `IntRange(max=5, max_open=True, clamp=True)` given `10` returns `6` instead of `4`.\n\n**Fix:** change line 754 to `return bound + dir`.\n\n**Tests:** add the two cases above to `tests/test_types.py`, next to the existing clamp cases. Then run `pytest tests/test_types.py tests/test_info_dict.py`.\n\nThe plan is saved at `<home>\\.claude\\plans\\some-users-report-that-squishy-twilight.md`. Tell me to proceed and I'll apply the fix and the tests.",
+  "ttft_ms": 1569,
+  "type": "result",
+  "duration_ms": 14192,
+  "uuid": "dbdcb58a-9f1d-44a3-8e00-272ba72df993",
+  "ttft_stream_ms": 1104,
+  "time_to_request_ms": 287,
+  "time_to_request_phases_ms": {
+    "other": 11,
+    "system_prompt": 9,
+    "resume_other": 1,
+    "process_user_input": 1,
+    "input_attachments": 6,
+    "input_hooks": 1,
+    "transcript_persist": 2,
+    "tool_pool_refresh": 1,
+    "init_message": 7,
+    "engine_pickup": 0,
+    "message_prep": 1,
+    "model_config_wait": 0,
+    "autocompact": 1,
+    "query_setup": 131,
+    "auto_mode_context_wait": 107,
+    "model_gates": 0,
+    "tool_schema_build": 3,
+    "message_normalization": 1,
+    "client_creation": 1,
+    "request_build": 3
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 160,
+  "time_to_request_cpu_ms": 125,
+  "time_to_request_major_faults": 1086,
+  "input_attachments_detail": {
+    "slowest_producer": "queued_commands",
+    "slowest_producer_ms": 4,
+    "cpu_ms": 16,
+    "major_faults": 40
+  },
+  "first_content_frame_ms": 1104,
+  "queued_turn_count": 0,
+  "result_index": 0
+}

@@ -1,0 +1,154 @@
+{
+  "duration_api_ms": 81412,
+  "stop_reason": "end_turn",
+  "session_id": "dfaf78fa-5ebd-48c1-8eaf-81c4989b09d6",
+  "total_cost_usd": 0.4068210000000001,
+  "usage": {
+    "input_tokens": 12,
+    "cache_creation_input_tokens": 16888,
+    "cache_read_input_tokens": 200555,
+    "output_tokens": 3574,
+    "output_tokens_details": {
+      "thinking_tokens": 196
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 16888,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 481,
+        "cache_read_input_tokens": 38450,
+        "cache_creation_input_tokens": 1340,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1340
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1191,
+      "outputTokens": 20,
+      "thinkingTokens": 0,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.00012910000000000002,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000
+    },
+    "claude-sonnet-5-5": {
+      "inputTokens": 20,
+      "outputTokens": 5398,
+      "thinkingTokens": 337,
+      "cacheReadInputTokens": 177237,
+      "cacheCreationInputTokens": 23791,
+      "webSearchRequests": 0,
+      "costUSD": 0.15994890000000003,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000
+    },
+    "claude-opus-5-5": {
+      "inputTokens": 12,
+      "outputTokens": 3574,
+      "cacheReadInputTokens": 200555,
+      "cacheCreationInputTokens": 16888,
+      "webSearchRequests": 0,
+      "costUSD": 0.246743,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 196,
+      "canonicalModel": "claude-opus-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 10,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "Shell completion now handles arguments that contain `#` correctly in bash, zsh, fish and PowerShell. The full test suite passes (1913 passed, 102 skipped), and the 7 new tests fail when the fix is taken out.\n\n**Cause:** completion splits the command line with Python's `shlex`, which treats an unquoted `#` as the start of a comment. Everything from the `#` onward was dropped, so completion saw a shorter command line. In fish this could also crash with an `IndexError`.\n\n**Fix:** one line in `split_arg_string` (`src/click/shell_completion.py`) that tells `shlex` not to treat `#` as a comment.\n\n**Also changed:**\n- **`tests/test_parser.py`:** three new splitting cases: `cli #foo`, `cli a # b` and `cli a#b`.\n- **`tests/test_shell_completion.py`:** a new test, `test_full_complete_hash`, that runs completion end to end for all four shells, with `#` in both an earlier argument and the word being completed.\n- **`CHANGES.md`:** 8.5.0 is already released, so I added a new \"Version 8.5.1 \u2013 Unreleased\" section for the entry. I also added a matching `versionchanged:: 8.5.1` note to the function's docstring. Adjust the version if the next release will be numbered differently.\n\nNothing is committed yet.",
+  "ttft_ms": 3017,
+  "type": "result",
+  "duration_ms": 54911,
+  "uuid": "b443b9e3-52b0-4f2c-a7c0-b8c273fe0a16",
+  "ttft_stream_ms": 1671,
+  "time_to_request_ms": 267,
+  "time_to_request_phases_ms": {
+    "other": 10,
+    "system_prompt": 202,
+    "resume_other": 0,
+    "process_user_input": 2,
+    "input_attachments": 11,
+    "input_hooks": 2,
+    "transcript_persist": 1,
+    "tool_pool_refresh": 2,
+    "init_message": 11,
+    "engine_pickup": 1,
+    "message_prep": 0,
+    "model_config_wait": 1,
+    "autocompact": 1,
+    "query_setup": 0,
+    "model_gates": 0,
+    "tool_schema_build": 8,
+    "message_normalization": 3,
+    "client_creation": 5,
+    "request_build": 7
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 132,
+  "time_to_request_cpu_ms": 296,
+  "time_to_request_major_faults": 3486,
+  "input_attachments_detail": {
+    "slowest_producer": "queued_commands",
+    "slowest_producer_ms": 7,
+    "cpu_ms": 15,
+    "major_faults": 217,
+    "changed_files_reread": 0
+  },
+  "first_content_frame_ms": 1672,
+  "queued_turn_count": 0,
+  "result_index": 0
+}

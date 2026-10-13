@@ -1,0 +1,145 @@
+{
+  "duration_api_ms": 27298,
+  "stop_reason": "end_turn",
+  "session_id": "97796823-f0a6-46ee-a00b-f001ec886422",
+  "total_cost_usd": 0.1864131,
+  "usage": {
+    "input_tokens": 8,
+    "cache_creation_input_tokens": 15015,
+    "cache_read_input_tokens": 112964,
+    "output_tokens": 2177,
+    "output_tokens_details": {
+      "thinking_tokens": 84
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 15015,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1764,
+        "cache_read_input_tokens": 36308,
+        "cache_creation_input_tokens": 1484,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1484
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1203,
+      "outputTokens": 16,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.0001283,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 0,
+      "canonicalModel": "claude-haiku-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    },
+    "claude-opus-5-5": {
+      "inputTokens": 8,
+      "outputTokens": 2177,
+      "cacheReadInputTokens": 112964,
+      "cacheCreationInputTokens": 15015,
+      "webSearchRequests": 0,
+      "costUSD": 0.18628480000000003,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 84,
+      "canonicalModel": "claude-opus-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 4,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "Click works out each option's value in `Parameter.consume_value`. It checks sources in a fixed order and stops at the first one that gives a value. `Option` adds prompting and flag handling on top. All paths below are in `src/click/core.py`.\n\n## Precedence, highest to lowest\n\n| Rank | Source | `ParameterSource` |\n|---|---|---|\n| 1 | Command-line args | `COMMANDLINE` |\n| 2 | Environment variable | `ENVIRONMENT` |\n| 3 | `ctx.default_map[name]` | `DEFAULT_MAP` |\n| 4 | Parameter's `default=` | `DEFAULT` |\n| (overlay) | Interactive prompt | `PROMPT` |\n\nThe `ParameterSource` enum (`core.py:169`) is an `IntEnum` listed from most to least explicit. That means code can compare sources directly, e.g. `source < ParameterSource.DEFAULT_MAP` means \"the user set this explicitly\". `PROMPT` has the lowest number, so it counts as the most explicit source of all.\n\n## The core chain: `Parameter.consume_value` (`core.py:2481`)\n\n1. **Command line.** `value = opts.get(self.name, UNSET)`. If the parser produced a value, the source is `COMMANDLINE`.\n2. **Environment.** If the value is still `UNSET`, it calls `self.value_from_envvar(ctx)` (`core.py:2714`), which uses `resolve_envvar_value` (`core.py:2669`):\n   - `envvar` can be a single name or a list. With a list, the first non-empty value wins.\n   - An empty string counts as unset.\n   - If `nargs != 1`, the string is split with `type.split_envvar_value`.\n3. **Default map.** If the value is still `UNSET`, it calls `ctx.lookup_default(self.name)` (`core.py:785`):\n   - `_default_map_has` (`core.py:761`) treats a missing key, a `None` map, and a value of `UNSET` as \"absent\".\n   - An explicit `None` in the map does count as a value (source `DEFAULT_MAP`).\n   - If the map value is callable, it gets called.\n   - Strings are split for multi-value parameters, the same way env vars are.\n4. **Parameter default.** If the value is still `UNSET`, it calls `self.get_default(ctx)` (`core.py:2445`). That method looks at `default_map` again first, then falls back to `self.default`, calling it if it's callable.\n\nThe default map is parsed per context. If a subcommand's context has no `default_map` of its own, it takes the parent's `default_map[info_name]` entry (`core.py:387-394`).\n\n## Option-specific layers\n\n**`Option.resolve_envvar_value` (`core.py:3517`).** If no explicit `envvar` matches, it builds a name from the prefix: `{ctx.auto_envvar_prefix}_{NAME}`. This only happens when `allow_from_autoenv` is true. An explicit `envvar=` always wins over the prefix-derived name.\n\n**`Option.value_from_envvar` (`core.py:3541`).**\n- For non-bool flags, the env var string is read as a boolean, giving `flag_value` or `False`.\n- For `multiple=True` or `nargs` options, the string is split and batched.\n\n**`Option.consume_value` (`core.py:3589`).** It calls the base chain first, then:\n- If the parser returned `FLAG_NEEDS_VALUE` (a flag used without a value), Click either prompts (source `PROMPT`) or uses `flag_activation_value` (source `COMMANDLINE`).\n- If nothing was found, or the value only came from `DEFAULT_MAP` or `DEFAULT` (`source >= ParameterSource.DEFAULT_MAP`), and `prompt=` is set and the option is required or `prompt_required`, it prompts. The prompt result replaces the default with source `PROMPT`.\n\n## Recording and arbitration: `Parameter.handle_parse_result` (`core.py:2730`)\n\n- It calls `consume_value` and records the source with `ctx.set_parameter_source(...)` before type conversion. You can read it back later with `ctx.get_parameter_source(name)`.\n- Deprecation warnings only fire for explicit sources (`source < DEFAULT_MAP`).\n- **Slot arbitration** (`core.py:~2790-2810`) applies when several options share one destination name, as in feature-switch groups. The option whose value came from the more explicit source wins, whatever order the decorators are in. Within the `DEFAULT` tier, an explicit `default=` beats an auto-derived default. If an option loses, the winner's recorded source is restored.\n\n## Docs and tests\n\n- `docs/options.md` (\"Value sources\" and \"Slot arbitration\", around line 609) describes the same order.\n- `tests/test_defaults.py::test_default_map_source` exercises the CLI > `default_map` > default chain.\n- `tests/test_options.py::test_flag_group_competition_envvar_prefix_and_unset_default_map` covers env vars and arbitration.\n\nI didn't modify any files.",
+  "ttft_ms": 5008,
+  "type": "result",
+  "duration_ms": 29560,
+  "uuid": "3ead1426-ed47-4033-91a1-a54d96a912b2",
+  "ttft_stream_ms": 4071,
+  "time_to_request_ms": 150,
+  "time_to_request_phases_ms": {
+    "other": 11,
+    "system_prompt": 50,
+    "resume_other": 0,
+    "process_user_input": 1,
+    "input_attachments": 7,
+    "input_hooks": 1,
+    "transcript_persist": 10,
+    "tool_pool_refresh": 2,
+    "init_message": 6,
+    "engine_pickup": 1,
+    "message_prep": 1,
+    "model_config_wait": 0,
+    "autocompact": 1,
+    "query_setup": 0,
+    "model_gates": 43,
+    "tool_schema_build": 9,
+    "message_normalization": 1,
+    "client_creation": 3,
+    "request_build": 3
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 10,
+  "time_to_request_cpu_ms": 203,
+  "time_to_request_major_faults": 5542,
+  "input_attachments_detail": {
+    "slowest_producer": "model",
+    "slowest_producer_ms": 4,
+    "cpu_ms": 0,
+    "major_faults": 81
+  },
+  "first_content_frame_ms": 4071,
+  "queued_turn_count": 0,
+  "result_index": 0
+}

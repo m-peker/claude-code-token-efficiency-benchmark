@@ -1,0 +1,146 @@
+{
+  "duration_api_ms": 18874,
+  "stop_reason": "end_turn",
+  "session_id": "bda17297-b19a-4bd6-b8ac-f6e16280954a",
+  "total_cost_usd": 0.1732812,
+  "usage": {
+    "input_tokens": 10,
+    "cache_creation_input_tokens": 32342,
+    "cache_read_input_tokens": 116771,
+    "output_tokens": 2041,
+    "output_tokens_details": {
+      "thinking_tokens": 329
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 32342,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 452,
+        "cache_read_input_tokens": 31381,
+        "cache_creation_input_tokens": 961,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 961
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1190,
+      "outputTokens": 20,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.00012900000000000002,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 0,
+      "canonicalModel": "claude-haiku-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    },
+    "claude-sonnet-5-5": {
+      "inputTokens": 10,
+      "outputTokens": 2041,
+      "cacheReadInputTokens": 116771,
+      "cacheCreationInputTokens": 32342,
+      "webSearchRequests": 0,
+      "costUSD": 0.1731522,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 329,
+      "canonicalModel": "claude-sonnet-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 7,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "I've written the plan, but nothing is changed yet because plan mode is on. I couldn't call ExitPlanMode here, so please confirm the plan below and I'll make the edit.\n\n**Cause:** `Context.__init__` in `src/click/core.py` (lines 386-392) gives a subcommand context the parent's whole `default_map`. It should give it only the entry for the subcommand's own name. With `{\"runserver\": {\"port\": 5000}}`, the `runserver` context gets the outer dict, so its `port` option never finds a default.\n\n**Fix:** change `default_map = parent.default_map` to `default_map = parent.default_map.get(info_name)`. A missing key then means no defaults for that subcommand. I'll also make sure a `Sentinel.UNSET` value counts as absent.\n\n**Also planned:**\n- Add a regression test in `tests/test_defaults.py` covering a subcommand, a nested group, and a missing key.\n- Add an entry to `CHANGES.md`.\n- Run the related tests and then the full suite.\n\n`docs/commands.md` already describes the nested-dict form, so it needs no change.\n\nThe plan is saved at `<home>\\.claude\\plans\\defaults-configured-through-default-map-abundant-mountain.md`.",
+  "ttft_ms": 2435,
+  "type": "result",
+  "duration_ms": 19899,
+  "uuid": "c5bbcfeb-de3e-417f-b081-4ad7b32ee938",
+  "ttft_stream_ms": 1891,
+  "time_to_request_ms": 725,
+  "time_to_request_phases_ms": {
+    "other": 15,
+    "system_prompt": 8,
+    "resume_other": 0,
+    "process_user_input": 2,
+    "input_attachments": 8,
+    "input_hooks": 3,
+    "transcript_persist": 5,
+    "tool_pool_refresh": 1,
+    "init_message": 9,
+    "engine_pickup": 0,
+    "message_prep": 1,
+    "model_config_wait": 408,
+    "autocompact": 1,
+    "query_setup": 102,
+    "auto_mode_context_wait": 148,
+    "model_gates": 0,
+    "tool_schema_build": 8,
+    "message_normalization": 1,
+    "client_creation": 1,
+    "request_build": 4
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 111,
+  "time_to_request_cpu_ms": 562,
+  "time_to_request_major_faults": 7983,
+  "input_attachments_detail": {
+    "slowest_producer": "model",
+    "slowest_producer_ms": 6,
+    "cpu_ms": 16,
+    "major_faults": 302
+  },
+  "first_content_frame_ms": 1891,
+  "queued_turn_count": 0,
+  "result_index": 0
+}

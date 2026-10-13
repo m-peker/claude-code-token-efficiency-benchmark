@@ -1,0 +1,145 @@
+{
+  "duration_api_ms": 14801,
+  "stop_reason": "end_turn",
+  "session_id": "140e9f56-2b5f-43c3-9f52-56493909e996",
+  "total_cost_usd": 0.1375411,
+  "usage": {
+    "input_tokens": 12,
+    "cache_creation_input_tokens": 19536,
+    "cache_read_input_tokens": 223520,
+    "output_tokens": 1454,
+    "output_tokens_details": {
+      "thinking_tokens": 93
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 19536,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 252,
+        "cache_read_input_tokens": 42118,
+        "cache_creation_input_tokens": 320,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 320
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1191,
+      "outputTokens": 20,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.00012910000000000002,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 0,
+      "canonicalModel": "claude-haiku-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    },
+    "claude-sonnet-5-5": {
+      "inputTokens": 12,
+      "outputTokens": 1454,
+      "cacheReadInputTokens": 223520,
+      "cacheCreationInputTokens": 19536,
+      "webSearchRequests": 0,
+      "costUSD": 0.137412,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 93,
+      "canonicalModel": "claude-sonnet-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 8,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "Shell completion now handles `#` correctly. The cause was `split_arg_string` in `src/click/shell_completion.py`: it uses `shlex`, which treats `#` as the start of a comment by default and drops the rest of the line. I set `lex.commenters = \"\"` there.\n\nI added two cases to `test_split_arg_string` in `tests/test_parser.py` (`a#b` and a leading `#a`). `tests/test_parser.py` and `tests/test_shell_completion.py` pass (67 tests); I didn't run the full suite.\n\nI also added an \"unreleased 8.5.1\" entry to `CHANGES.md`, since 8.5.0 was already released. I didn't touch `docs/`, because this is a bug fix with no new behavior to document.",
+  "ttft_ms": 1862,
+  "type": "result",
+  "duration_ms": 17732,
+  "uuid": "e04597dc-fc55-45e1-a920-40fb68579324",
+  "ttft_stream_ms": 1239,
+  "time_to_request_ms": 128,
+  "time_to_request_phases_ms": {
+    "other": 12,
+    "system_prompt": 28,
+    "resume_other": 1,
+    "process_user_input": 1,
+    "input_attachments": 7,
+    "input_hooks": 2,
+    "transcript_persist": 24,
+    "tool_pool_refresh": 2,
+    "init_message": 8,
+    "engine_pickup": 1,
+    "message_prep": 0,
+    "model_config_wait": 1,
+    "autocompact": 1,
+    "query_setup": 0,
+    "model_gates": 25,
+    "tool_schema_build": 9,
+    "message_normalization": 1,
+    "client_creation": 3,
+    "request_build": 2
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 14,
+  "time_to_request_cpu_ms": 249,
+  "time_to_request_major_faults": 3262,
+  "input_attachments_detail": {
+    "slowest_producer": "model",
+    "slowest_producer_ms": 5,
+    "cpu_ms": 31,
+    "major_faults": 97
+  },
+  "first_content_frame_ms": 1239,
+  "queued_turn_count": 0,
+  "result_index": 0
+}

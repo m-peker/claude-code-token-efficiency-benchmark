@@ -1,0 +1,36 @@
+diff --git a/src/click/shell_completion.py b/src/click/shell_completion.py
+index 42e8885..8a2668b 100644
+--- a/src/click/shell_completion.py
++++ b/src/click/shell_completion.py
+@@ -622,6 +622,7 @@ def split_arg_string(string: str) -> list[str]:
+ 
+     lex = shlex.shlex(string, posix=True)
+     lex.whitespace_split = True
++    lex.commenters = ""
+     out: list[str] = []
+ 
+     try:
+diff --git a/tests/test_shell_completion.py b/tests/test_shell_completion.py
+index 10d5cfa..a6fd3db 100644
+--- a/tests/test_shell_completion.py
++++ b/tests/test_shell_completion.py
+@@ -16,6 +16,7 @@ from click.shell_completion import FishComplete
+ from click.shell_completion import PowerShellComplete
+ from click.shell_completion import shell_complete
+ from click.shell_completion import ShellComplete
++from click.shell_completion import split_arg_string
+ from click.types import Choice
+ from click.types import File
+ from click.types import Path
+@@ -40,6 +41,11 @@ def test_command():
+     assert _get_words(cli, ["-t", "a"], "-") == ["--help"]
+ 
+ 
++def test_split_arg_string_hash_not_comment():
++    assert split_arg_string("cmd a#b") == ["cmd", "a#b"]
++    assert split_arg_string("cmd #a") == ["cmd", "#a"]
++
++
+ def test_group():
+     cli = Group("cli", params=[Option(["-a"])], commands=[Command("x"), Command("y")])
+     assert _get_words(cli, [], "") == ["x", "y"]

@@ -1,0 +1,39 @@
+diff --git a/src/click/shell_completion.py b/src/click/shell_completion.py
+index 42e8885..e071a63 100644
+--- a/src/click/shell_completion.py
++++ b/src/click/shell_completion.py
+@@ -622,6 +622,8 @@ def split_arg_string(string: str) -> list[str]:
+ 
+     lex = shlex.shlex(string, posix=True)
+     lex.whitespace_split = True
++    # Don't treat "#" as a comment start, it is a valid part of an argument.
++    lex.commenters = ""
+     out: list[str] = []
+ 
+     try:
+diff --git a/tests/test_parser.py b/tests/test_parser.py
+index f2a3ad5..eb97af4 100644
+--- a/tests/test_parser.py
++++ b/tests/test_parser.py
+@@ -13,6 +13,9 @@ from click.shell_completion import split_arg_string
+         ("cli 'my file'", ["cli", "my file"]),
+         ("cli my\\", ["cli", "my"]),
+         ("cli my\\ file", ["cli", "my file"]),
++        ("cli a #b c", ["cli", "a", "#b", "c"]),
++        ("cli a#b", ["cli", "a#b"]),
++        ("cli '#b'", ["cli", "#b"]),
+     ],
+ )
+ def test_split_arg_string(value, expect):
+diff --git a/tests/test_shell_completion.py b/tests/test_shell_completion.py
+index 10d5cfa..6b31aca 100644
+--- a/tests/test_shell_completion.py
++++ b/tests/test_shell_completion.py
+@@ -375,6 +375,7 @@ def test_full_source_powershell(runner):
+         ("fish", {"COMP_WORDS": "", "COMP_CWORD": ""}, "plain,a\nplain,b\tbee\n"),
+         ("fish", {"COMP_WORDS": "a b", "COMP_CWORD": "b"}, "plain,b\tbee\n"),
+         ("fish", {"COMP_WORDS": 'a "b', "COMP_CWORD": '"b'}, "plain,b\tbee\n"),
++        ("fish", {"COMP_WORDS": "a #", "COMP_CWORD": "#"}, "\n"),
+         (
+             "powershell",
+             {"COMP_WORDS": "", "COMP_CWORD": "0"},

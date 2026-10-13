@@ -1,0 +1,145 @@
+{
+  "duration_api_ms": 15543,
+  "stop_reason": "end_turn",
+  "session_id": "1957d979-357a-49e2-a521-3e47aa2f941c",
+  "total_cost_usd": 0.0682359,
+  "usage": {
+    "input_tokens": 12,
+    "cache_creation_input_tokens": 5456,
+    "cache_read_input_tokens": 155848,
+    "output_tokens": 1507,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 5456,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 300,
+        "cache_read_input_tokens": 27759,
+        "cache_creation_input_tokens": 599,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 599
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1353,
+      "outputTokens": 26,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.0001483,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 0,
+      "canonicalModel": "claude-haiku-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    },
+    "claude-sonnet-5-5": {
+      "inputTokens": 12,
+      "outputTokens": 1507,
+      "cacheReadInputTokens": 155848,
+      "cacheCreationInputTokens": 5456,
+      "webSearchRequests": 0,
+      "costUSD": 0.0680876,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 0,
+      "canonicalModel": "claude-sonnet-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 8,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "Fixed. A child `Context` now takes its own section of the parent's `default_map`, keyed by `info_name`. Before, it inherited the parent's whole map, so `{'foo': {'name': 'changed'}}` never reached the `--name` option.\n\nThe change is one line in `Context.__init__` in `src/click/core.py`: `default_map = parent.default_map.get(info_name)`. If the parent map has no section for that command, the child gets `None`.\n\nI added `test_default_map_subcommand_section` to `tests/test_commands.py`. It checks that `foo` prints `changed` when `default_map={'foo': {'name': 'changed'}}` is passed, and `normal` when no map is passed. I did not run it against the unfixed code to confirm it fails there.\n\n`python -m pytest tests/test_commands.py tests/test_defaults.py -q` gives 145 passed. I did not run the full suite.",
+  "ttft_ms": 2112,
+  "type": "result",
+  "duration_ms": 18026,
+  "uuid": "cbb01a2e-f47c-44e9-93af-10ba475a5281",
+  "ttft_stream_ms": 1457,
+  "time_to_request_ms": 180,
+  "time_to_request_phases_ms": {
+    "other": 17,
+    "system_prompt": 31,
+    "resume_other": 0,
+    "process_user_input": 2,
+    "input_attachments": 95,
+    "input_hooks": 3,
+    "transcript_persist": 2,
+    "tool_pool_refresh": 2,
+    "init_message": 11,
+    "engine_pickup": 1,
+    "message_prep": 1,
+    "model_config_wait": 1,
+    "autocompact": 1,
+    "query_setup": 1,
+    "model_gates": 0,
+    "tool_schema_build": 6,
+    "message_normalization": 1,
+    "client_creation": 2,
+    "request_build": 3
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 16,
+  "time_to_request_cpu_ms": 298,
+  "time_to_request_major_faults": 3848,
+  "input_attachments_detail": {
+    "slowest_producer": "nested_memory",
+    "slowest_producer_ms": 48,
+    "cpu_ms": 187,
+    "major_faults": 1819
+  },
+  "first_content_frame_ms": 1457,
+  "queued_turn_count": 0,
+  "result_index": 0
+}

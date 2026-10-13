@@ -1,0 +1,145 @@
+{
+  "duration_api_ms": 14497,
+  "stop_reason": "end_turn",
+  "session_id": "cdff0284-74a6-4e81-9812-45d48510449f",
+  "total_cost_usd": 0.0583827,
+  "usage": {
+    "input_tokens": 10,
+    "cache_creation_input_tokens": 4359,
+    "cache_read_input_tokens": 125454,
+    "output_tokens": 1570,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 4359,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 258,
+        "cache_read_input_tokens": 26865,
+        "cache_creation_input_tokens": 396,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 396
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1259,
+      "outputTokens": 20,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.0001359,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 0,
+      "canonicalModel": "claude-haiku-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    },
+    "claude-sonnet-5-5": {
+      "inputTokens": 10,
+      "outputTokens": 1570,
+      "cacheReadInputTokens": 125454,
+      "cacheCreationInputTokens": 4359,
+      "webSearchRequests": 0,
+      "costUSD": 0.0582468,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 0,
+      "canonicalModel": "claude-sonnet-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 7,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "I added `click.KeyValue` in `src/click/types.py` and exported it from `src/click/__init__.py`. I checked it with a quick `CliRunner` run, but I didn't add tests or a changelog entry or run the existing test suite.\n\n- **`a=b=c`:** gives `('a', 'b=c')`. It splits on the first `=`, so values can contain `=`.\n- **`a=`:** gives `('a', '')`. An empty value is allowed.\n- **`a` (no `=`) and `=b` (empty key):** both fail with `'a' is not a valid key=value pair.`, shown as `Error: Invalid value for '--set': ...`.\n\nThe class docstring says `versionadded:: 8.4`, which is a guess. Change it to whatever version this ships in.",
+  "ttft_ms": 2098,
+  "type": "result",
+  "duration_ms": 16304,
+  "uuid": "b793b04a-af90-4410-a621-1422c9f17ccd",
+  "ttft_stream_ms": 1352,
+  "time_to_request_ms": 169,
+  "time_to_request_phases_ms": {
+    "other": 13,
+    "system_prompt": 77,
+    "resume_other": 0,
+    "process_user_input": 3,
+    "input_attachments": 43,
+    "input_hooks": 2,
+    "transcript_persist": 4,
+    "tool_pool_refresh": 1,
+    "init_message": 9,
+    "engine_pickup": 1,
+    "message_prep": 0,
+    "model_config_wait": 2,
+    "autocompact": 0,
+    "query_setup": 1,
+    "model_gates": 0,
+    "tool_schema_build": 6,
+    "message_normalization": 1,
+    "client_creation": 1,
+    "request_build": 5
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 11,
+  "time_to_request_cpu_ms": 266,
+  "time_to_request_major_faults": 5437,
+  "input_attachments_detail": {
+    "slowest_producer": "at_mentioned_files",
+    "slowest_producer_ms": 28,
+    "cpu_ms": 47,
+    "major_faults": 648
+  },
+  "first_content_frame_ms": 1352,
+  "queued_turn_count": 0,
+  "result_index": 0
+}

@@ -1,0 +1,145 @@
+{
+  "duration_api_ms": 15710,
+  "stop_reason": "end_turn",
+  "session_id": "98be92df-99f0-4a7f-863e-1d57a7a54434",
+  "total_cost_usd": 0.0900319,
+  "usage": {
+    "input_tokens": 8,
+    "cache_creation_input_tokens": 7954,
+    "cache_read_input_tokens": 195558,
+    "output_tokens": 1896,
+    "output_tokens_details": {
+      "thinking_tokens": 74
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 7954,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "global",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1098,
+        "cache_read_input_tokens": 52824,
+        "cache_creation_input_tokens": 1070,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1070
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1203,
+      "outputTokens": 16,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.0001283,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 0,
+      "canonicalModel": "claude-haiku-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    },
+    "claude-sonnet-5-5": {
+      "inputTokens": 8,
+      "outputTokens": 1896,
+      "cacheReadInputTokens": 195558,
+      "cacheCreationInputTokens": 7954,
+      "webSearchRequests": 0,
+      "costUSD": 0.0899036,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 74,
+      "canonicalModel": "claude-sonnet-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 6,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "Click decides an option's value in `Parameter.consume_value`, with an `Option` override that adds prompting. The first source that yields a value wins.\n\n## Precedence (highest to lowest)\n\n1. **Command line.** `opts.get(self.name, UNSET)` returns whatever the parser produced (`src/click/core.py:2495`). The source is `ParameterSource.COMMANDLINE`.\n2. **Environment variable.** If the value is still `UNSET`, `self.value_from_envvar(ctx)` is tried (`core.py:2504-2508`). The source is `ENVIRONMENT`.\n   - `Option.resolve_envvar_value` (`core.py:3517`) checks the explicit `envvar=` first.\n   - It then falls back to `{ctx.auto_envvar_prefix}_{NAME}` if `allow_from_autoenv` is set (`core.py:3532-3537`).\n   - An empty string counts as unset.\n3. **`Context.default_map`.** `ctx.lookup_default(self.name)` is used if it returns a value or the key is present in the map (`core.py:2510-2514`). The source is `DEFAULT_MAP`. Strings are split for `nargs != 1` params, the same as for env vars.\n4. **The parameter's own `default=`.** `self.get_default(ctx)` is used last (`core.py:2521-2525`). The source is `DEFAULT`.\n\nIf nothing matches, the value stays the `UNSET` sentinel.\n\n## Option-specific layer: prompting and flags\n\n`Option.consume_value` (`core.py:3589-3643`) calls the base method and then adjusts the result.\n\n- **`FLAG_NEEDS_VALUE`** (an option used without a value):\n  - It prompts if `prompt` is set and parsing isn't resilient, with source `PROMPT`.\n  - Otherwise it uses `flag_activation_value`, with source `COMMANDLINE`.\n- **Multiple options** containing `FLAG_NEEDS_VALUE`: each sentinel is replaced with `flag_activation_value`. This only applies when `source < DEFAULT_MAP`.\n- **Prompt as a fallback:** the value is `UNSET`, or came from `DEFAULT_MAP` or `DEFAULT`, and `prompt` is set and `required` or `prompt_required` is true. It then prompts, with source `PROMPT` (`core.py:3634-3641`). So a prompt overrides defaults, but not a command-line or environment value.\n\n## Ordering and where it's consumed\n\n`ParameterSource` (`core.py:169-204`) is an `IntEnum` ordered most to least explicit: `PROMPT`, `COMMANDLINE`, `ENVIRONMENT`, `DEFAULT_MAP`, `DEFAULT`. That ordering is what makes comparisons like `source < ParameterSource.DEFAULT_MAP` work. Note `PROMPT` is listed first, but in practice it only fires when nothing explicit was supplied.\n\n`consume_value` is called from `Parameter.handle_parse_result` (`core.py:2730`). That method then runs `process_value`, which does type conversion and the required check, and records the source on the context so `ctx.get_parameter_source(name)` can report it.",
+  "ttft_ms": 1895,
+  "type": "result",
+  "duration_ms": 14660,
+  "uuid": "bbfc1e4a-a1a2-4762-840e-9ba31f67165f",
+  "ttft_stream_ms": 1100,
+  "time_to_request_ms": 65,
+  "time_to_request_phases_ms": {
+    "other": 16,
+    "system_prompt": 6,
+    "resume_other": 0,
+    "process_user_input": 2,
+    "input_attachments": 6,
+    "input_hooks": 2,
+    "transcript_persist": 2,
+    "tool_pool_refresh": 2,
+    "init_message": 10,
+    "engine_pickup": 1,
+    "message_prep": 0,
+    "model_config_wait": 1,
+    "autocompact": 1,
+    "query_setup": 1,
+    "model_gates": 0,
+    "tool_schema_build": 7,
+    "message_normalization": 1,
+    "client_creation": 2,
+    "request_build": 5
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 15,
+  "time_to_request_cpu_ms": 94,
+  "time_to_request_major_faults": 1322,
+  "input_attachments_detail": {
+    "slowest_producer": "queued_commands",
+    "slowest_producer_ms": 4,
+    "cpu_ms": 0,
+    "major_faults": 155
+  },
+  "first_content_frame_ms": 1101,
+  "queued_turn_count": 0,
+  "result_index": 0
+}

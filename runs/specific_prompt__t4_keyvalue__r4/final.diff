@@ -1,0 +1,94 @@
+diff --git a/src/click/__init__.py b/src/click/__init__.py
+index a34ab02..702da98 100644
+--- a/src/click/__init__.py
++++ b/src/click/__init__.py
+@@ -61,6 +61,7 @@ from .types import FLOAT as FLOAT
+ from .types import FloatRange as FloatRange
+ from .types import INT as INT
+ from .types import IntRange as IntRange
++from .types import KeyValue as KeyValue
+ from .types import ParamType as ParamType
+ from .types import Path as Path
+ from .types import STRING as STRING
+diff --git a/src/click/types.py b/src/click/types.py
+index 22f76f5..749f1f4 100644
+--- a/src/click/types.py
++++ b/src/click/types.py
+@@ -896,6 +896,37 @@ class UUIDParameterType(ParamType[uuid.UUID]):
+         return "UUID"
+ 
+ 
++class KeyValue(ParamType[t.Tuple[str, str]]):
++    """Parses a ``key=value`` string into a ``(key, value)`` tuple. The
++    string is split on the first ``=`` only, so values may contain ``=``.
++    """
++
++    name = "key_value"
++
++    def convert(
++        self,
++        value: tuple[str, str] | str,
++        param: Parameter | None,
++        ctx: Context | None,
++    ) -> tuple[str, str]:
++        if isinstance(value, tuple):
++            return value
++
++        key, sep, val = value.partition("=")
++
++        if not sep or not key:
++            self.fail(
++                _("{value!r} is not a valid key=value pair.").format(value=value),
++                param,
++                ctx,
++            )
++
++        return key, val
++
++    def __repr__(self) -> str:
++        return "KEY_VALUE"
++
++
+ class FileInfoDict(ParamTypeInfoDict):
+     mode: str
+     encoding: str | None
+diff --git a/tests/test_types.py b/tests/test_types.py
+index 842c426..2a0f0c5 100644
+--- a/tests/test_types.py
++++ b/tests/test_types.py
+@@ -328,3 +328,35 @@ def test_param_type_subclass_omitting_input_parameter():
+     doubling = DoublingType()
+     assert doubling("21") == 42
+     assert doubling(None) is None
++
++
++@pytest.mark.parametrize(
++    ("value", "expect"),
++    [
++        ("a=b", ("a", "b")),
++        ("a=", ("a", "")),
++        ("a=b=c", ("a", "b=c")),
++        ("a b=c d", ("a b", "c d")),
++    ],
++)
++def test_key_value(runner, value, expect):
++    @click.command()
++    @click.option("--set", "pair", type=click.KeyValue())
++    def cli(pair):
++        click.echo(repr(pair))
++
++    result = runner.invoke(cli, ["--set", value])
++    assert not result.exception
++    assert result.output.strip() == repr(expect)
++
++
++@pytest.mark.parametrize("value", ["novalue", "=value", ""])
++def test_key_value_invalid(runner, value):
++    @click.command()
++    @click.option("--set", "pair", type=click.KeyValue())
++    def cli(pair):
++        pass
++
++    result = runner.invoke(cli, ["--set", value])
++    assert result.exit_code == 2
++    assert "is not a valid key=value pair" in result.output

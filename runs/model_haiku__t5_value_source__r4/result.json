@@ -1,0 +1,131 @@
+{
+  "duration_api_ms": 14216,
+  "stop_reason": "end_turn",
+  "session_id": "53605a8e-e3ab-419a-87ea-809a94dc8d8a",
+  "total_cost_usd": 0.00469731,
+  "usage": {
+    "input_tokens": 8,
+    "cache_creation_input_tokens": 10990,
+    "cache_read_input_tokens": 103271,
+    "output_tokens": 2675,
+    "output_tokens_details": {
+      "thinking_tokens": 625
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 10990,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1558,
+        "cache_read_input_tokens": 28269,
+        "cache_creation_input_tokens": 6403,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 6403
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1211,
+      "outputTokens": 2691,
+      "cacheReadInputTokens": 103271,
+      "cacheCreationInputTokens": 10990,
+      "webSearchRequests": 0,
+      "costUSD": 0.00469731,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 625,
+      "canonicalModel": "claude-haiku-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 8,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "Click resolves an option's value in this order, most explicit first:\n\n1. **Command line**: the parser sets it, and `ParameterSource.COMMANDLINE` is recorded.\n2. **Environment variable**: from `envvar`, or from `auto_envvar_prefix` (`PREFIX_NAME`) for options that allow it. Empty strings count as unset.\n3. **`default_map`**: from `ctx.default_map`, which a child context inherits from its parent if it doesn't set its own.\n4. **The parameter's `default`**: a callable is called here.\n\nTwo more things can override the result. A `prompt` on an option that is `required` (or `prompt_required`) asks the user when the value is unset or came from `DEFAULT_MAP`/`DEFAULT`. A flag given without a value resolves to `flag_activation_value` or to a prompt.\n\n`ParameterSource` (`src\\click\\core.py:169`) is an ordered enum, so `get_parameter_source()` can report which of these won.\n\n**Relevant code** (all in `src\\click\\core.py`):\n\n- **`ParameterSource` enum**: line 169. Members run PROMPT, COMMANDLINE, ENVIRONMENT, DEFAULT_MAP, DEFAULT.\n- **`Context.default_map` and inheritance**: lines 321 and 387\u2013394.\n- **`Context._default_map_has` / `Context.lookup_default`**: lines 761\u2013800. An entry whose value is `UNSET` counts as absent.\n- **`Parameter.get_default`**: lines 2445\u20132476. It checks `default_map` first (with `call=False`), then falls back to `self.default`, then calls it if callable.\n- **`Parameter.consume_value`**: lines 2481\u20132527. This is the core precedence logic: command line \u2192 `value_from_envvar` \u2192 `lookup_default` \u2192 `get_default`. A `None` in `default_map` still counts as `DEFAULT_MAP` because of the `_default_map_has` check. A string from `default_map` is split for `nargs != 1`.\n- **`Parameter.resolve_envvar_value` / `value_from_envvar`**: lines 2669 and 2714. The base class handles `envvar` as a string or list (first non-empty wins).\n- **`Option.resolve_envvar_value`**: lines 3517\u20133539. It adds the `auto_envvar_prefix` fallback.\n- **`Option.value_from_envvar`**: lines 3541\u20133587. It handles flags (truthy/falsy parsing against `flag_value`) and splits values for `multiple`/`nargs`.\n- **`Option.consume_value`**: lines 3589\u20133643. It handles `FLAG_NEEDS_VALUE` and the prompt override.\n\nValues from every source then go through `handle_parse_result` (line 2730) and the type conversion, so the type applies no matter where the value came from.\n\nI only read the code and didn't run anything or change any files.",
+  "ttft_ms": 1288,
+  "type": "result",
+  "duration_ms": 13619,
+  "uuid": "d3e87e72-8033-4dd8-a398-5122b03f3f2a",
+  "ttft_stream_ms": 956,
+  "time_to_request_ms": 164,
+  "time_to_request_phases_ms": {
+    "other": 15,
+    "system_prompt": 96,
+    "resume_other": 0,
+    "process_user_input": 2,
+    "input_attachments": 10,
+    "input_hooks": 2,
+    "transcript_persist": 4,
+    "tool_pool_refresh": 1,
+    "init_message": 18,
+    "engine_pickup": 1,
+    "message_prep": 0,
+    "model_config_wait": 1,
+    "autocompact": 1,
+    "query_setup": 0,
+    "model_gates": 1,
+    "tool_schema_build": 6,
+    "message_normalization": 1,
+    "client_creation": 1,
+    "request_build": 4
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 17,
+  "time_to_request_cpu_ms": 220,
+  "time_to_request_major_faults": 5159,
+  "input_attachments_detail": {
+    "slowest_producer": "model",
+    "slowest_producer_ms": 7,
+    "cpu_ms": 31,
+    "major_faults": 87
+  },
+  "first_content_frame_ms": 956,
+  "queued_turn_count": 0,
+  "result_index": 0
+}

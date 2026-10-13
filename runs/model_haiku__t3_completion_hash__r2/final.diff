@@ -1,0 +1,44 @@
+diff --git a/src/click/shell_completion.py b/src/click/shell_completion.py
+index 42e8885..51b2ff1 100644
+--- a/src/click/shell_completion.py
++++ b/src/click/shell_completion.py
+@@ -622,6 +622,9 @@ def split_arg_string(string: str) -> list[str]:
+ 
+     lex = shlex.shlex(string, posix=True)
+     lex.whitespace_split = True
++    # shlex treats "#" as a comment start by default, which would drop
++    # the rest of the line. Shell words may contain "#", so disable it.
++    lex.commenters = ""
+     out: list[str] = []
+ 
+     try:
+diff --git a/tests/test_shell_completion.py b/tests/test_shell_completion.py
+index 10d5cfa..708df79 100644
+--- a/tests/test_shell_completion.py
++++ b/tests/test_shell_completion.py
+@@ -15,6 +15,7 @@ from click.shell_completion import CompletionItem
+ from click.shell_completion import FishComplete
+ from click.shell_completion import PowerShellComplete
+ from click.shell_completion import shell_complete
++from click.shell_completion import split_arg_string
+ from click.shell_completion import ShellComplete
+ from click.types import Choice
+ from click.types import File
+@@ -615,3 +616,17 @@ def test_powershell_format_completion_escapes_help():
+     # produced by ZshComplete.
+     item = CompletionItem("--at")
+     assert pc.format_completion(item) == "plain\n--at\n_"
++
++
++@pytest.mark.parametrize(
++    ("string", "expect"),
++    [
++        ("cmd a#b c", ["cmd", "a#b", "c"]),
++        ("cmd #x y", ["cmd", "#x", "y"]),
++        ("cmd a #", ["cmd", "a", "#"]),
++        ("cmd 'a#b' \"#c\"", ["cmd", "a#b", "#c"]),
++    ],
++)
++def test_split_arg_string_hash(string: str, expect: list[str]) -> None:
++    # "#" is not a comment in shell words, so nothing after it is dropped.
++    assert split_arg_string(string) == expect

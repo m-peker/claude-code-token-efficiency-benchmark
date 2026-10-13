@@ -1,0 +1,32 @@
+diff --git a/src/click/formatting.py b/src/click/formatting.py
+index b123ac4..c4aa2de 100644
+--- a/src/click/formatting.py
++++ b/src/click/formatting.py
+@@ -316,5 +316,5 @@ def join_options(options: cabc.Iterable[str]) -> tuple[str, bool]:
+ 
+         rv.append((len(prefix), opt))
+ 
+-    rv.sort(key=lambda x: x[0], reverse=True)
++    rv.sort(key=lambda x: x[0])
+     return ", ".join(x[1] for x in rv), any_prefix_is_slash
+diff --git a/tests/test_formatting.py b/tests/test_formatting.py
+index 272b075..fee38c0 100644
+--- a/tests/test_formatting.py
++++ b/tests/test_formatting.py
+@@ -426,6 +426,16 @@ def test_formatting_with_options_metavar_empty(runner):
+     assert "Usage: cli VAR\n" in result.output
+ 
+ 
++def test_option_names_sorted_short_before_long(runner):
++    @click.command()
++    @click.option("--verbose", "-v", is_flag=True, help="Verbose.")
++    def cli(verbose):
++        pass
++
++    result = runner.invoke(cli, ["--help"])
++    assert "  -v, --verbose" in result.output
++
++
+ def test_help_formatter_write_text():
+     text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+     formatter = click.HelpFormatter(width=len("  Lorem ipsum dolor sit amet,"))

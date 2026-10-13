@@ -1,0 +1,43 @@
+diff --git a/CHANGES.md b/CHANGES.md
+index 3c9a94e..f136c93 100644
+--- a/CHANGES.md
++++ b/CHANGES.md
+@@ -2,6 +2,8 @@
+ 
+ Released 2026-08-24
+ 
++- Shell completion no longer treats `#` in an argument as the start of a
++  comment, which dropped the rest of the line.
+ - Add built-in shell completion support for PowerShell (Windows PowerShell
+   5.1+ and pwsh 7+) alongside the existing `bash`, `zsh`, and `fish`
+   completers. Use `_FOO_BAR_COMPLETE=powershell_source foo-bar` to generate
+diff --git a/src/click/shell_completion.py b/src/click/shell_completion.py
+index 42e8885..400132c 100644
+--- a/src/click/shell_completion.py
++++ b/src/click/shell_completion.py
+@@ -622,6 +622,8 @@ def split_arg_string(string: str) -> list[str]:
+ 
+     lex = shlex.shlex(string, posix=True)
+     lex.whitespace_split = True
++    # A "#" is a literal character in an argument, not a comment.
++    lex.commenters = ""
+     out: list[str] = []
+ 
+     try:
+diff --git a/tests/test_shell_completion.py b/tests/test_shell_completion.py
+index 10d5cfa..b3cc2f1 100644
+--- a/tests/test_shell_completion.py
++++ b/tests/test_shell_completion.py
+@@ -86,6 +86,12 @@ def test_group_command_same_option():
+     assert _get_words(cli, ["-a", "a", "x", "-a", "a"], "-") == ["--help"]
+ 
+ 
++def test_split_arg_string_hash():
++    split = click.shell_completion.split_arg_string
++    assert split("cli a#b") == ["cli", "a#b"]
++    assert split("cli #tag x") == ["cli", "#tag", "x"]
++
++
+ def test_chained():
+     cli = Group(
+         "cli",

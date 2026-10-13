@@ -1,0 +1,131 @@
+{
+  "duration_api_ms": 16466,
+  "stop_reason": "end_turn",
+  "session_id": "83373349-6c4c-4502-a1e1-c98f1d48b7db",
+  "total_cost_usd": 0.00586734,
+  "usage": {
+    "input_tokens": 10,
+    "cache_creation_input_tokens": 15316,
+    "cache_read_input_tokens": 113684,
+    "output_tokens": 3076,
+    "output_tokens_details": {
+      "thinking_tokens": 709
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 15316,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "global",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1742,
+        "cache_read_input_tokens": 29060,
+        "cache_creation_input_tokens": 1415,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1415
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1213,
+      "outputTokens": 3092,
+      "cacheReadInputTokens": 113684,
+      "cacheCreationInputTokens": 15316,
+      "webSearchRequests": 0,
+      "costUSD": 0.00586734,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 709,
+      "canonicalModel": "claude-haiku-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 9,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "Click resolves an option's value in a fixed order, and the first source that has a value wins. The resolution happens in `Parameter.consume_value`, which `Option.consume_value` then extends. I read the code but didn't run anything or modify files.\n\n**Precedence (most to least explicit)**\n\n1. **Command line** (`COMMANDLINE`): the parser's output for the option. If it's present, nothing below is consulted.\n2. **Environment variable** (`ENVIRONMENT`): `value_from_envvar()` is checked only when the command line gave nothing. Its result is used only if it isn't `None`.\n3. **`default_map`** (`DEFAULT_MAP`): `ctx.lookup_default(name)`, used when the key exists in `ctx.default_map` and isn't the `UNSET` sentinel. An explicit `None` in the map still counts. A string value for an option with `nargs != 1` is split with `type.split_envvar_value`.\n4. **Parameter default** (`DEFAULT`): `get_default(ctx)`, used only if nothing above produced a value.\n\n`Option.consume_value` then adds rules on top:\n- If the parser returned `FLAG_NEEDS_VALUE`, the option either prompts (`PROMPT`) or takes `flag_activation_value` (`COMMANDLINE`).\n- A `PROMPT` source is set when the value is `UNSET` or came from `DEFAULT_MAP`/`DEFAULT`, and the option is `required` or `prompt_required`.\n\n**`ParameterSource` ordering**\n\nThe enum in `core.py:169-205` is an `IntEnum` ordered from most to least explicit: `PROMPT < COMMANDLINE < ENVIRONMENT < DEFAULT_MAP < DEFAULT`. Comparisons like `source < ParameterSource.DEFAULT_MAP` mean \"explicitly set by the user\". The docs in `docs/options.md:613-638` describe the same order.\n\n**Where to look**\n\n- `src/click/core.py:169-205`: the `ParameterSource` enum.\n- `src/click/core.py:387-394`: a child `Context` inherits its parent's `default_map` when it doesn't set one.\n- `src/click/core.py:761-773`: `_default_map_has`, which treats `UNSET` as absent.\n- `src/click/core.py:785-805`: `Context.lookup_default`, which calls callables in `default_map`.\n- `src/click/core.py:2436-2476`: `Parameter.get_default`. It checks `default_map` first, then falls back to `self.default`. Help output uses this.\n- `src/click/core.py:2481-2527`: `Parameter.consume_value`, the main precedence chain.\n- `src/click/core.py:2669-2730`: `resolve_envvar_value` and `value_from_envvar`. I didn't read their bodies in full.\n- `src/click/core.py:3589-3643`: `Option.consume_value`, with the flag and prompt handling.\n- `src/click/core.py:2730-2802`: `handle_parse_result` records the source with `set_parameter_source`. For feature-switch groups that share a variable name, it also decides which option's value wins, based on source.\n\n**Tests** that pin this behavior: `tests/test_defaults.py:230-245` (`test_default_map_source`), `tests/test_context.py:733-761` (source reporting), and `tests/test_options.py:2857-2876` (flag groups with `default_map`).",
+  "ttft_ms": 1231,
+  "type": "result",
+  "duration_ms": 15950,
+  "uuid": "f5ae6485-3ef5-4479-a41d-5df95945fd7f",
+  "ttft_stream_ms": 922,
+  "time_to_request_ms": 81,
+  "time_to_request_phases_ms": {
+    "other": 17,
+    "system_prompt": 14,
+    "resume_other": 0,
+    "process_user_input": 2,
+    "input_attachments": 9,
+    "input_hooks": 2,
+    "transcript_persist": 7,
+    "tool_pool_refresh": 2,
+    "init_message": 11,
+    "engine_pickup": 1,
+    "message_prep": 1,
+    "model_config_wait": 1,
+    "autocompact": 1,
+    "query_setup": 1,
+    "model_gates": 0,
+    "tool_schema_build": 5,
+    "message_normalization": 1,
+    "client_creation": 2,
+    "request_build": 4
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 31,
+  "time_to_request_cpu_ms": 125,
+  "time_to_request_major_faults": 942,
+  "input_attachments_detail": {
+    "slowest_producer": "queued_commands",
+    "slowest_producer_ms": 5,
+    "cpu_ms": 16,
+    "major_faults": 42
+  },
+  "first_content_frame_ms": 922,
+  "queued_turn_count": 0,
+  "result_index": 0
+}

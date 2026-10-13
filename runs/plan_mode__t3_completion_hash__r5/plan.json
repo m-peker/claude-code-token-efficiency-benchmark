@@ -1,0 +1,153 @@
+{
+  "duration_api_ms": 47806,
+  "stop_reason": "end_turn",
+  "session_id": "d128067f-536f-4571-961d-006a47dfeed2",
+  "total_cost_usd": 0.16313640000000001,
+  "usage": {
+    "input_tokens": 8,
+    "cache_creation_input_tokens": 5191,
+    "cache_read_input_tokens": 89382,
+    "output_tokens": 1807,
+    "output_tokens_details": {
+      "thinking_tokens": 34
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 5191,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 588,
+        "cache_read_input_tokens": 31549,
+        "cache_creation_input_tokens": 1127,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1127
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1191,
+      "outputTokens": 20,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.00012910000000000002,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 0,
+      "canonicalModel": "claude-haiku-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    },
+    "claude-sonnet-5-5": {
+      "inputTokens": 20,
+      "outputTokens": 5784,
+      "cacheReadInputTokens": 188749,
+      "cacheCreationInputTokens": 21680,
+      "webSearchRequests": 0,
+      "costUSD": 0.16300730000000002,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 261,
+      "canonicalModel": "claude-sonnet-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "origin": {
+    "kind": "task-notification",
+    "producer": "session-task",
+    "runId": "0mv6d9nfm-e5b0ab23"
+  },
+  "subagent_stats": {
+    "spawned": 1,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 1
+    },
+    "started_in_background": 1,
+    "max_depth": 1,
+    "spawned_by_subagents": 0,
+    "completed": 1,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {
+      "Explore": 1
+    }
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 5,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "I've written a plan for the `#` bug but haven't changed any code. Nothing has been run either, so the cause below comes from reading the code. Plan mode is on, and `ExitPlanMode` isn't available in this session, so I can't submit the plan for approval the usual way. Tell me to proceed and I'll make the edit.\n\n**Cause:** `split_arg_string` in `src/click/shell_completion.py:603` builds its `shlex.shlex` object directly. That leaves `shlex`'s default comment character, `#`, switched on. Everything from the first `#` onward is silently dropped. Bash, zsh, fish and PowerShell completion all split the command line through this function, so all four are affected.\n\n**Plan:**\n1. Add `lex.commenters = \"\"` right after `lex = shlex.shlex(string, posix=True)` in `src/click/shell_completion.py`.\n2. Add two cases to `test_split_arg_string` in `tests/test_parser.py`: `\"cli a#b\"` should give `[\"cli\", \"a#b\"]`, and `\"cli #x\"` should give `[\"cli\", \"#x\"]`.\n3. Optionally add a changelog entry.\n\nI would check it by running `pytest tests/test_parser.py tests/test_shell_completion.py`, then the full suite. The new cases should fail before the fix and pass after it.\n\n**Out of scope:** The exploration also turned up two separate quoting problems that I'm leaving alone. The bash script's unquoted `COMPREPLY+=($value)` breaks on values with spaces or glob characters. The fish script splits on every comma, which truncates values that contain one.\n\nThe full plan is saved at `<home>\\.claude\\plans\\shell-completion-gives-wrong-twinkling-wall.md`.",
+  "ttft_ms": 1794,
+  "type": "result",
+  "duration_ms": 14858,
+  "uuid": "48f8cac5-52ba-4fa5-9b6c-79afe05b6679",
+  "ttft_stream_ms": 1453,
+  "time_to_request_ms": 283,
+  "time_to_request_phases_ms": {
+    "other": 5,
+    "system_prompt": 2,
+    "resume_other": 0,
+    "process_user_input": 1,
+    "input_attachments": 4,
+    "input_hooks": 3,
+    "transcript_persist": 1,
+    "tool_pool_refresh": 2,
+    "init_message": 1,
+    "engine_pickup": 0,
+    "message_prep": 1,
+    "model_config_wait": 1,
+    "autocompact": 0,
+    "query_setup": 129,
+    "auto_mode_context_wait": 123,
+    "model_gates": 0,
+    "tool_schema_build": 1,
+    "message_normalization": 2,
+    "client_creation": 2,
+    "request_build": 5
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 1,
+  "time_to_request_loop_lag_ms": 103,
+  "time_to_request_cpu_ms": 110,
+  "time_to_request_major_faults": 501,
+  "input_attachments_detail": {
+    "slowest_producer": "queued_commands",
+    "slowest_producer_ms": 3,
+    "cpu_ms": 0,
+    "major_faults": 1
+  },
+  "first_content_frame_ms": 1454,
+  "queued_turn_count": 0,
+  "result_index": 1
+}

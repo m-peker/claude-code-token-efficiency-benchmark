@@ -1,0 +1,145 @@
+{
+  "duration_api_ms": 12574,
+  "stop_reason": "end_turn",
+  "session_id": "2aadcafa-6348-475a-b7d0-0b2b003cc7ec",
+  "total_cost_usd": 0.0521725,
+  "usage": {
+    "input_tokens": 6,
+    "cache_creation_input_tokens": 6673,
+    "cache_read_input_tokens": 47106,
+    "output_tokens": 1586,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 6673,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "global",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1026,
+        "cache_read_input_tokens": 16656,
+        "cache_creation_input_tokens": 4396,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 4396
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1203,
+      "outputTokens": 134,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.0001873,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 117,
+      "canonicalModel": "claude-haiku-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    },
+    "claude-sonnet-5-5": {
+      "inputTokens": 6,
+      "outputTokens": 1586,
+      "cacheReadInputTokens": 47106,
+      "cacheCreationInputTokens": 6673,
+      "webSearchRequests": 0,
+      "costUSD": 0.051985199999999995,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 0,
+      "canonicalModel": "claude-sonnet-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 5,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "## Precedence (highest to lowest)\n\n1. **Command line**: the value the parser put in `opts`.\n2. **Environment variable**: the option's `envvar`, then `auto_envvar_prefix`.\n3. **`Context.default_map`**: via `ctx.lookup_default(name)`.\n4. **The option's own `default`**: via `get_default(ctx)`.\n\nIf none of these produces a value, the sentinel `UNSET` is returned.\n\n## Where it lives (`src/click/core.py`)\n\n- **`Parameter.consume_value`** (line 2481) implements the chain. It starts with `opts.get(self.name, UNSET)` and records `COMMANDLINE`. Each fallback runs only `if value is UNSET`:\n  - environment, via `value_from_envvar` (line 2504)\n  - default map, via `ctx.lookup_default` (line 2510)\n  - default, via `get_default` (line 2521)\n\n  A string from the default map is split for multi-value params (line 2518).\n- **`ParameterSource`** (line 169) is an `IntEnum` ordered from most to least explicit: `PROMPT`, `COMMANDLINE`, `ENVIRONMENT`, `DEFAULT_MAP`, `DEFAULT`. You can compare it, e.g. `source < DEFAULT_MAP` means the value was explicitly given.\n- **`Option.resolve_envvar_value`** (line 3517) tries the explicit `envvar` first. It then falls back to `{ctx.auto_envvar_prefix}_{NAME}` if `allow_from_autoenv` is set.\n- **`Option.value_from_envvar`** (line 3541) handles the env string:\n  - an empty string or absent variable counts as unset\n  - non-boolean flags are parsed to `flag_value` or `False`\n  - `multiple` and `nargs` values are split\n\n## Option-specific overrides (`Option.consume_value`, line 3589)\n\nThis calls the base chain, then adjusts the result:\n\n- **Flag without a value (`FLAG_NEEDS_VALUE`):**\n  - it prompts if `prompt` is set, and the source becomes `PROMPT`\n  - otherwise it takes `flag_activation_value`, and the source becomes `COMMANDLINE`\n- **`multiple` option:** any `FLAG_NEEDS_VALUE` entries in a list from the command line are replaced with the activation value.\n- **Prompt on missing value:**\n  - it triggers if the value is `UNSET`, or the source is `DEFAULT_MAP` or `DEFAULT` (`source >= DEFAULT_MAP`)\n  - it also requires `prompt` to be set, plus `required` or `prompt_required`, and not `resilient_parsing`\n  - the source becomes `PROMPT`\n\n  So a prompt overrides the env var and default map only in the sense of replacing defaults; an explicit command-line or env value skips it.\n\nThe result then flows into `handle_parse_result` (line 2730), which runs `process_value` for type casting and validation and records the source on the context.",
+  "ttft_ms": 1776,
+  "type": "result",
+  "duration_ms": 11831,
+  "uuid": "ecbb36f2-31eb-4b90-9192-b374584f7ffa",
+  "ttft_stream_ms": 1092,
+  "time_to_request_ms": 59,
+  "time_to_request_phases_ms": {
+    "other": 13,
+    "system_prompt": 11,
+    "resume_other": 0,
+    "process_user_input": 2,
+    "input_attachments": 7,
+    "input_hooks": 1,
+    "transcript_persist": 3,
+    "tool_pool_refresh": 1,
+    "init_message": 8,
+    "engine_pickup": 1,
+    "message_prep": 1,
+    "model_config_wait": 0,
+    "autocompact": 1,
+    "query_setup": 1,
+    "model_gates": 0,
+    "tool_schema_build": 4,
+    "message_normalization": 1,
+    "client_creation": 1,
+    "request_build": 3
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 9,
+  "time_to_request_cpu_ms": 93,
+  "time_to_request_major_faults": 803,
+  "input_attachments_detail": {
+    "slowest_producer": "queued_commands",
+    "slowest_producer_ms": 4,
+    "cpu_ms": 15,
+    "major_faults": 40
+  },
+  "first_content_frame_ms": 1092,
+  "queued_turn_count": 0,
+  "result_index": 0
+}

@@ -1,0 +1,135 @@
+diff --git a/CHANGES.md b/CHANGES.md
+index 3c9a94e..c2ca098 100644
+--- a/CHANGES.md
++++ b/CHANGES.md
+@@ -1,3 +1,10 @@
++## Version 8.6.0
++
++Unreleased
++
++- Add {class}`KeyValue` parameter type, which parses `key=value` strings into
++  a `(key, value)` tuple.
++
+ ## Version 8.5.0
+ 
+ Released 2026-08-24
+diff --git a/docs/api.md b/docs/api.md
+index df62cf5..3b62378 100644
+--- a/docs/api.md
++++ b/docs/api.md
+@@ -227,6 +227,10 @@ classes and functions.
+ .. autodata:: UUID
+ ```
+ 
++```{eval-rst}
++.. autoclass:: KeyValue
++```
++
+ ```{eval-rst}
+ .. autodata:: UNPROCESSED
+ ```
+diff --git a/docs/parameter-types.md b/docs/parameter-types.md
+index cdf0b5c..a680add 100644
+--- a/docs/parameter-types.md
++++ b/docs/parameter-types.md
+@@ -123,6 +123,9 @@ The supported parameter {ref}`click-api-types` are
+ - {data}`click.UUID`: A parameter that accepts UUID values. This is not automatically guessed but represented as
+   {class}`uuid.UUID`.
+ 
++- {class}`click.KeyValue`: A parameter that parses `key=value` strings into a `(key, value)` tuple. Splits on the
++  first `=`; the key must not be empty. Combine with `multiple=True` to collect several pairs.
++
+ ```{eval-rst}
+ *   .. autoclass:: Choice
+        :noindex:
+diff --git a/src/click/__init__.py b/src/click/__init__.py
+index a34ab02..702da98 100644
+--- a/src/click/__init__.py
++++ b/src/click/__init__.py
+@@ -61,6 +61,7 @@ from .types import FLOAT as FLOAT
+ from .types import FloatRange as FloatRange
+ from .types import INT as INT
+ from .types import IntRange as IntRange
++from .types import KeyValue as KeyValue
+ from .types import ParamType as ParamType
+ from .types import Path as Path
+ from .types import STRING as STRING
+diff --git a/src/click/types.py b/src/click/types.py
+index 22f76f5..e3744fc 100644
+--- a/src/click/types.py
++++ b/src/click/types.py
+@@ -896,6 +896,37 @@ class UUIDParameterType(ParamType[uuid.UUID]):
+         return "UUID"
+ 
+ 
++class KeyValue(ParamType[tuple[str, str]]):
++    """Parses a ``key=value`` string into a ``(key, value)`` tuple. Splits on
++    the first ``=``, so the value may contain ``=`` or be empty. The key must
++    not be empty.
++
++    .. versionadded:: 8.6
++    """
++
++    name = "key=value"
++
++    def convert(
++        self, value: tuple[str, str] | str, param: Parameter | None, ctx: Context | None
++    ) -> tuple[str, str]:
++        if isinstance(value, tuple):
++            return value
++
++        key, sep, val = value.partition("=")
++
++        if not sep or not key:
++            self.fail(
++                _("{value!r} is not a valid key=value pair.").format(value=value),
++                param,
++                ctx,
++            )
++
++        return key, val
++
++    def __repr__(self) -> str:
++        return "KeyValue"
++
++
+ class FileInfoDict(ParamTypeInfoDict):
+     mode: str
+     encoding: str | None
+diff --git a/tests/test_basic.py b/tests/test_basic.py
+index 3ab9654..58d8848 100644
+--- a/tests/test_basic.py
++++ b/tests/test_basic.py
+@@ -264,6 +264,32 @@ def test_uuid_option(runner, args, expect):
+         assert result.exception is None
+ 
+ 
++@pytest.mark.parametrize(
++    ("args", "expect"),
++    [
++        (["--set", "a=b"], "KV:[('a', 'b')]"),
++        (["--set", "a="], "KV:[('a', '')]"),
++        (["--set", "a=b=c"], "KV:[('a', 'b=c')]"),
++        (["--set", "a=b", "--set", "c=d"], "KV:[('a', 'b'), ('c', 'd')]"),
++        (["--set", "ab"], "'ab' is not a valid key=value pair."),
++        (["--set", "=b"], "'=b' is not a valid key=value pair."),
++    ],
++)
++def test_key_value_option(runner, args, expect):
++    @click.command()
++    @click.option("--set", "pairs", type=click.KeyValue(), multiple=True)
++    def cli(pairs):
++        click.echo(f"KV:[{', '.join(map(str, pairs))}]")
++
++    result = runner.invoke(cli, args)
++    assert expect in result.output
++
++    if "not a valid" in expect:
++        assert result.exception is not None
++    else:
++        assert result.exception is None
++
++
+ @pytest.mark.parametrize(
+     ("args", "expect"),
+     [

@@ -1,0 +1,146 @@
+{
+  "duration_api_ms": 30509,
+  "stop_reason": "end_turn",
+  "session_id": "5997e095-e5e2-4629-8c11-b06bbc6a4d47",
+  "total_cost_usd": 0.1810034,
+  "usage": {
+    "input_tokens": 16,
+    "cache_creation_input_tokens": 11041,
+    "cache_read_input_tokens": 169627,
+    "output_tokens": 2928,
+    "output_tokens_details": {
+      "thinking_tokens": 292
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 11041,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "global",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 591,
+        "cache_read_input_tokens": 25145,
+        "cache_creation_input_tokens": 150,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 150
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1190,
+      "outputTokens": 14,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.00012600000000000003,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 0,
+      "canonicalModel": "claude-haiku-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    },
+    "claude-opus-5-5": {
+      "inputTokens": 16,
+      "outputTokens": 2928,
+      "cacheReadInputTokens": 169627,
+      "cacheCreationInputTokens": 11041,
+      "webSearchRequests": 0,
+      "costUSD": 0.1808774,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 292,
+      "canonicalModel": "claude-opus-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 12,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "I found the cause and wrote a plan, but I haven't changed any code yet because plan mode is on. I'd normally submit the plan through ExitPlanMode for your approval, but that tool isn't available here, so it's below instead.\n\n**The problem:** in `--help`, each option's names come out in reverse, like `--verbose, -v` instead of the usual `-v, --verbose`. The cause is `join_options` in `src/click/formatting.py:319`. It sorts an option's names by prefix length, longest first (`reverse=True`), so the `--` form ends up ahead of the `-` form.\n\n**The fix** is one line in `src/click/formatting.py`:\n```python\nrv.sort(key=lambda x: x[0], reverse=True)   # before\nrv.sort(key=lambda x: x[0])                 # after\n```\nThis puts short forms first, which is what upstream Click does and what the existing tests in `tests/test_commands.py` already expect (`-f, --...`). Names with the same prefix length keep the order they were declared in.\n\nThe order of the options themselves (decorators in `decorators.py:230`, and `get_params`/`format_options` in `core.py`) already matches upstream and doesn't need to change.\n\n**To check it:** run `pytest` on `tests/test_commands.py`, `test_options.py`, `test_formatting.py` and `test_basic.py`, then the full suite. Then confirm by hand that `@click.option(\"--verbose\", \"-v\", is_flag=True)` shows `-v, --verbose` in `--help`.\n\nThe full plan is in `<home>\\.claude\\plans\\the-help-output-looks-eventual-wirth.md`. Approve it and I'll make the change and run the tests.",
+  "ttft_ms": 1808,
+  "type": "result",
+  "duration_ms": 34482,
+  "uuid": "796cb0e0-39dd-4412-ba74-8c0e10adcbf4",
+  "ttft_stream_ms": 1159,
+  "time_to_request_ms": 304,
+  "time_to_request_phases_ms": {
+    "other": 11,
+    "system_prompt": 9,
+    "resume_other": 0,
+    "process_user_input": 1,
+    "input_attachments": 6,
+    "input_hooks": 2,
+    "transcript_persist": 2,
+    "tool_pool_refresh": 1,
+    "init_message": 6,
+    "engine_pickup": 1,
+    "message_prep": 0,
+    "model_config_wait": 1,
+    "autocompact": 1,
+    "query_setup": 117,
+    "auto_mode_context_wait": 138,
+    "model_gates": 0,
+    "tool_schema_build": 4,
+    "message_normalization": 0,
+    "client_creation": 1,
+    "request_build": 3
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 110,
+  "time_to_request_cpu_ms": 62,
+  "time_to_request_major_faults": 914,
+  "input_attachments_detail": {
+    "slowest_producer": "queued_commands",
+    "slowest_producer_ms": 4,
+    "cpu_ms": 16,
+    "major_faults": 50
+  },
+  "first_content_frame_ms": 1159,
+  "queued_turn_count": 0,
+  "result_index": 0
+}

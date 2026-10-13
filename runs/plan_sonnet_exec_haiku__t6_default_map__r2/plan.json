@@ -1,0 +1,153 @@
+{
+  "duration_api_ms": 44134,
+  "stop_reason": "end_turn",
+  "session_id": "f7205876-07e7-4f3f-b81c-5e9da8acfe40",
+  "total_cost_usd": 0.18219120000000003,
+  "usage": {
+    "input_tokens": 6,
+    "cache_creation_input_tokens": 3193,
+    "cache_read_input_tokens": 56642,
+    "output_tokens": 1418,
+    "output_tokens_details": {
+      "thinking_tokens": 31
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 3193,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 612,
+        "cache_read_input_tokens": 29435,
+        "cache_creation_input_tokens": 965,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 965
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1190,
+      "outputTokens": 20,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.00012900000000000002,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 0,
+      "canonicalModel": "claude-haiku-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    },
+    "claude-sonnet-5-5": {
+      "inputTokens": 20,
+      "outputTokens": 5612,
+      "cacheReadInputTokens": 168421,
+      "cacheCreationInputTokens": 31867,
+      "webSearchRequests": 0,
+      "costUSD": 0.1820622,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 143,
+      "canonicalModel": "claude-sonnet-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "origin": {
+    "kind": "task-notification",
+    "producer": "session-task",
+    "runId": "0mv6asinl-4034e2d3"
+  },
+  "subagent_stats": {
+    "spawned": 1,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 1
+    },
+    "started_in_background": 1,
+    "max_depth": 1,
+    "spawned_by_subagents": 0,
+    "completed": 1,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {
+      "Explore": 1
+    }
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 3,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "I've written the plan but haven't changed any code, since plan mode is on. I couldn't call ExitPlanMode because the tool isn't available here, so this message is the approval request.\n\n**Cause:** `Context.__init__` in `src/click/core.py` (around lines 385-394) hands the parent's whole `default_map` to the child context. With `default_map={'sub': {'opt': 1}}`, the subcommand's context sees the key `sub` instead of `opt`, so its lookup misses. A subcommand option that happens to be named `sub` would also wrongly receive the dict. The docs already describe the nested form, so the code contradicts them.\n\n**Fix:** In that `__init__`, use `parent.default_map.get(info_name)` so the child gets only its own sub-dict. Guard against a non-mapping parent map. Treat an `UNSET` value as no entry. `Group.invoke`, `Command.make_context` and `Context.invoke` all create the child through this constructor, so none of them need changes.\n\n**Tests:** I'd add cases to `tests/test_defaults.py`:\n- A group default reaching a subcommand option, with its source reported as `DEFAULT_MAP`.\n- A two-level nested map.\n- An option named like its subcommand not receiving the dict.\n- A missing subcommand key falling back to normal defaults.\n- `ctx.invoke` using the nested map.\n\n**Changelog:** Add a bullet to the top section of `CHANGES.md`. I'll check whether version 8.5.0 is still unreleased first.\n\n**Verification:** Run `pytest` on `tests/test_defaults.py`, `tests/test_context.py` and `tests/test_options.py`, then the full suite.\n\nTell me to proceed and I'll make these changes.",
+  "ttft_ms": 6227,
+  "type": "result",
+  "duration_ms": 12037,
+  "uuid": "db36571c-6ba6-42ec-95ec-4e233b43a83d",
+  "ttft_stream_ms": 1703,
+  "time_to_request_ms": 368,
+  "time_to_request_phases_ms": {
+    "other": 5,
+    "system_prompt": 2,
+    "resume_other": 0,
+    "process_user_input": 2,
+    "input_attachments": 4,
+    "input_hooks": 2,
+    "transcript_persist": 1,
+    "tool_pool_refresh": 4,
+    "init_message": 1,
+    "engine_pickup": 1,
+    "message_prep": 0,
+    "model_config_wait": 1,
+    "autocompact": 0,
+    "query_setup": 147,
+    "auto_mode_context_wait": 187,
+    "model_gates": 0,
+    "tool_schema_build": 2,
+    "message_normalization": 2,
+    "client_creation": 2,
+    "request_build": 5
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 1,
+  "time_to_request_loop_lag_ms": 121,
+  "time_to_request_cpu_ms": 140,
+  "time_to_request_major_faults": 497,
+  "input_attachments_detail": {
+    "slowest_producer": "queued_commands",
+    "slowest_producer_ms": 4,
+    "cpu_ms": 0,
+    "major_faults": 6
+  },
+  "first_content_frame_ms": 1704,
+  "queued_turn_count": 0,
+  "result_index": 1
+}

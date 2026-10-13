@@ -1,0 +1,153 @@
+{
+  "duration_api_ms": 62928,
+  "stop_reason": "end_turn",
+  "session_id": "3e233ab4-5f71-4f8f-b122-f3f105c689b1",
+  "total_cost_usd": 0.2002484,
+  "usage": {
+    "input_tokens": 6,
+    "cache_creation_input_tokens": 4802,
+    "cache_read_input_tokens": 58011,
+    "output_tokens": 1595,
+    "output_tokens_details": {
+      "thinking_tokens": 44
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 4802,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 578,
+        "cache_read_input_tokens": 30821,
+        "cache_creation_input_tokens": 1171,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1171
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1259,
+      "outputTokens": 21,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.0001364,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 0,
+      "canonicalModel": "claude-haiku-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    },
+    "claude-sonnet-5-5": {
+      "inputTokens": 20,
+      "outputTokens": 7434,
+      "cacheReadInputTokens": 179590,
+      "cacheCreationInputTokens": 30870,
+      "webSearchRequests": 0,
+      "costUSD": 0.200112,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 228,
+      "canonicalModel": "claude-sonnet-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "origin": {
+    "kind": "task-notification",
+    "producer": "session-task",
+    "runId": "0mv6bd1pw-ad4da620"
+  },
+  "subagent_stats": {
+    "spawned": 1,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 1
+    },
+    "started_in_background": 1,
+    "max_depth": 1,
+    "spawned_by_subagents": 0,
+    "completed": 1,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {
+      "Explore": 1
+    }
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 3,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "I've written the plan to `<home>\\.claude\\plans\\add-a-new-parameter-zany-sprout.md`. I haven't changed any code, because plan mode is on. The tool for requesting plan approval isn't available in this session, so I'm asking here instead.\n\n**Plan**\n- **`src/click/types.py`**: add `KeyValue(ParamType[tuple[str, str], str])` after `Tuple`, with `name = \"key=value\"`.\n  - `convert` passes an already-converted tuple straight through.\n  - Otherwise it splits on the first `=` only, so `a=b=c` gives `(\"a\", \"b=c\")`. An empty value (`a=`) is allowed.\n  - If there's no `=` or the key is empty, it calls `self.fail(_(\"{value!r} is not a valid key=value pair.\"))`.\n- **`src/click/__init__.py`**: export it with `from .types import KeyValue as KeyValue`.\n- **Docs and changelog**: add `autoclass` entries in `docs/api.md` and `docs/parameter-types.md`, and a bullet in `CHANGES.md`.\n- **Tests in `tests/test_types.py`**: success cases, the failure message for `abc`, `=v` and an empty string, and a `CliRunner` test through `@click.option('--set', type=click.KeyValue())`.\n- **Verification**: run `pytest` (the full suite plus `test_types.py` and `test_info_dict.py`), and the type checkers if they're configured.\n\nShould I go ahead and implement it? You'll need to take the session out of plan mode first.",
+  "ttft_ms": 7260,
+  "type": "result",
+  "duration_ms": 13293,
+  "uuid": "9b7b57ae-0aeb-4326-94de-1533f2da96cf",
+  "ttft_stream_ms": 1663,
+  "time_to_request_ms": 266,
+  "time_to_request_phases_ms": {
+    "other": 6,
+    "system_prompt": 2,
+    "resume_other": 0,
+    "process_user_input": 2,
+    "input_attachments": 4,
+    "input_hooks": 3,
+    "transcript_persist": 1,
+    "tool_pool_refresh": 3,
+    "init_message": 1,
+    "engine_pickup": 0,
+    "message_prep": 1,
+    "model_config_wait": 1,
+    "autocompact": 0,
+    "query_setup": 154,
+    "auto_mode_context_wait": 77,
+    "model_gates": 0,
+    "tool_schema_build": 3,
+    "message_normalization": 2,
+    "client_creation": 2,
+    "request_build": 4
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 1,
+  "time_to_request_loop_lag_ms": 155,
+  "time_to_request_cpu_ms": 110,
+  "time_to_request_major_faults": 439,
+  "input_attachments_detail": {
+    "slowest_producer": "queued_commands",
+    "slowest_producer_ms": 3,
+    "cpu_ms": 16,
+    "major_faults": 3
+  },
+  "first_content_frame_ms": 1663,
+  "queued_turn_count": 0,
+  "result_index": 1
+}

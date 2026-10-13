@@ -1,0 +1,46 @@
+diff --git a/CHANGES.md b/CHANGES.md
+index 3c9a94e..22d4a24 100644
+--- a/CHANGES.md
++++ b/CHANGES.md
+@@ -15,6 +15,9 @@ Released 2026-08-24
+   This stripping was lost in `8.4.0` when {pr}`2969` began writing the
+   prompt with `input()` directly. {issue}`3572` {pr}`3653`
+ - Fix test failures when using pytest >= 9.1. {pr}`3656`
++- Shell completion no longer treats `#` as the start of a comment when
++  splitting the command line, so arguments containing `#` complete
++  correctly.
+ - {class}`Path` with `allow_dash=True` no longer triggers a `BytesWarning`,
+   an error under `python -bb`, when checking a value against the `-`
+   convention. {issue}`2877` {pr}`3642`
+diff --git a/src/click/shell_completion.py b/src/click/shell_completion.py
+index 42e8885..c2cb47c 100644
+--- a/src/click/shell_completion.py
++++ b/src/click/shell_completion.py
+@@ -622,6 +622,9 @@ def split_arg_string(string: str) -> list[str]:
+ 
+     lex = shlex.shlex(string, posix=True)
+     lex.whitespace_split = True
++    # Don't treat "#" as the start of a comment, it's a valid character
++    # in an argument.
++    lex.commenters = ""
+     out: list[str] = []
+ 
+     try:
+diff --git a/tests/test_shell_completion.py b/tests/test_shell_completion.py
+index 10d5cfa..1f85309 100644
+--- a/tests/test_shell_completion.py
++++ b/tests/test_shell_completion.py
+@@ -76,6 +76,13 @@ def test_nested_group(args: list[str], word: str, expect: list[str]) -> None:
+     assert _get_words(cli, args, word) == expect
+ 
+ 
++def test_split_arg_string_hash():
++    split = click.shell_completion.split_arg_string
++    assert split("cli a#b") == ["cli", "a#b"]
++    assert split("cli #tag --opt") == ["cli", "#tag", "--opt"]
++    assert split("cli 'a #b") == ["cli", "a #b"]
++
++
+ def test_group_command_same_option():
+     cli = Group(
+         "cli", params=[Option(["-a"])], commands=[Command("x", params=[Option(["-a"])])]

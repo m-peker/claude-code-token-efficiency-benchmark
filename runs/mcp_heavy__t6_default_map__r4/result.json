@@ -1,0 +1,145 @@
+{
+  "duration_api_ms": 10836,
+  "stop_reason": "end_turn",
+  "session_id": "40f76966-77d3-4174-a6e9-9edf942ac18a",
+  "total_cost_usd": 0.05354,
+  "usage": {
+    "input_tokens": 10,
+    "cache_creation_input_tokens": 6350,
+    "cache_read_input_tokens": 91305,
+    "output_tokens": 973,
+    "output_tokens_details": {
+      "thinking_tokens": 163
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 6350,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "global",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 163,
+        "cache_read_input_tokens": 20578,
+        "cache_creation_input_tokens": 149,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 149
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1190,
+      "outputTokens": 20,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.00012900000000000002,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 0,
+      "canonicalModel": "claude-haiku-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    },
+    "claude-sonnet-5-5": {
+      "inputTokens": 10,
+      "outputTokens": 973,
+      "cacheReadInputTokens": 91305,
+      "cacheCreationInputTokens": 6350,
+      "webSearchRequests": 0,
+      "costUSD": 0.05341099999999999,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 163,
+      "canonicalModel": "claude-sonnet-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 6,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "Subcommands now pick up their defaults from `default_map`. The fix is one line in `Context.__init__` in `src/click/core.py`.\n\nA child context was inheriting the parent's entire `default_map`. Subcommand-level defaults, which are nested under the subcommand's name, were therefore never found. It now takes `parent.default_map.get(info_name)`, so each subcommand gets its own section of the map.\n\nThe `default_map`/`context` tests pass (74). I did not run the full test suite.",
+  "ttft_ms": 1511,
+  "type": "result",
+  "duration_ms": 15056,
+  "uuid": "d087cf86-6d76-43eb-8da0-d10bef5741b9",
+  "ttft_stream_ms": 1089,
+  "time_to_request_ms": 58,
+  "time_to_request_phases_ms": {
+    "other": 14,
+    "system_prompt": 6,
+    "resume_other": 0,
+    "process_user_input": 2,
+    "input_attachments": 8,
+    "input_hooks": 2,
+    "transcript_persist": 2,
+    "tool_pool_refresh": 2,
+    "init_message": 8,
+    "engine_pickup": 1,
+    "message_prep": 1,
+    "model_config_wait": 0,
+    "autocompact": 2,
+    "query_setup": 0,
+    "model_gates": 0,
+    "tool_schema_build": 4,
+    "message_normalization": 1,
+    "client_creation": 1,
+    "request_build": 4
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 8,
+  "time_to_request_cpu_ms": 94,
+  "time_to_request_major_faults": 1245,
+  "input_attachments_detail": {
+    "slowest_producer": "queued_commands",
+    "slowest_producer_ms": 5,
+    "cpu_ms": 0,
+    "major_faults": 190
+  },
+  "first_content_frame_ms": 1090,
+  "queued_turn_count": 0,
+  "result_index": 0
+}

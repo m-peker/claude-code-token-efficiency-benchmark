@@ -1,0 +1,153 @@
+{
+  "duration_api_ms": 51179,
+  "stop_reason": "end_turn",
+  "session_id": "fc0bcf32-58bb-4cb7-826b-96454a72e227",
+  "total_cost_usd": 0.16120500000000001,
+  "usage": {
+    "input_tokens": 6,
+    "cache_creation_input_tokens": 4334,
+    "cache_read_input_tokens": 57509,
+    "output_tokens": 1740,
+    "output_tokens_details": {
+      "thinking_tokens": 203
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 4334,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 521,
+        "cache_read_input_tokens": 30265,
+        "cache_creation_input_tokens": 1313,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1313
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1259,
+      "outputTokens": 20,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.0001359,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 0,
+      "canonicalModel": "claude-haiku-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    },
+    "claude-sonnet-5-5": {
+      "inputTokens": 20,
+      "outputTokens": 6780,
+      "cacheReadInputTokens": 177543,
+      "cacheCreationInputTokens": 18281,
+      "webSearchRequests": 0,
+      "costUSD": 0.16106910000000002,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 269,
+      "canonicalModel": "claude-sonnet-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "origin": {
+    "kind": "task-notification",
+    "producer": "session-task",
+    "runId": "0mv6b7h05-eae8697c"
+  },
+  "subagent_stats": {
+    "spawned": 1,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 1
+    },
+    "started_in_background": 1,
+    "max_depth": 1,
+    "spawned_by_subagents": 0,
+    "completed": 1,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {
+      "Explore": 1
+    }
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 2,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "I've written the plan, but I haven't changed any code, because plan mode is active. I couldn't call ExitPlanMode, since it isn't among my available tools, so this message is my approval request: tell me to go ahead and I'll implement it.\n\nThe plan file is at `<home>\\.claude\\plans\\add-a-new-parameter-purring-mccarthy.md`.\n\n- **The type:** `KeyValue` goes in `src/click/types.py` next to `UUIDParameterType`, in the same style. `convert` splits on the first `=`. If there's no `=` or the key is empty, it fails with `'<value>' is not a valid key=value pair.`\n- **Value handling:** `a=b=c` gives `(\"a\", \"b=c\")`, and `a=` gives `(\"a\", \"\")`. A tuple that's already converted, such as a default, passes through unchanged.\n- **Export:** one line in `src/click/__init__.py`, in alphabetical position.\n- **Tests:** new cases in `tests/test_types.py` for valid input, both failure modes with the message text, and an end-to-end run through `@click.option(\"--set\", type=click.KeyValue())`. There's also a case in `tests/test_info_dict.py`.\n- **Docs:** an entry in `docs/api.md` and a bullet in `docs/parameter-types.md`.\n- **Changelog:** a bullet in `CHANGES.md`. There is no `CHANGES.rst` in this repo.\n\nI'll check the work by running `pytest` and trying `--set a=b` and `--set abc` in a small script.",
+  "ttft_ms": 3475,
+  "type": "result",
+  "duration_ms": 14587,
+  "uuid": "95513ecc-0d79-4836-812c-eb78d141fd5d",
+  "ttft_stream_ms": 1457,
+  "time_to_request_ms": 338,
+  "time_to_request_phases_ms": {
+    "other": 6,
+    "system_prompt": 2,
+    "resume_other": 0,
+    "process_user_input": 2,
+    "input_attachments": 6,
+    "input_hooks": 2,
+    "transcript_persist": 1,
+    "tool_pool_refresh": 2,
+    "init_message": 2,
+    "engine_pickup": 0,
+    "message_prep": 1,
+    "model_config_wait": 1,
+    "autocompact": 1,
+    "query_setup": 146,
+    "auto_mode_context_wait": 152,
+    "model_gates": 0,
+    "tool_schema_build": 3,
+    "message_normalization": 2,
+    "client_creation": 3,
+    "request_build": 6
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 1,
+  "time_to_request_loop_lag_ms": 125,
+  "time_to_request_cpu_ms": 109,
+  "time_to_request_major_faults": 569,
+  "input_attachments_detail": {
+    "slowest_producer": "queued_commands",
+    "slowest_producer_ms": 5,
+    "cpu_ms": 15,
+    "major_faults": 2
+  },
+  "first_content_frame_ms": 1457,
+  "queued_turn_count": 0,
+  "result_index": 1
+}

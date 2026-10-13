@@ -1,0 +1,145 @@
+{
+  "duration_api_ms": 16000,
+  "stop_reason": "end_turn",
+  "session_id": "985c16a2-bd98-4dd4-a059-b03bc389ae84",
+  "total_cost_usd": 0.12410289999999999,
+  "usage": {
+    "input_tokens": 6,
+    "cache_creation_input_tokens": 21729,
+    "cache_read_input_tokens": 74783,
+    "output_tokens": 2209,
+    "output_tokens_details": {
+      "thinking_tokens": 129
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 21729,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "global",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1424,
+        "cache_read_input_tokens": 30490,
+        "cache_creation_input_tokens": 5618,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 5618
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1203,
+      "outputTokens": 16,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.0001283,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 0,
+      "canonicalModel": "claude-haiku-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    },
+    "claude-sonnet-5-5": {
+      "inputTokens": 6,
+      "outputTokens": 2209,
+      "cacheReadInputTokens": 74783,
+      "cacheCreationInputTokens": 21729,
+      "webSearchRequests": 0,
+      "costUSD": 0.12397459999999999,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 129,
+      "canonicalModel": "claude-sonnet-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 6,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "## How click picks an option's value source\n\nThe logic is in `src/click/core.py`. It runs once per parameter, inside `Parameter.handle_parse_result`.\n\n### Precedence (highest to lowest)\n\n`Parameter.consume_value` (`core.py:2481-2527`) checks each source in turn and stops at the first one that produces a value:\n\n1. **Command line.** The parser's `opts` mapping is checked first, giving `ParameterSource.COMMANDLINE` (`core.py:2495-2502`).\n2. **Environment variable.** `self.value_from_envvar(ctx)` covers both `envvar=` and `auto_envvar_prefix`, giving `ENVIRONMENT` (`core.py:2504-2508`).\n3. **`default_map`.** `ctx.lookup_default(self.name)` is used, and an explicit `None` entry still counts. This gives `DEFAULT_MAP` (`core.py:2510-2519`). A string value is split for `nargs != 1`, the same way env vars are.\n4. **The parameter's own default.** `self.get_default(ctx)` gives `DEFAULT` (`core.py:2521-2525`).\n\nIf nothing matches, the value stays as the `UNSET` sentinel.\n\n### Option-specific overrides\n\n`Option.consume_value` (`core.py:3589-3643`) calls the base method and then adjusts the result:\n\n- **Flag with no value.** If the parser returned `FLAG_NEEDS_VALUE` (the `is_flag=False, flag_value=...` case), the option prompts when `prompt` is set. Otherwise it uses `flag_activation_value`, and the source is `PROMPT` or `COMMANDLINE` respectively.\n- **`multiple` options.** Any `FLAG_NEEDS_VALUE` entries in the list are replaced with the activation value.\n- **Prompting.** If the value is `UNSET` or came from `DEFAULT_MAP` or `DEFAULT`, and `prompt` is set with `required` or `prompt_required`, the user is prompted. The source becomes `PROMPT`. Prompting is skipped during `resilient_parsing`.\n\n### Source ordering\n\n`ParameterSource` (`core.py:169`) is an `IntEnum` ordered from most to least explicit. It starts `PROMPT`, `COMMANDLINE`, and the remaining members follow in the order above.\n\nThat is why the code compares sources with `<`, for example `source < ParameterSource.DEFAULT_MAP` at `core.py:2764` and `core.py:3623`.\n\n### Slot arbitration\n\nSeveral options can write to the same parameter name, as in a feature-switch group. Arbitration is in `handle_parse_result` (`core.py:2744-2816`), and an option wins the slot if any of these hold:\n\n- the slot is empty;\n- its source is more explicit than the existing one;\n- it has the same source, unless an auto-derived default would downgrade an explicit `default=`.\n\nOn a tie, the last declared option wins. A losing option's recorded source is restored to the winner's (`core.py:2808-2810`).\n\n### Related code and docs\n\n- **Env var lookup:** `Parameter.resolve_envvar_value` / `value_from_envvar` (`core.py:2669`, `2714`) and the `Option` overrides (`core.py:3517`, `3541`), which handle flag parsing of env values.\n- **Default resolution:** `Parameter.get_default` (`core.py:2436`) and the `Option` override (`core.py:3195`), which handle the `default=True` \u2192 `flag_value` substitution.\n- **User docs:** the \"Value sources\" and \"Slot arbitration\" sections of `docs/options.md`.\n\nThe docs place `PROMPT` above everything else. The code agrees for the flag-prompt case, but a normal prompt only fires when no explicit source (command line or env var) supplied a value.",
+  "ttft_ms": 2329,
+  "type": "result",
+  "duration_ms": 15513,
+  "uuid": "b583a32e-c554-40cf-8b6f-f8dc39220971",
+  "ttft_stream_ms": 1217,
+  "time_to_request_ms": 64,
+  "time_to_request_phases_ms": {
+    "other": 12,
+    "system_prompt": 22,
+    "resume_other": 0,
+    "process_user_input": 1,
+    "input_attachments": 6,
+    "input_hooks": 2,
+    "transcript_persist": 2,
+    "tool_pool_refresh": 1,
+    "init_message": 6,
+    "engine_pickup": 1,
+    "message_prep": 0,
+    "model_config_wait": 1,
+    "autocompact": 1,
+    "query_setup": 0,
+    "model_gates": 1,
+    "tool_schema_build": 3,
+    "message_normalization": 1,
+    "client_creation": 1,
+    "request_build": 3
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 14,
+  "time_to_request_cpu_ms": 156,
+  "time_to_request_major_faults": 1428,
+  "input_attachments_detail": {
+    "slowest_producer": "environment",
+    "slowest_producer_ms": 4,
+    "cpu_ms": 32,
+    "major_faults": 150
+  },
+  "first_content_frame_ms": 1218,
+  "queued_turn_count": 0,
+  "result_index": 0
+}

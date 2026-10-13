@@ -1,0 +1,55 @@
+diff --git a/src/click/__init__.py b/src/click/__init__.py
+index a34ab02..702da98 100644
+--- a/src/click/__init__.py
++++ b/src/click/__init__.py
+@@ -61,6 +61,7 @@ from .types import FLOAT as FLOAT
+ from .types import FloatRange as FloatRange
+ from .types import INT as INT
+ from .types import IntRange as IntRange
++from .types import KeyValue as KeyValue
+ from .types import ParamType as ParamType
+ from .types import Path as Path
+ from .types import STRING as STRING
+diff --git a/src/click/types.py b/src/click/types.py
+index 22f76f5..7a1f756 100644
+--- a/src/click/types.py
++++ b/src/click/types.py
+@@ -896,6 +896,38 @@ class UUIDParameterType(ParamType[uuid.UUID]):
+         return "UUID"
+ 
+ 
++class KeyValue(ParamType[tuple[str, str]]):
++    """Parses a ``key=value`` string into a ``(key, value)`` tuple. The
++    string is split on the first ``=``, so values may contain ``=``.
++    The key must not be empty.
++    """
++
++    name = "key_value"
++
++    def convert(
++        self,
++        value: tuple[str, str] | str,
++        param: Parameter | None,
++        ctx: Context | None,
++    ) -> tuple[str, str]:
++        if not isinstance(value, str):
++            return value
++
++        key, sep, val = value.partition("=")
++
++        if not sep or not key:
++            self.fail(
++                _("{value!r} is not a valid key=value pair.").format(value=value),
++                param,
++                ctx,
++            )
++
++        return key, val
++
++    def __repr__(self) -> str:
++        return "KEY_VALUE"
++
++
+ class FileInfoDict(ParamTypeInfoDict):
+     mode: str
+     encoding: str | None

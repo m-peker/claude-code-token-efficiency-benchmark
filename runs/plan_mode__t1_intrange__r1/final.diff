@@ -1,0 +1,26 @@
+diff --git a/src/click/types.py b/src/click/types.py
+index 22f76f5..0eb8462 100644
+--- a/src/click/types.py
++++ b/src/click/types.py
+@@ -751,7 +751,7 @@ class IntRange(_NumberRangeBase[int, int], IntParamType):
+         if not open:
+             return bound
+ 
+-        return bound - dir
++        return bound + dir
+ 
+ 
+ class FloatParamType(_NumberParamTypeBase[t.SupportsFloat | t.SupportsIndex, float]):
+diff --git a/tests/test_types.py b/tests/test_types.py
+index 842c426..3b955d3 100644
+--- a/tests/test_types.py
++++ b/tests/test_types.py
+@@ -22,6 +22,8 @@ from click import FileError
+         (click.IntRange(max=5), "-100", -100),
+         (click.IntRange(0, clamp=True), "-1", 0),
+         (click.IntRange(max=5, clamp=True), "6", 5),
++        (click.IntRange(0, min_open=True, clamp=True), "-5", 1),
++        (click.IntRange(max=5, max_open=True, clamp=True), "20", 4),
+         (click.FloatRange(0.5, 1.5), "1.2", 1.2),
+         (click.FloatRange(0.5, min_open=True), "0.51", 0.51),
+         (click.FloatRange(max=1.5, max_open=True), "1.49", 1.49),

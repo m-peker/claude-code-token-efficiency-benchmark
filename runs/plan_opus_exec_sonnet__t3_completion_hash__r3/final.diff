@@ -1,0 +1,42 @@
+diff --git a/CHANGES.md b/CHANGES.md
+index 3c9a94e..8b862df 100644
+--- a/CHANGES.md
++++ b/CHANGES.md
+@@ -1,3 +1,10 @@
++## Version 8.5.1
++
++Unreleased
++
++- Shell completion no longer treats `#` in an argument as the start of a
++  comment.
++
+ ## Version 8.5.0
+ 
+ Released 2026-08-24
+diff --git a/src/click/shell_completion.py b/src/click/shell_completion.py
+index 42e8885..58778b5 100644
+--- a/src/click/shell_completion.py
++++ b/src/click/shell_completion.py
+@@ -622,6 +622,8 @@ def split_arg_string(string: str) -> list[str]:
+ 
+     lex = shlex.shlex(string, posix=True)
+     lex.whitespace_split = True
++    # The string is a raw command line, so ``#`` is a literal character.
++    lex.commenters = ""
+     out: list[str] = []
+ 
+     try:
+diff --git a/tests/test_parser.py b/tests/test_parser.py
+index f2a3ad5..b8d7075 100644
+--- a/tests/test_parser.py
++++ b/tests/test_parser.py
+@@ -13,6 +13,9 @@ from click.shell_completion import split_arg_string
+         ("cli 'my file'", ["cli", "my file"]),
+         ("cli my\\", ["cli", "my"]),
+         ("cli my\\ file", ["cli", "my file"]),
++        ("cli a#b", ["cli", "a#b"]),
++        ("cli #a", ["cli", "#a"]),
++        ("cli 'my #file", ["cli", "my #file"]),
+     ],
+ )
+ def test_split_arg_string(value, expect):

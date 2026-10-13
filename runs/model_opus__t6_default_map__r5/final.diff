@@ -1,0 +1,45 @@
+diff --git a/src/click/core.py b/src/click/core.py
+index d5390bd..de129ec 100644
+--- a/src/click/core.py
++++ b/src/click/core.py
+@@ -389,7 +389,7 @@ class Context:
+             and parent is not None
+             and parent.default_map is not None
+         ):
+-            default_map = parent.default_map
++            default_map = parent.default_map.get(info_name)
+ 
+         self.default_map = default_map
+ 
+diff --git a/tests/test_defaults.py b/tests/test_defaults.py
+index bb2684c..634d8b2 100644
+--- a/tests/test_defaults.py
++++ b/tests/test_defaults.py
+@@ -556,3 +556,27 @@ def test_unset_in_default_map(runner):
+     result = runner.invoke(cli, [])
+     assert result.exit_code == 0
+     assert result.output.strip() == "port=8000"
++
++
++def test_default_map_subcommand(runner):
++    """Subcommands get the nested ``default_map`` entry under their name."""
++
++    @click.group()
++    @click.option("--x", default="group-default")
++    def cli(x):
++        click.echo(f"group={x}")
++
++    @cli.command()
++    @click.option("--x", default="sub-default")
++    def sub(x):
++        click.echo(f"sub={x}")
++
++    result = runner.invoke(
++        cli, ["sub"], default_map={"x": "group-map", "sub": {"x": "sub-map"}}
++    )
++    assert not result.exception
++    assert result.output == "group=group-map\nsub=sub-map\n"
++
++    result = runner.invoke(cli, ["sub"], default_map={"x": "group-map"})
++    assert not result.exception
++    assert result.output == "group=group-map\nsub=sub-default\n"

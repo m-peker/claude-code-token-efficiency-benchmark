@@ -1,0 +1,146 @@
+{
+  "duration_api_ms": 26137,
+  "stop_reason": "end_turn",
+  "session_id": "7448f215-caaa-465b-9ec3-4cebfac6cd44",
+  "total_cost_usd": 0.1449113,
+  "usage": {
+    "input_tokens": 14,
+    "cache_creation_input_tokens": 8458,
+    "cache_read_input_tokens": 133611,
+    "output_tokens": 2517,
+    "output_tokens_details": {
+      "thinking_tokens": 341
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 8458,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "global",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 618,
+        "cache_read_input_tokens": 22575,
+        "cache_creation_input_tokens": 137,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 137
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1191,
+      "outputTokens": 20,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.00012910000000000002,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 0,
+      "canonicalModel": "claude-haiku-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    },
+    "claude-opus-5-5": {
+      "inputTokens": 14,
+      "outputTokens": 2517,
+      "cacheReadInputTokens": 133611,
+      "cacheCreationInputTokens": 8458,
+      "webSearchRequests": 0,
+      "costUSD": 0.1447822,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 341,
+      "canonicalModel": "claude-opus-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 8,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "I found the bug and wrote a fix plan. I haven't changed any code yet because plan mode is on, and I couldn't submit the plan for approval because the ExitPlanMode tool isn't available here.\n\n**Cause:** `split_arg_string` in `src/click/shell_completion.py:603` splits the command line for completion. It uses Python's lower-level `shlex.shlex` splitter, which treats `#` as the start of a comment by default. So everything from a `#` onward is thrown away: `split_arg_string(\"cli a#b c\")` returns `[\"cli\", \"a\"]` instead of `[\"cli\", \"a#b\", \"c\"]`. The function's docstring says it splits \"as with `shlex.split`\", and `shlex.split` doesn't treat `#` as a comment by default.\n\n**Planned fix:**\n1. **The fix itself:** add `lex.commenters = \"\"` right after `lex.whitespace_split = True` in `split_arg_string`.\n2. **Tests in `tests/test_parser.py`:** add these cases to `test_split_arg_string`:\n   - `\"cli a#b c\"`\n   - `\"cli #b\"`\n   - `\"cli 'a#b\"` (an unclosed quote)\n3. **Test in `tests/test_shell_completion.py`:** add one end-to-end completion test with a `#` in an argument value.\n4. **Changelog:** add an unreleased `8.5.1` entry to `CHANGES.md`, since 8.5.0 has already been released.\n\n**How I'll check it:** run `pytest tests/test_parser.py tests/test_shell_completion.py`, then the full `pytest` suite.\n\nThe plan is saved at `<home>\\.claude\\plans\\shell-completion-gives-wrong-abstract-papert.md`. Tell me to go ahead and I'll make the changes.",
+  "ttft_ms": 3838,
+  "type": "result",
+  "duration_ms": 28600,
+  "uuid": "140dfd2f-1c74-41d0-83af-4363720acef3",
+  "ttft_stream_ms": 1409,
+  "time_to_request_ms": 660,
+  "time_to_request_phases_ms": {
+    "other": 15,
+    "system_prompt": 10,
+    "resume_other": 0,
+    "process_user_input": 2,
+    "input_attachments": 7,
+    "input_hooks": 1,
+    "transcript_persist": 2,
+    "tool_pool_refresh": 1,
+    "init_message": 8,
+    "engine_pickup": 1,
+    "message_prep": 1,
+    "model_config_wait": 1,
+    "autocompact": 1,
+    "query_setup": 295,
+    "auto_mode_context_wait": 304,
+    "model_gates": 0,
+    "tool_schema_build": 5,
+    "message_normalization": 1,
+    "client_creation": 1,
+    "request_build": 4
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 303,
+  "time_to_request_cpu_ms": 328,
+  "time_to_request_major_faults": 4116,
+  "input_attachments_detail": {
+    "slowest_producer": "queued_commands",
+    "slowest_producer_ms": 4,
+    "cpu_ms": 32,
+    "major_faults": 309
+  },
+  "first_content_frame_ms": 1410,
+  "queued_turn_count": 0,
+  "result_index": 0
+}

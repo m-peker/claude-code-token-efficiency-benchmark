@@ -1,0 +1,145 @@
+{
+  "duration_api_ms": 30287,
+  "stop_reason": "end_turn",
+  "session_id": "80d3e9a2-e19e-4c08-b058-643be7d11cf7",
+  "total_cost_usd": 0.17878529999999998,
+  "usage": {
+    "input_tokens": 14,
+    "cache_creation_input_tokens": 10391,
+    "cache_read_input_tokens": 137427,
+    "output_tokens": 3399,
+    "output_tokens_details": {
+      "thinking_tokens": 238
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 10391,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "global",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 560,
+        "cache_read_input_tokens": 24365,
+        "cache_creation_input_tokens": 280,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 280
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1259,
+      "outputTokens": 20,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.0001359,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 0,
+      "canonicalModel": "claude-haiku-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    },
+    "claude-opus-5-5": {
+      "inputTokens": 14,
+      "outputTokens": 3399,
+      "cacheReadInputTokens": 137427,
+      "cacheCreationInputTokens": 10391,
+      "webSearchRequests": 0,
+      "costUSD": 0.1786494,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 238,
+      "canonicalModel": "claude-opus-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 8,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "I added `click.KeyValue`, and it works as specified. The 8 new tests pass, along with the rest of the test suite (1914 passed, 102 skipped).\n\n```python\n@click.option(\"--set\", type=click.KeyValue())\n```\n\n**How it behaves:**\n- `a=b` becomes `(\"a\", \"b\")`.\n- It splits on the first `=` only, so `a=b=c` becomes `(\"a\", \"b=c\")`.\n- An empty value is allowed: `a=` becomes `(\"a\", \"\")`.\n- Input with no `=` (like `ab`) or with an empty key (like `=b`) fails with a usage error: `'ab' is not a valid key=value pair.`\n- If the value is already a 2-item tuple (for example a `default=(\"a\", \"b\")`), it's passed through unchanged.\n- It works with `multiple=True`, so `dict(kv)` gives you a mapping of all the `--set` values.\n- Spaces around the key and value are kept, not trimmed.\n\n**Where the changes are:**\n- `src/click/types.py`: the new `KeyValue` class, placed next to the UUID type.\n- `src/click/__init__.py`: makes it available as `click.KeyValue`.\n- `tests/test_types.py`: tests for valid input, invalid input and `multiple=True`.\n- Docs: an entry in `docs/api.md` and in the built-in types list in `docs/parameter-types.md`.\n- `CHANGES.md`: I started a new \"Version 8.6.0 \u2014 Unreleased\" section, because 8.5.0 is already marked as released. The class docstring also says `versionadded:: 8.6`, so change both if this is going into a different version.\n\nNothing has been committed yet.",
+  "ttft_ms": 2102,
+  "type": "result",
+  "duration_ms": 48402,
+  "uuid": "47337deb-100a-4243-b62c-1115624ecc6e",
+  "ttft_stream_ms": 936,
+  "time_to_request_ms": 68,
+  "time_to_request_phases_ms": {
+    "other": 11,
+    "system_prompt": 9,
+    "resume_other": 0,
+    "process_user_input": 3,
+    "input_attachments": 24,
+    "input_hooks": 1,
+    "transcript_persist": 2,
+    "tool_pool_refresh": 1,
+    "init_message": 7,
+    "engine_pickup": 0,
+    "message_prep": 1,
+    "model_config_wait": 0,
+    "autocompact": 1,
+    "query_setup": 1,
+    "model_gates": 0,
+    "tool_schema_build": 3,
+    "message_normalization": 0,
+    "client_creation": 1,
+    "request_build": 3
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 18,
+  "time_to_request_cpu_ms": 140,
+  "time_to_request_major_faults": 1761,
+  "input_attachments_detail": {
+    "slowest_producer": "nested_memory",
+    "slowest_producer_ms": 13,
+    "cpu_ms": 63,
+    "major_faults": 305
+  },
+  "first_content_frame_ms": 936,
+  "queued_turn_count": 0,
+  "result_index": 0
+}

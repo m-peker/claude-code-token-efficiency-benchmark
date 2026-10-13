@@ -1,0 +1,145 @@
+{
+  "duration_api_ms": 19216,
+  "stop_reason": "end_turn",
+  "session_id": "71b7f70a-f793-469d-b257-01d7bd7904b1",
+  "total_cost_usd": 0.0879322,
+  "usage": {
+    "input_tokens": 14,
+    "cache_creation_input_tokens": 7316,
+    "cache_read_input_tokens": 189071,
+    "output_tokens": 2070,
+    "output_tokens_details": {
+      "thinking_tokens": 98
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 7316,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 232,
+        "cache_read_input_tokens": 29481,
+        "cache_creation_input_tokens": 737,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 737
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1190,
+      "outputTokens": 14,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.00012600000000000003,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 0,
+      "canonicalModel": "claude-haiku-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    },
+    "claude-sonnet-5-5": {
+      "inputTokens": 14,
+      "outputTokens": 2070,
+      "cacheReadInputTokens": 189071,
+      "cacheCreationInputTokens": 7316,
+      "webSearchRequests": 0,
+      "costUSD": 0.0878062,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 98,
+      "canonicalModel": "claude-sonnet-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 12,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "I fixed the option order in `--help`. Aliases now list the short form first (`-v, --verbose`) instead of the long form first (`--verbose, -v`). I'm assuming that reversed order was the \"weird order\" you meant, since you didn't give an example. If you meant a different ordering, such as the order the options are listed in, let me know.\n\nThe cause was in `join_options` in `src/click/formatting.py`. It sorted aliases by prefix length in descending order, which put `--` ahead of `-`. I removed `reverse=True`.\n\nI added `test_join_options_short_first` to `tests/test_formatting.py`. The full suite passes: 1907 passed, 102 skipped, 1 xfailed.",
+  "ttft_ms": 2116,
+  "type": "result",
+  "duration_ms": 28996,
+  "uuid": "cceffc27-abe2-4c6d-8f27-2bf0b26a67dd",
+  "ttft_stream_ms": 1234,
+  "time_to_request_ms": 128,
+  "time_to_request_phases_ms": {
+    "other": 12,
+    "system_prompt": 17,
+    "resume_other": 0,
+    "process_user_input": 2,
+    "input_attachments": 23,
+    "input_hooks": 2,
+    "transcript_persist": 28,
+    "tool_pool_refresh": 2,
+    "init_message": 28,
+    "engine_pickup": 1,
+    "message_prep": 0,
+    "model_config_wait": 1,
+    "autocompact": 1,
+    "query_setup": 0,
+    "model_gates": 0,
+    "tool_schema_build": 5,
+    "message_normalization": 1,
+    "client_creation": 3,
+    "request_build": 2
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 22,
+  "time_to_request_cpu_ms": 203,
+  "time_to_request_major_faults": 3456,
+  "input_attachments_detail": {
+    "slowest_producer": "model",
+    "slowest_producer_ms": 21,
+    "cpu_ms": 15,
+    "major_faults": 1011
+  },
+  "first_content_frame_ms": 1234,
+  "queued_turn_count": 0,
+  "result_index": 0
+}

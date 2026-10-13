@@ -1,0 +1,48 @@
+diff --git a/src/click/core.py b/src/click/core.py
+index d5390bd..de129ec 100644
+--- a/src/click/core.py
++++ b/src/click/core.py
+@@ -389,7 +389,7 @@ class Context:
+             and parent is not None
+             and parent.default_map is not None
+         ):
+-            default_map = parent.default_map
++            default_map = parent.default_map.get(info_name)
+ 
+         self.default_map = default_map
+ 
+diff --git a/tests/test_defaults.py b/tests/test_defaults.py
+index bb2684c..714fe00 100644
+--- a/tests/test_defaults.py
++++ b/tests/test_defaults.py
+@@ -556,3 +556,30 @@ def test_unset_in_default_map(runner):
+     result = runner.invoke(cli, [])
+     assert result.exit_code == 0
+     assert result.output.strip() == "port=8000"
++
++
++def test_default_map_nested_for_subcommand(runner):
++    """A subcommand only receives its own nested ``default_map`` entry,
++    not the parent's whole mapping.
++    """
++
++    @click.group()
++    def cli():
++        pass
++
++    @cli.command()
++    @click.option("--port", default=1)
++    def runserver(port):
++        click.echo(port)
++
++    result = runner.invoke(
++        cli,
++        ["runserver"],
++        default_map={"debug": True, "runserver": {"port": 5000}},
++    )
++    assert result.exit_code == 0
++    assert result.output == "5000\n"
++
++    result = runner.invoke(cli, ["runserver"], default_map={"other": {"port": 5000}})
++    assert result.exit_code == 0
++    assert result.output == "1\n"

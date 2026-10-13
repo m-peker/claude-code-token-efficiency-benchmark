@@ -1,0 +1,145 @@
+{
+  "duration_api_ms": 8749,
+  "stop_reason": "end_turn",
+  "session_id": "6c951b05-426d-4561-b61c-a448c72415e9",
+  "total_cost_usd": 0.0406643,
+  "usage": {
+    "input_tokens": 6,
+    "cache_creation_input_tokens": 4306,
+    "cache_read_input_tokens": 74914,
+    "output_tokens": 831,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 4306,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 526,
+        "cache_read_input_tokens": 26815,
+        "cache_creation_input_tokens": 393,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 393
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1245,
+      "outputTokens": 22,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.00013550000000000001,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 0,
+      "canonicalModel": "claude-haiku-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    },
+    "claude-sonnet-5-5": {
+      "inputTokens": 6,
+      "outputTokens": 831,
+      "cacheReadInputTokens": 74914,
+      "cacheCreationInputTokens": 4306,
+      "webSearchRequests": 0,
+      "costUSD": 0.040528800000000004,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 0,
+      "canonicalModel": "claude-sonnet-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 3,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "`Parameter.consume_value` (`core.py:2481`) returns a `(value, source)` tuple. It tries four sources in order and stops at the first one that supplies a value:\n\n1. **Command line.** It reads `opts.get(self.name, UNSET)`. If the parser produced a value, the source is `ParameterSource.COMMANDLINE`. Otherwise the source starts as `DEFAULT` and the value stays `UNSET`.\n2. **Environment variable.** If the value is still `UNSET`, it calls `value_from_envvar(ctx)`. A result that is not `None` becomes the value, with source `ENVIRONMENT`.\n3. **`default_map`.** If the value is still `UNSET`, it calls `ctx.lookup_default(self.name)`. That value is used if it is not `None`, or if the key is present in the map (`_default_map_has`), so an explicit `None` entry counts. The source is `DEFAULT_MAP`. A string value is split with `type.split_envvar_value` when `nargs != 1`.\n4. **Parameter default.** If the value is still `UNSET`, it calls `get_default(ctx)`. A result other than `UNSET` becomes the value, with source `DEFAULT`.\n\nIf none of these produce a value, it returns `(UNSET, DEFAULT)`.\n\n`Option.consume_value` (line 3589) wraps this. For a flag the parser marked `FLAG_NEEDS_VALUE`, it either prompts and records `PROMPT`, or uses the flag's activation value and records `COMMANDLINE`.",
+  "ttft_ms": 2184,
+  "type": "result",
+  "duration_ms": 8208,
+  "uuid": "dfd72289-bed6-4f57-93da-b321714db931",
+  "ttft_stream_ms": 1418,
+  "time_to_request_ms": 191,
+  "time_to_request_phases_ms": {
+    "other": 21,
+    "system_prompt": 59,
+    "resume_other": 0,
+    "process_user_input": 2,
+    "input_attachments": 13,
+    "input_hooks": 2,
+    "transcript_persist": 50,
+    "tool_pool_refresh": 3,
+    "init_message": 18,
+    "engine_pickup": 1,
+    "message_prep": 1,
+    "model_config_wait": 1,
+    "autocompact": 1,
+    "query_setup": 1,
+    "model_gates": 0,
+    "tool_schema_build": 9,
+    "message_normalization": 1,
+    "client_creation": 4,
+    "request_build": 4
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 47,
+  "time_to_request_cpu_ms": 235,
+  "time_to_request_major_faults": 3558,
+  "input_attachments_detail": {
+    "slowest_producer": "model",
+    "slowest_producer_ms": 9,
+    "cpu_ms": 31,
+    "major_faults": 92
+  },
+  "first_content_frame_ms": 1418,
+  "queued_turn_count": 0,
+  "result_index": 0
+}

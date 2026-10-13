@@ -1,0 +1,78 @@
+diff --git a/CHANGES.md b/CHANGES.md
+index 3c9a94e..60618df 100644
+--- a/CHANGES.md
++++ b/CHANGES.md
+@@ -1,3 +1,10 @@
++## Version 8.5.1
++
++Unreleased
++
++- Subcommand contexts receive the nested `default_map` entry keyed by
++  their name again, so defaults configured for subcommands are applied.
++
+ ## Version 8.5.0
+ 
+ Released 2026-08-24
+diff --git a/src/click/core.py b/src/click/core.py
+index d5390bd..de129ec 100644
+--- a/src/click/core.py
++++ b/src/click/core.py
+@@ -389,7 +389,7 @@ class Context:
+             and parent is not None
+             and parent.default_map is not None
+         ):
+-            default_map = parent.default_map
++            default_map = parent.default_map.get(info_name)
+ 
+         self.default_map = default_map
+ 
+diff --git a/tests/test_defaults.py b/tests/test_defaults.py
+index bb2684c..7c908b9 100644
+--- a/tests/test_defaults.py
++++ b/tests/test_defaults.py
+@@ -556,3 +556,45 @@ def test_unset_in_default_map(runner):
+     result = runner.invoke(cli, [])
+     assert result.exit_code == 0
+     assert result.output.strip() == "port=8000"
++
++
++def test_default_map_subcommands(runner):
++    """Subcommands use the nested ``default_map`` entry for their name."""
++
++    @click.group()
++    @click.option("--name", default="root-default")
++    def cli(name):
++        click.echo(f"cli={name}")
++
++    @cli.command()
++    @click.option("--name", default="sub-default")
++    def sub(name):
++        click.echo(f"sub={name}")
++
++    @cli.group()
++    def inner():
++        pass
++
++    @inner.command()
++    @click.option("--name", default="leaf-default")
++    def leaf(name):
++        click.echo(f"leaf={name}")
++
++    default_map = {
++        "name": "root-map",
++        "sub": {"name": "sub-map"},
++        "inner": {"leaf": {"name": "leaf-map"}},
++    }
++
++    result = runner.invoke(cli, ["sub"], default_map=default_map)
++    assert result.exit_code == 0, result.output
++    assert result.output.splitlines() == ["cli=root-map", "sub=sub-map"]
++
++    result = runner.invoke(cli, ["inner", "leaf"], default_map=default_map)
++    assert result.exit_code == 0, result.output
++    assert result.output.splitlines() == ["cli=root-map", "leaf=leaf-map"]
++
++    # A subcommand without an entry falls back to its parameter default.
++    result = runner.invoke(cli, ["sub"], default_map={"name": "root-map"})
++    assert result.exit_code == 0, result.output
++    assert result.output.splitlines() == ["cli=root-map", "sub=sub-default"]

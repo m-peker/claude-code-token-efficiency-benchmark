@@ -1,0 +1,1896 @@
+{
+  "per_cell": {
+    "specific_prompt|t6_default_map": {
+      "n": 5,
+      "success_rate": 1.0,
+      "cost": 0.0529245,
+      "tok_in": 130562,
+      "tok_out": 1262,
+      "peak_ctx": 26777,
+      "turns": 6,
+      "wall_s": 17.1,
+      "cost_iqr": [
+        0.0466369,
+        0.0536482
+      ],
+      "tok_in_iqr": [
+        89290.0,
+        130800.0
+      ]
+    },
+    "claudemd_lean|t1_intrange": {
+      "n": 5,
+      "success_rate": 1.0,
+      "cost": 0.06825919999999999,
+      "tok_in": 136104,
+      "tok_out": 1372,
+      "peak_ctx": 28601,
+      "turns": 8,
+      "wall_s": 19.1,
+      "cost_iqr": [
+        0.0600266,
+        0.07090400000000001
+      ],
+      "tok_in_iqr": [
+        134819.0,
+        165194.0
+      ]
+    },
+    "model_opus|t5_value_source": {
+      "n": 5,
+      "success_rate": 1.0,
+      "cost": 0.1864131,
+      "tok_in": 101673,
+      "tok_out": 2193,
+      "peak_ctx": 32656,
+      "turns": 4,
+      "wall_s": 26.2,
+      "cost_iqr": [
+        0.16814230000000002,
+        0.2078395
+      ],
+      "tok_in_iqr": [
+        98939.0,
+        116031.0
+      ]
+    },
+    "best_practice|t4_keyvalue": {
+      "n": 5,
+      "success_rate": 1.0,
+      "cost": 0.06794710000000001,
+      "tok_in": 135482,
+      "tok_out": 2107,
+      "peak_ctx": 28383,
+      "turns": 8,
+      "wall_s": 21.6,
+      "cost_iqr": [
+        0.0673105,
+        0.0733213
+      ],
+      "tok_in_iqr": [
+        134368.0,
+        137260.0
+      ]
+    },
+    "model_haiku|t6_default_map": {
+      "n": 5,
+      "success_rate": 1.0,
+      "cost": 0.006547690000000001,
+      "tok_in": 211584,
+      "tok_out": 3461,
+      "peak_ctx": 33758,
+      "turns": 9,
+      "wall_s": 44.7,
+      "cost_iqr": [
+        0.005506550000000001,
+        0.0073482600000000006
+      ],
+      "tok_in_iqr": [
+        186723.0,
+        259651.0
+      ]
+    },
+    "mcp_heavy_eager|t1_intrange": {
+      "n": 5,
+      "success_rate": 1.0,
+      "cost": 0.0748898,
+      "tok_in": 235300,
+      "tok_out": 739,
+      "peak_ctx": 59883,
+      "turns": 4,
+      "wall_s": 11.6,
+      "cost_iqr": [
+        0.0745882,
+        0.07545460000000001
+      ],
+      "tok_in_iqr": [
+        235296.0,
+        247652.0
+      ]
+    },
+    "baseline|t1_intrange": {
+      "n": 5,
+      "success_rate": 1.0,
+      "cost": 0.046479000000000006,
+      "tok_in": 107162,
+      "tok_out": 750,
+      "peak_ctx": 27846,
+      "turns": 4,
+      "wall_s": 10.8,
+      "cost_iqr": [
+        0.04199680000000001,
+        0.0466456
+      ],
+      "tok_in_iqr": [
+        87779.0,
+        107228.0
+      ]
+    },
+    "claudemd_lean|t6_default_map": {
+      "n": 5,
+      "success_rate": 1.0,
+      "cost": 0.07542320000000001,
+      "tok_in": 167422,
+      "tok_out": 1948,
+      "peak_ctx": 28149,
+      "turns": 10,
+      "wall_s": 31.6,
+      "cost_iqr": [
+        0.07285400000000002,
+        0.0908174
+      ],
+      "tok_in_iqr": [
+        162377.0,
+        187584.0
+      ]
+    },
+    "mcp_heavy|t1_intrange": {
+      "n": 5,
+      "success_rate": 1.0,
+      "cost": 0.054015200000000006,
+      "tok_in": 113679,
+      "tok_out": 815,
+      "peak_ctx": 29028,
+      "turns": 5,
+      "wall_s": 12.2,
+      "cost_iqr": [
+        0.053236599999999995,
+        0.0588916
+      ],
+      "tok_in_iqr": [
+        97416.0,
+        138666.0
+      ]
+    },
+    "specific_prompt|t5_value_source": {
+      "n": 5,
+      "success_rate": 1.0,
+      "cost": 0.038185300000000005,
+      "tok_in": 78808,
+      "tok_out": 834,
+      "peak_ctx": 26619,
+      "turns": 3,
+      "wall_s": 10.4,
+      "cost_iqr": [
+        0.031056100000000003,
+        0.0387293
+      ],
+      "tok_in_iqr": [
+        52336.0,
+        79020.0
+      ]
+    },
+    "claudemd_bloated|t2_help_order": {
+      "n": 5,
+      "success_rate": 1.0,
+      "cost": 0.1592416,
+      "tok_in": 325151,
+      "tok_out": 1871,
+      "peak_ctx": 42245,
+      "turns": 11,
+      "wall_s": 33.3,
+      "cost_iqr": [
+        0.1570128,
+        0.16458659999999997
+      ],
+      "tok_in_iqr": [
+        273413.0,
+        327828.0
+      ]
+    },
+    "model_opus|t4_keyvalue": {
+      "n": 5,
+      "success_rate": 1.0,
+      "cost": 0.1718133,
+      "tok_in": 199589,
+      "tok_out": 3279,
+      "peak_ctx": 31544,
+      "turns": 8,
+      "wall_s": 47.5,
+      "cost_iqr": [
+        0.1694819,
+        0.17878529999999998
+      ],
+      "tok_in_iqr": [
+        149091.0,
+        228788.0
+      ]
+    },
+    "specific_prompt|t3_completion_hash": {
+      "n": 5,
+      "success_rate": 1.0,
+      "cost": 0.046204999999999996,
+      "tok_in": 104676,
+      "tok_out": 1091,
+      "peak_ctx": 26766,
+      "turns": 7,
+      "wall_s": 15.3,
+      "cost_iqr": [
+        0.0417636,
+        0.047169
+      ],
+      "tok_in_iqr": [
+        70930.0,
+        104820.0
+      ]
+    },
+    "mcp_heavy|t5_value_source": {
+      "n": 5,
+      "success_rate": 1.0,
+      "cost": 0.0802409,
+      "tok_in": 86605,
+      "tok_out": 2097,
+      "peak_ctx": 29653,
+      "turns": 6,
+      "wall_s": 17.6,
+      "cost_iqr": [
+        0.060324100000000005,
+        0.0829203
+      ],
+      "tok_in_iqr": [
+        83997.0,
+        117941.0
+      ]
+    },
+    "best_practice|t1_intrange": {
+      "n": 5,
+      "success_rate": 1.0,
+      "cost": 0.05666089999999999,
+      "tok_in": 111386,
+      "tok_out": 1364,
+      "peak_ctx": 28933,
+      "turns": 7,
+      "wall_s": 16.5,
+      "cost_iqr": [
+        0.0562583,
+        0.059492899999999994
+      ],
+      "tok_in_iqr": [
+        111286.0,
+        112426.0
+      ]
+    },
+    "claudemd_bloated|t4_keyvalue": {
+      "n": 5,
+      "success_rate": 1.0,
+      "cost": 0.1321185,
+      "tok_in": 201323,
+      "tok_out": 2207,
+      "peak_ctx": 41615,
+      "turns": 8,
+      "wall_s": 21.9,
+      "cost_iqr": [
+        0.12840189999999999,
+        0.13595669999999999
+      ],
+      "tok_in_iqr": [
+        160312.0,
+        202976.0
+      ]
+    },
+    "effort_low|t6_default_map": {
+      "n": 5,
+      "success_rate": 1.0,
+      "cost": 0.052206,
+      "tok_in": 114028,
+      "tok_out": 902,
+      "peak_ctx": 30253,
+      "turns": 6,
+      "wall_s": 20.9,
+      "cost_iqr": [
+        0.048876600000000006,
+        0.06035720000000001
+      ],
+      "tok_in_iqr": [
+        93882.0,
+        114462.0
+      ]
+    },
+    "model_opus|t1_intrange": {
+      "n": 5,
+      "success_rate": 1.0,
+      "cost": 0.1190678,
+      "tok_in": 112912,
+      "tok_out": 1585,
+      "peak_ctx": 27965,
+      "turns": 8,
+      "wall_s": 23.4,
+      "cost_iqr": [
+        0.097124,
+        0.1329254
+      ],
+      "tok_in_iqr": [
+        106801.0,
+        191279.0
+      ]
+    },
+    "claudemd_bloated|t6_default_map": {
+      "n": 5,
+      "success_rate": 1.0,
+      "cost": 0.1471126,
+      "tok_in": 282132,
+      "tok_out": 1877,
+      "peak_ctx": 41710,
+      "turns": 9,
+      "wall_s": 29.9,
+      "cost_iqr": [
+        0.1337394,
+        0.16349260000000002
+      ],
+      "tok_in_iqr": [
+        240920.0,
+        297685.0
+      ]
+    },
+    "claudemd_bloated|t1_intrange": {
+      "n": 5,
+      "success_rate": 1.0,
+      "cost": 0.1288374,
+      "tok_in": 204652,
+      "tok_out": 1361,
+      "peak_ctx": 42625,
+      "turns": 8,
+      "wall_s": 17.4,
+      "cost_iqr": [
+        0.1271542,
+        0.162927
+      ],
+      "tok_in_iqr": [
+        203095.0,
+        294927.0
+      ]
+    },
+    "mcp_heavy_eager|t2_help_order": {
+      "n": 5,
+      "success_rate": 1.0,
+      "cost": 0.15743,
+      "tok_in": 489952,
+      "tok_out": 1847,
+      "peak_ctx": 61835,
+      "turns": 10,
+      "wall_s": 35.3,
+      "cost_iqr": [
+        0.13685760000000002,
+        0.1644212
+      ],
+      "tok_in_iqr": [
+        426290.0,
+        523121.0
+      ]
+    },
+    "mcp_heavy|t6_default_map": {
+      "n": 5,
+      "success_rate": 1.0,
+      "cost": 0.0653026,
+      "tok_in": 119939,
+      "tok_out": 993,
+      "peak_ctx": 31617,
+      "turns": 6,
+      "wall_s": 21.7,
+      "cost_iqr": [
+        0.05965139999999999,
+        0.0723298
+      ],
+      "tok_in_iqr": [
+        101867.0,
+        122765.0
+      ]
+    },
+    "best_practice|t5_value_source": {
+      "n": 5,
+      "success_rate": 1.0,
+      "cost": 0.0330975,
+      "tok_in": 53410,
+      "tok_out": 731,
+      "peak_ctx": 26965,
+      "turns": 2,
+      "wall_s": 8.2,
+      "cost_iqr": [
+        0.0293619,
+        0.0406643
+      ],
+      "tok_in_iqr": [
+        36280.0,
+        80471.0
+      ]
+    },
+    "model_haiku|t5_value_source": {
+      "n": 5,
+      "success_rate": 1.0,
+      "cost": 0.00469731,
+      "tok_in": 130213,
+      "tok_out": 2691,
+      "peak_ctx": 34674,
+      "turns": 9,
+      "wall_s": 15.4,
+      "cost_iqr": [
+        0.00463273,
+        0.00586734
+      ],
+      "tok_in_iqr": [
+        125846.0,
+        142817.0
+      ]
+    },
+    "effort_low|t3_completion_hash": {
+      "n": 5,
+      "success_rate": 1.0,
+      "cost": 0.0545157,
+      "tok_in": 133685,
+      "tok_out": 868,
+      "peak_ctx": 28075,
+      "turns": 5,
+      "wall_s": 13.2,
+      "cost_iqr": [
+        0.0452115,
+        0.0562521
+      ],
+      "tok_in_iqr": [
+        89664.0,
+        133922.0
+      ]
+    },
+    "model_haiku|t1_intrange": {
+      "n": 5,
+      "success_rate": 1.0,
+      "cost": 0.00477659,
+      "tok_in": 153231,
+      "tok_out": 2366,
+      "peak_ctx": 33621,
+      "turns": 9,
+      "wall_s": 18.7,
+      "cost_iqr": [
+        0.00462354,
+        0.0051974199999999995
+      ],
+      "tok_in_iqr": [
+        152674.0,
+        163895.0
+      ]
+    },
+    "claudemd_lean|t5_value_source": {
+      "n": 5,
+      "success_rate": 1.0,
+      "cost": 0.06291050000000001,
+      "tok_in": 80996,
+      "tok_out": 1976,
+      "peak_ctx": 28877,
+      "turns": 7,
+      "wall_s": 16.6,
+      "cost_iqr": [
+        0.0553225,
+        0.063861
+      ],
+      "tok_in_iqr": [
+        78230.0,
+        108400.0
+      ]
+    },
+    "model_haiku|t2_help_order": {
+      "n": 5,
+      "success_rate": 0.6,
+      "cost": 0.011485100000000002,
+      "tok_in": 533047,
+      "tok_out": 5380,
+      "peak_ctx": 40285,
+      "turns": 15,
+      "wall_s": 65.0,
+      "cost_iqr": [
+        0.007400839999999999,
+        0.01180867
+      ],
+      "tok_in_iqr": [
+        216504.0,
+        540617.0
+      ]
+    },
+    "effort_low|t4_keyvalue": {
+      "n": 5,
+      "success_rate": 1.0,
+      "cost": 0.0488485,
+      "tok_in": 104440,
+      "tok_out": 1543,
+      "peak_ctx": 26931,
+      "turns": 7,
+      "wall_s": 16.8,
+      "cost_iqr": [
+        0.04844070000000001,
+        0.0575653
+      ],
+      "tok_in_iqr": [
+        88611.0,
+        131058.0
+      ]
+    },
+    "baseline|t2_help_order": {
+      "n": 5,
+      "success_rate": 1.0,
+      "cost": 0.08173659999999999,
+      "tok_in": 191649,
+      "tok_out": 1640,
+      "peak_ctx": 28699,
+      "turns": 10,
+      "wall_s": 30.0,
+      "cost_iqr": [
+        0.0755742,
+        0.08494680000000002
+      ],
+      "tok_in_iqr": [
+        187550.0,
+        215794.0
+      ]
+    },
+    "mcp_heavy_eager|t4_keyvalue": {
+      "n": 5,
+      "success_rate": 1.0,
+      "cost": 0.09416950000000002,
+      "tok_in": 292561,
+      "tok_out": 1736,
+      "peak_ctx": 59328,
+      "turns": 7,
+      "wall_s": 20.1,
+      "cost_iqr": [
+        0.0940473,
+        0.13142510000000002
+      ],
+      "tok_in_iqr": [
+        292426.0,
+        304081.0
+      ]
+    },
+    "best_practice|t6_default_map": {
+      "n": 5,
+      "success_rate": 1.0,
+      "cost": 0.059299500000000005,
+      "tok_in": 134044,
+      "tok_out": 1391,
+      "peak_ctx": 27680,
+      "turns": 8,
+      "wall_s": 19.6,
+      "cost_iqr": [
+        0.057213299999999995,
+        0.065684
+      ],
+      "tok_in_iqr": [
+        111514.0,
+        161655.0
+      ]
+    },
+    "claudemd_lean|t3_completion_hash": {
+      "n": 5,
+      "success_rate": 1.0,
+      "cost": 0.0580265,
+      "tok_in": 133923,
+      "tok_out": 1182,
+      "peak_ctx": 28039,
+      "turns": 7,
+      "wall_s": 17.1,
+      "cost_iqr": [
+        0.052227100000000005,
+        0.05835030000000001
+      ],
+      "tok_in_iqr": [
+        109194.0,
+        134262.0
+      ]
+    },
+    "specific_prompt|t2_help_order": {
+      "n": 5,
+      "success_rate": 1.0,
+      "cost": 0.0317475,
+      "tok_in": 76882,
+      "tok_out": 680,
+      "peak_ctx": 25696,
+      "turns": 4,
+      "wall_s": 12.9,
+      "cost_iqr": [
+        0.0278309,
+        0.0335779
+      ],
+      "tok_in_iqr": [
+        51383.0,
+        77073.0
+      ]
+    },
+    "model_opus|t3_completion_hash": {
+      "n": 5,
+      "success_rate": 1.0,
+      "cost": 0.143836,
+      "tok_in": 196716,
+      "tok_out": 1931,
+      "peak_ctx": 30503,
+      "turns": 9,
+      "wall_s": 39.6,
+      "cost_iqr": [
+        0.1379021,
+        0.1625957
+      ],
+      "tok_in_iqr": [
+        171936.0,
+        226793.0
+      ]
+    },
+    "effort_low|t1_intrange": {
+      "n": 5,
+      "success_rate": 1.0,
+      "cost": 0.0468878,
+      "tok_in": 107232,
+      "tok_out": 679,
+      "peak_ctx": 27864,
+      "turns": 4,
+      "wall_s": 10.9,
+      "cost_iqr": [
+        0.0466338,
+        0.047928
+      ],
+      "tok_in_iqr": [
+        106957.0,
+        107239.0
+      ]
+    },
+    "mcp_heavy_eager|t5_value_source": {
+      "n": 5,
+      "success_rate": 1.0,
+      "cost": 0.0900319,
+      "tok_in": 204723,
+      "tok_out": 2064,
+      "peak_ctx": 60385,
+      "turns": 6,
+      "wall_s": 18.3,
+      "cost_iqr": [
+        0.0881016,
+        0.09584319999999999
+      ],
+      "tok_in_iqr": [
+        177961.0,
+        206258.0
+      ]
+    },
+    "model_opus|t2_help_order": {
+      "n": 5,
+      "success_rate": 1.0,
+      "cost": 0.1658038,
+      "tok_in": 207371,
+      "tok_out": 2264,
+      "peak_ctx": 31950,
+      "turns": 8,
+      "wall_s": 39.9,
+      "cost_iqr": [
+        0.1451352,
+        0.2206368
+      ],
+      "tok_in_iqr": [
+        206401.0,
+        272260.0
+      ]
+    },
+    "model_haiku|t3_completion_hash": {
+      "n": 5,
+      "success_rate": 1.0,
+      "cost": 0.007772870000000001,
+      "tok_in": 309513,
+      "tok_out": 3953,
+      "peak_ctx": 33360,
+      "turns": 14,
+      "wall_s": 34.4,
+      "cost_iqr": [
+        0.00687329,
+        0.00817261
+      ],
+      "tok_in_iqr": [
+        245084.0,
+        326526.0
+      ]
+    },
+    "model_haiku|t4_keyvalue": {
+      "n": 5,
+      "success_rate": 1.0,
+      "cost": 0.00807946,
+      "tok_in": 301217,
+      "tok_out": 4401,
+      "peak_ctx": 35514,
+      "turns": 11,
+      "wall_s": 39.9,
+      "cost_iqr": [
+        0.007342090000000001,
+        0.008601890000000001
+      ],
+      "tok_in_iqr": [
+        290696.0,
+        325661.0
+      ]
+    },
+    "claudemd_lean|t4_keyvalue": {
+      "n": 5,
+      "success_rate": 1.0,
+      "cost": 0.0694427,
+      "tok_in": 135550,
+      "tok_out": 2191,
+      "peak_ctx": 28127,
+      "turns": 9,
+      "wall_s": 22.2,
+      "cost_iqr": [
+        0.0675193,
+        0.07367920000000001
+      ],
+      "tok_in_iqr": [
+        113127.0,
+        161128.0
+      ]
+    },
+    "best_practice|t2_help_order": {
+      "n": 5,
+      "success_rate": 1.0,
+      "cost": 0.048187299999999995,
+      "tok_in": 107930,
+      "tok_out": 894,
+      "peak_ctx": 26669,
+      "turns": 6,
+      "wall_s": 16.7,
+      "cost_iqr": [
+        0.0439527,
+        0.0499923
+      ],
+      "tok_in_iqr": [
+        105153.0,
+        131770.0
+      ]
+    },
+    "baseline|t5_value_source": {
+      "n": 5,
+      "success_rate": 1.0,
+      "cost": 0.0619478,
+      "tok_in": 80781,
+      "tok_out": 1816,
+      "peak_ctx": 29596,
+      "turns": 5,
+      "wall_s": 16.2,
+      "cost_iqr": [
+        0.0588543,
+        0.062265100000000004
+      ],
+      "tok_in_iqr": [
+        56557.0,
+        81437.0
+      ]
+    },
+    "mcp_heavy|t3_completion_hash": {
+      "n": 5,
+      "success_rate": 1.0,
+      "cost": 0.0894409,
+      "tok_in": 143776,
+      "tok_out": 1538,
+      "peak_ctx": 29976,
+      "turns": 9,
+      "wall_s": 20.0,
+      "cost_iqr": [
+        0.06845129999999999,
+        0.0977689
+      ],
+      "tok_in_iqr": [
+        143185.0,
+        155852.0
+      ]
+    },
+    "mcp_heavy|t4_keyvalue": {
+      "n": 5,
+      "success_rate": 1.0,
+      "cost": 0.0689249,
+      "tok_in": 139673,
+      "tok_out": 1838,
+      "peak_ctx": 28985,
+      "turns": 8,
+      "wall_s": 20.1,
+      "cost_iqr": [
+        0.0676145,
+        0.0700057
+      ],
+      "tok_in_iqr": [
+        119239.0,
+        140823.0
+      ]
+    },
+    "baseline|t3_completion_hash": {
+      "n": 5,
+      "success_rate": 1.0,
+      "cost": 0.07121759999999999,
+      "tok_in": 135350,
+      "tok_out": 1467,
+      "peak_ctx": 28777,
+      "turns": 8,
+      "wall_s": 19.9,
+      "cost_iqr": [
+        0.0598883,
+        0.0725931
+      ],
+      "tok_in_iqr": [
+        134360.0,
+        163820.0
+      ]
+    },
+    "claudemd_lean|t2_help_order": {
+      "n": 5,
+      "success_rate": 1.0,
+      "cost": 0.0879322,
+      "tok_in": 192725,
+      "tok_out": 2084,
+      "peak_ctx": 29139,
+      "turns": 12,
+      "wall_s": 35.0,
+      "cost_iqr": [
+        0.0807484,
+        0.0913698
+      ],
+      "tok_in_iqr": [
+        191210.0,
+        193648.0
+      ]
+    },
+    "mcp_heavy_eager|t3_completion_hash": {
+      "n": 5,
+      "success_rate": 1.0,
+      "cost": 0.13834370000000001,
+      "tok_in": 476555,
+      "tok_out": 1913,
+      "peak_ctx": 61806,
+      "turns": 10,
+      "wall_s": 24.6,
+      "cost_iqr": [
+        0.1344799,
+        0.1410589
+      ],
+      "tok_in_iqr": [
+        419063.0,
+        476848.0
+      ]
+    },
+    "best_practice|t3_completion_hash": {
+      "n": 5,
+      "success_rate": 1.0,
+      "cost": 0.0708719,
+      "tok_in": 135750,
+      "tok_out": 1521,
+      "peak_ctx": 27600,
+      "turns": 8,
+      "wall_s": 18.2,
+      "cost_iqr": [
+        0.061280299999999996,
+        0.0732646
+      ],
+      "tok_in_iqr": [
+        134493.0,
+        164407.0
+      ]
+    },
+    "claudemd_bloated|t5_value_source": {
+      "n": 5,
+      "success_rate": 1.0,
+      "cost": 0.1197511,
+      "tok_in": 121963,
+      "tok_out": 1917,
+      "peak_ctx": 42917,
+      "turns": 5,
+      "wall_s": 16.6,
+      "cost_iqr": [
+        0.1189305,
+        0.12185710000000001
+      ],
+      "tok_in_iqr": [
+        97721.0,
+        122214.0
+      ]
+    },
+    "specific_prompt|t1_intrange": {
+      "n": 5,
+      "success_rate": 1.0,
+      "cost": 0.0510705,
+      "tok_in": 83322,
+      "tok_out": 1164,
+      "peak_ctx": 28404,
+      "turns": 6,
+      "wall_s": 15.3,
+      "cost_iqr": [
+        0.045345300000000005,
+        0.0577163
+      ],
+      "tok_in_iqr": [
+        57620.0,
+        109112.0
+      ]
+    },
+    "effort_low|t2_help_order": {
+      "n": 5,
+      "success_rate": 1.0,
+      "cost": 0.07963420000000002,
+      "tok_in": 180283,
+      "tok_out": 1503,
+      "peak_ctx": 29805,
+      "turns": 8,
+      "wall_s": 29.2,
+      "cost_iqr": [
+        0.07829859999999998,
+        0.08168600000000001
+      ],
+      "tok_in_iqr": [
+        167169.0,
+        193036.0
+      ]
+    },
+    "mcp_heavy_eager|t6_default_map": {
+      "n": 5,
+      "success_rate": 1.0,
+      "cost": 0.0904858,
+      "tok_in": 245306,
+      "tok_out": 1058,
+      "peak_ctx": 62900,
+      "turns": 6,
+      "wall_s": 24.0,
+      "cost_iqr": [
+        0.0866726,
+        0.09486159999999999
+      ],
+      "tok_in_iqr": [
+        243475.0,
+        254211.0
+      ]
+    },
+    "baseline|t6_default_map": {
+      "n": 5,
+      "success_rate": 1.0,
+      "cost": 0.055793999999999996,
+      "tok_in": 113998,
+      "tok_out": 1006,
+      "peak_ctx": 30182,
+      "turns": 6,
+      "wall_s": 25.1,
+      "cost_iqr": [
+        0.05243480000000001,
+        0.060381399999999995
+      ],
+      "tok_in_iqr": [
+        80471.0,
+        114641.0
+      ]
+    },
+    "baseline|t4_keyvalue": {
+      "n": 5,
+      "success_rate": 1.0,
+      "cost": 0.0583827,
+      "tok_in": 131082,
+      "tok_out": 1645,
+      "peak_ctx": 27263,
+      "turns": 7,
+      "wall_s": 18.0,
+      "cost_iqr": [
+        0.050774299999999994,
+        0.0702067
+      ],
+      "tok_in_iqr": [
+        88789.0,
+        134405.0
+      ]
+    },
+    "model_opus|t6_default_map": {
+      "n": 5,
+      "success_rate": 1.0,
+      "cost": 0.08730579999999999,
+      "tok_in": 130088,
+      "tok_out": 1574,
+      "peak_ctx": 26637,
+      "turns": 6,
+      "wall_s": 34.0,
+      "cost_iqr": [
+        0.078939,
+        0.0996812
+      ],
+      "tok_in_iqr": [
+        97505.0,
+        158866.0
+      ]
+    },
+    "effort_low|t5_value_source": {
+      "n": 5,
+      "success_rate": 1.0,
+      "cost": 0.0535723,
+      "tok_in": 79324,
+      "tok_out": 1720,
+      "peak_ctx": 28167,
+      "turns": 5,
+      "wall_s": 15.6,
+      "cost_iqr": [
+        0.0521725,
+        0.057094299999999994
+      ],
+      "tok_in_iqr": [
+        73370.0,
+        79563.0
+      ]
+    },
+    "specific_prompt|t4_keyvalue": {
+      "n": 5,
+      "success_rate": 1.0,
+      "cost": 0.0615301,
+      "tok_in": 105890,
+      "tok_out": 2190,
+      "peak_ctx": 27890,
+      "turns": 8,
+      "wall_s": 20.7,
+      "cost_iqr": [
+        0.060881199999999996,
+        0.0649873
+      ],
+      "tok_in_iqr": [
+        92621.0,
+        105976.0
+      ]
+    },
+    "claudemd_bloated|t3_completion_hash": {
+      "n": 5,
+      "success_rate": 1.0,
+      "cost": 0.1281395,
+      "tok_in": 203748,
+      "tok_out": 1475,
+      "peak_ctx": 41777,
+      "turns": 8,
+      "wall_s": 19.4,
+      "cost_iqr": [
+        0.12207449999999999,
+        0.1359523
+      ],
+      "tok_in_iqr": [
+        199536.0,
+        241862.0
+      ]
+    },
+    "mcp_heavy|t2_help_order": {
+      "n": 5,
+      "success_rate": 1.0,
+      "cost": 0.10969140000000002,
+      "tok_in": 232062,
+      "tok_out": 2086,
+      "peak_ctx": 31517,
+      "turns": 12,
+      "wall_s": 35.8,
+      "cost_iqr": [
+        0.1047654,
+        0.1150618
+      ],
+      "tok_in_iqr": [
+        219923.0,
+        240146.0
+      ]
+    },
+    "plan_opus_exec_sonnet|t3_completion_hash": {
+      "n": 5,
+      "success_rate": 1.0,
+      "cost": 0.2866823,
+      "tok_in": 318392,
+      "tok_out": 4183,
+      "peak_ctx": 35554,
+      "turns": 15,
+      "wall_s": 51.9,
+      "cost_iqr": [
+        0.2522437,
+        0.29166870000000006
+      ],
+      "tok_in_iqr": [
+        281257.0,
+        363303.0
+      ]
+    },
+    "plan_sonnet_exec_opus|t6_default_map": {
+      "n": 5,
+      "success_rate": 1.0,
+      "cost": 0.2763436,
+      "tok_in": 291301,
+      "tok_out": 3864,
+      "peak_ctx": 36027,
+      "turns": 12,
+      "wall_s": 66.0,
+      "cost_iqr": [
+        0.2341086,
+        0.5323422000000001
+      ],
+      "tok_in_iqr": [
+        247407.0,
+        310156.0
+      ]
+    },
+    "plan_sonnet_exec_opus|t2_help_order": {
+      "n": 5,
+      "success_rate": 1.0,
+      "cost": 0.28133779999999997,
+      "tok_in": 339472,
+      "tok_out": 3991,
+      "peak_ctx": 35431,
+      "turns": 16,
+      "wall_s": 67.5,
+      "cost_iqr": [
+        0.2404048,
+        0.33539680000000005
+      ],
+      "tok_in_iqr": [
+        317405.0,
+        394752.0
+      ]
+    },
+    "plan_sonnet_exec_haiku|t6_default_map": {
+      "n": 5,
+      "success_rate": 1.0,
+      "cost": 0.10560877999999999,
+      "tok_in": 404178,
+      "tok_out": 5143,
+      "peak_ctx": 38581,
+      "turns": 15,
+      "wall_s": 64.7,
+      "cost_iqr": [
+        0.08329243000000001,
+        0.17034716
+      ],
+      "tok_in_iqr": [
+        378288.0,
+        441702.0
+      ]
+    },
+    "plan_sonnet_exec_haiku|t2_help_order": {
+      "n": 5,
+      "success_rate": 0.8,
+      "cost": 0.12473184999999999,
+      "tok_in": 334119,
+      "tok_out": 4004,
+      "peak_ctx": 33574,
+      "turns": 17,
+      "wall_s": 60.6,
+      "cost_iqr": [
+        0.12198536000000001,
+        0.13018899
+      ],
+      "tok_in_iqr": [
+        325338.0,
+        389607.0
+      ]
+    },
+    "plan_sonnet_exec_haiku|t4_keyvalue": {
+      "n": 5,
+      "success_rate": 1.0,
+      "cost": 0.10963436999999998,
+      "tok_in": 395845,
+      "tok_out": 8933,
+      "peak_ctx": 39838,
+      "turns": 23,
+      "wall_s": 69.4,
+      "cost_iqr": [
+        0.09426822000000001,
+        0.17063037000000003
+      ],
+      "tok_in_iqr": [
+        349741.0,
+        495405.0
+      ]
+    },
+    "plan_opus_exec_sonnet|t2_help_order": {
+      "n": 5,
+      "success_rate": 1.0,
+      "cost": 0.2912412,
+      "tok_in": 366718,
+      "tok_out": 3390,
+      "peak_ctx": 36424,
+      "turns": 15,
+      "wall_s": 59.0,
+      "cost_iqr": [
+        0.27737819999999996,
+        0.3433356000000001
+      ],
+      "tok_in_iqr": [
+        362582.0,
+        396956.0
+      ]
+    },
+    "plan_sonnet_exec_opus|t3_completion_hash": {
+      "n": 5,
+      "success_rate": 1.0,
+      "cost": 0.4068210000000001,
+      "tok_in": 419694,
+      "tok_out": 8345,
+      "peak_ctx": 36764,
+      "turns": 12,
+      "wall_s": 107.4,
+      "cost_iqr": [
+        0.31614520000000007,
+        0.4625959
+      ],
+      "tok_in_iqr": [
+        326482.0,
+        558191.0
+      ]
+    },
+    "plan_sonnet_exec_opus|t1_intrange": {
+      "n": 5,
+      "success_rate": 1.0,
+      "cost": 0.186709,
+      "tok_in": 211634,
+      "tok_out": 2631,
+      "peak_ctx": 32967,
+      "turns": 10,
+      "wall_s": 37.2,
+      "cost_iqr": [
+        0.18201520000000002,
+        0.19199280000000002
+      ],
+      "tok_in_iqr": [
+        189640.0,
+        244155.0
+      ]
+    },
+    "plan_sonnet_exec_opus|t4_keyvalue": {
+      "n": 5,
+      "success_rate": 1.0,
+      "cost": 0.33846410000000005,
+      "tok_in": 347268,
+      "tok_out": 6132,
+      "peak_ctx": 38431,
+      "turns": 13,
+      "wall_s": 76.6,
+      "cost_iqr": [
+        0.2916339,
+        0.4093012
+      ],
+      "tok_in_iqr": [
+        276071.0,
+        392060.0
+      ]
+    },
+    "plan_mode|t1_intrange": {
+      "n": 5,
+      "success_rate": 1.0,
+      "cost": 0.10813139999999997,
+      "tok_in": 233510,
+      "tok_out": 2668,
+      "peak_ctx": 33620,
+      "turns": 11,
+      "wall_s": 32.0,
+      "cost_iqr": [
+        0.1026716,
+        0.1237256
+      ],
+      "tok_in_iqr": [
+        216293.0,
+        275352.0
+      ]
+    },
+    "plan_opus_exec_sonnet|t4_keyvalue": {
+      "n": 5,
+      "success_rate": 1.0,
+      "cost": 0.3529207000000001,
+      "tok_in": 344907,
+      "tok_out": 5981,
+      "peak_ctx": 36560,
+      "turns": 18,
+      "wall_s": 74.7,
+      "cost_iqr": [
+        0.34692270000000003,
+        0.3896509
+      ],
+      "tok_in_iqr": [
+        343968.0,
+        431654.0
+      ]
+    },
+    "plan_opus_exec_sonnet|t6_default_map": {
+      "n": 5,
+      "success_rate": 1.0,
+      "cost": 0.1915736,
+      "tok_in": 272505,
+      "tok_out": 3069,
+      "peak_ctx": 31435,
+      "turns": 11,
+      "wall_s": 48.1,
+      "cost_iqr": [
+        0.1866502,
+        0.2106818
+      ],
+      "tok_in_iqr": [
+        209891.0,
+        288688.0
+      ]
+    },
+    "plan_opus_exec_sonnet|t1_intrange": {
+      "n": 5,
+      "success_rate": 1.0,
+      "cost": 0.19202460000000002,
+      "tok_in": 266147,
+      "tok_out": 2636,
+      "peak_ctx": 32314,
+      "turns": 10,
+      "wall_s": 41.5,
+      "cost_iqr": [
+        0.18231360000000005,
+        0.2001932
+      ],
+      "tok_in_iqr": [
+        188699.0,
+        272638.0
+      ]
+    },
+    "plan_mode|t3_completion_hash": {
+      "n": 5,
+      "success_rate": 1.0,
+      "cost": 0.2014166,
+      "tok_in": 314025,
+      "tok_out": 6387,
+      "peak_ctx": 34576,
+      "turns": 14,
+      "wall_s": 66.5,
+      "cost_iqr": [
+        0.13932860000000002,
+        0.32080590000000003
+      ],
+      "tok_in_iqr": [
+        288044.0,
+        390633.0
+      ]
+    },
+    "plan_mode|t4_keyvalue": {
+      "n": 5,
+      "success_rate": 1.0,
+      "cost": 0.2848911,
+      "tok_in": 397244,
+      "tok_out": 10069,
+      "peak_ctx": 37523,
+      "turns": 19,
+      "wall_s": 99.2,
+      "cost_iqr": [
+        0.1960415,
+        0.2923774
+      ],
+      "tok_in_iqr": [
+        313885.0,
+        418655.0
+      ]
+    },
+    "plan_mode|t2_help_order": {
+      "n": 5,
+      "success_rate": 0.6,
+      "cost": 0.1579644,
+      "tok_in": 315181,
+      "tok_out": 4603,
+      "peak_ctx": 33091,
+      "turns": 14,
+      "wall_s": 52.5,
+      "cost_iqr": [
+        0.1420152,
+        0.1761021
+      ],
+      "tok_in_iqr": [
+        260974.0,
+        321556.0
+      ]
+    },
+    "plan_sonnet_exec_haiku|t3_completion_hash": {
+      "n": 5,
+      "success_rate": 1.0,
+      "cost": 0.15379618999999994,
+      "tok_in": 500961,
+      "tok_out": 9468,
+      "peak_ctx": 39595,
+      "turns": 17,
+      "wall_s": 89.9,
+      "cost_iqr": [
+        0.15334477999999999,
+        0.16827018
+      ],
+      "tok_in_iqr": [
+        418940.0,
+        558830.0
+      ]
+    },
+    "plan_sonnet_exec_haiku|t1_intrange": {
+      "n": 5,
+      "success_rate": 1.0,
+      "cost": 0.06587969,
+      "tok_in": 209401,
+      "tok_out": 2529,
+      "peak_ctx": 32310,
+      "turns": 10,
+      "wall_s": 29.7,
+      "cost_iqr": [
+        0.06435142,
+        0.06708987000000001
+      ],
+      "tok_in_iqr": [
+        169955.0,
+        211063.0
+      ]
+    },
+    "plan_mode|t6_default_map": {
+      "n": 5,
+      "success_rate": 1.0,
+      "cost": 0.15350860000000002,
+      "tok_in": 305038,
+      "tok_out": 3560,
+      "peak_ctx": 34577,
+      "turns": 11,
+      "wall_s": 61.2,
+      "cost_iqr": [
+        0.12945420000000002,
+        0.22316859999999997
+      ],
+      "tok_in_iqr": [
+        228790.0,
+        338035.0
+      ]
+    }
+  },
+  "overall": {
+    "baseline": {
+      "n_runs": 30,
+      "success_rate": 1.0,
+      "median_cost": 0.06013485,
+      "cost_vs_baseline": 1.0,
+      "tok_in_vs_baseline": 1.0,
+      "tok_out_vs_baseline": 1.0,
+      "peak_ctx_vs_baseline": 1.0,
+      "turns_vs_baseline": 1.0,
+      "wall_s_vs_baseline": 1.0,
+      "cost_vs_baseline_stratified": 1.0,
+      "cost_ci95": [
+        0.8937840565674469,
+        1.1175940495518757
+      ]
+    },
+    "best_practice": {
+      "n_runs": 30,
+      "success_rate": 1.0,
+      "median_cost": 0.057753099999999995,
+      "cost_vs_baseline": 0.8825883170173079,
+      "tok_in_vs_baseline": 0.8823038465097026,
+      "tok_out_vs_baseline": 0.9495019599568254,
+      "peak_ctx_vs_baseline": 0.9646076870673972,
+      "turns_vs_baseline": 0.9283177667225557,
+      "wall_s_vs_baseline": 0.8468815894609552,
+      "cost_vs_baseline_stratified": 0.9023055034409512,
+      "cost_ci95": [
+        0.7990074526087538,
+        0.9973737501784309
+      ]
+    },
+    "claudemd_bloated": {
+      "n_runs": 30,
+      "success_rate": 1.0,
+      "median_cost": 0.13069250000000002,
+      "cost_vs_baseline": 2.1957659584824065,
+      "tok_in_vs_baseline": 1.7424842293396754,
+      "tok_out_vs_baseline": 1.3286164232764945,
+      "peak_ctx_vs_baseline": 1.4679494620131854,
+      "turns_vs_baseline": 1.24762570635334,
+      "wall_s_vs_baseline": 1.17181722935428,
+      "cost_vs_baseline_stratified": 2.2387763871695707,
+      "cost_ci95": [
+        2.0128946181747787,
+        2.4920734903462125
+      ]
+    },
+    "claudemd_lean": {
+      "n_runs": 30,
+      "success_rate": 1.0,
+      "median_cost": 0.07017335,
+      "cost_vs_baseline": 1.1318060032939163,
+      "tok_in_vs_baseline": 1.1152719118691141,
+      "tok_out_vs_baseline": 1.3185970609617892,
+      "peak_ctx_vs_baseline": 0.9921740036382618,
+      "turns_vs_baseline": 1.3590124173265796,
+      "wall_s_vs_baseline": 1.1886784516522204,
+      "cost_vs_baseline_stratified": 1.140439347176423,
+      "cost_ci95": [
+        1.014286557563863,
+        1.2672655219487732
+      ]
+    },
+    "effort_low": {
+      "n_runs": 30,
+      "success_rate": 1.0,
+      "median_cost": 0.05288915,
+      "cost_vs_baseline": 0.8936602941513527,
+      "tok_in_vs_baseline": 0.948378316458212,
+      "tok_out_vs_baseline": 0.8551436457904777,
+      "peak_ctx_vs_baseline": 0.9924242081741173,
+      "turns_vs_baseline": 0.8908987181403393,
+      "wall_s_vs_baseline": 0.8871914609803397,
+      "cost_vs_baseline_stratified": 0.915047374948959,
+      "cost_ci95": [
+        0.8102855851639662,
+        1.0116276376016018
+      ]
+    },
+    "mcp_heavy": {
+      "n_runs": 30,
+      "success_rate": 1.0,
+      "median_cost": 0.06946530000000001,
+      "cost_vs_baseline": 1.232522386889053,
+      "tok_in_vs_baseline": 1.085938498281399,
+      "tok_out_vs_baseline": 1.1075187317849018,
+      "peak_ctx_vs_baseline": 1.0487647498706807,
+      "turns_vs_baseline": 1.1501014802725487,
+      "wall_s_vs_baseline": 1.0603038313767084,
+      "cost_vs_baseline_stratified": 1.2439155304262115,
+      "cost_ci95": [
+        1.0730670625696146,
+        1.376661295862978
+      ]
+    },
+    "mcp_heavy_eager": {
+      "n_runs": 30,
+      "success_rate": 1.0,
+      "median_cost": 0.09535239999999999,
+      "cost_vs_baseline": 1.685387378667188,
+      "tok_in_vs_baseline": 2.4938525074745748,
+      "tok_out_vs_baseline": 1.1055016763858059,
+      "peak_ctx_vs_baseline": 2.125020055737711,
+      "turns_vs_baseline": 1.069913193933663,
+      "wall_s_vs_baseline": 1.1113763321134378,
+      "cost_vs_baseline_stratified": 1.837956319871642,
+      "cost_ci95": [
+        1.5432394352472814,
+        2.066586594286179
+      ]
+    },
+    "model_haiku": {
+      "n_runs": 30,
+      "success_rate": 0.9333333333333333,
+      "median_cost": 0.006742650000000001,
+      "cost_vs_baseline": 0.11168613524882857,
+      "tok_in_vs_baseline": 1.992241990323234,
+      "tok_out_vs_baseline": 2.6917161314347253,
+      "peak_ctx_vs_baseline": 1.2234561751331758,
+      "turns_vs_baseline": 1.7106521433113222,
+      "wall_s_vs_baseline": 1.7023252317471347,
+      "cost_vs_baseline_stratified": 0.11054051158061673,
+      "cost_ci95": [
+        0.09615419820472336,
+        0.12865330504859934
+      ]
+    },
+    "model_opus": {
+      "n_runs": 30,
+      "success_rate": 1.0,
+      "median_cost": 0.15247395,
+      "cost_vs_baseline": 2.293220128874368,
+      "tok_in_vs_baseline": 1.2393444416349295,
+      "tok_out_vs_baseline": 1.5609043746618634,
+      "peak_ctx_vs_baseline": 1.0493666418577712,
+      "turns_vs_baseline": 1.0865734103904054,
+      "wall_s_vs_baseline": 1.7923235239772308,
+      "cost_vs_baseline_stratified": 2.4429460615856504,
+      "cost_ci95": [
+        2.05206373142602,
+        2.712704730172361
+      ]
+    },
+    "plan_mode": {
+      "n_runs": 25,
+      "success_rate": 0.92,
+      "median_cost": 0.1599809,
+      "cost_vs_baseline": 2.795484637713493,
+      "tok_in_vs_baseline": 2.321448330586491,
+      "tok_out_vs_baseline": 3.9334369157326354,
+      "peak_ctx_vs_baseline": 1.2140430610783741,
+      "turns_vs_baseline": 2.0187342659126766,
+      "wall_s_vs_baseline": 2.974472387298802,
+      "cost_vs_baseline_stratified": 2.7426536270461535,
+      "cost_ci95": [
+        2.282348703823984,
+        3.5940853341025822
+      ]
+    },
+    "plan_opus_exec_sonnet": {
+      "n_runs": 25,
+      "success_rate": 1.0,
+      "median_cost": 0.2522437,
+      "cost_vs_baseline": 4.149332142682134,
+      "tok_in_vs_baseline": 2.3410425257690863,
+      "tok_out_vs_baseline": 2.9666131006625482,
+      "peak_ctx_vs_baseline": 1.2050857303446487,
+      "turns_vs_baseline": 2.014140155243048,
+      "wall_s_vs_baseline": 2.7481331203054906,
+      "cost_vs_baseline_stratified": 4.263931196958262,
+      "cost_ci95": [
+        3.7454511041528185,
+        5.190662693812376
+      ]
+    },
+    "plan_sonnet_exec_haiku": {
+      "n_runs": 25,
+      "success_rate": 0.96,
+      "median_cost": 0.10963436999999998,
+      "cost_vs_baseline": 1.7540330706103264,
+      "tok_in_vs_baseline": 2.667271050303439,
+      "tok_out_vs_baseline": 4.302919085929,
+      "peak_ctx_vs_baseline": 1.2838991996445122,
+      "turns_vs_baseline": 2.3662658380049013,
+      "wall_s_vs_baseline": 3.0156548971137758,
+      "cost_vs_baseline_stratified": 1.6695780143436298,
+      "cost_ci95": [
+        1.4777232059675842,
+        2.293116366413177
+      ]
+    },
+    "plan_sonnet_exec_opus": {
+      "n_runs": 25,
+      "success_rate": 1.0,
+      "median_cost": 0.2916339,
+      "cost_vs_baseline": 4.689486334170817,
+      "tok_in_vs_baseline": 2.361438265692186,
+      "tok_out_vs_baseline": 3.701977837970636,
+      "peak_ctx_vs_baseline": 1.2573023417072384,
+      "turns_vs_baseline": 1.8603956341505654,
+      "wall_s_vs_baseline": 3.420234451139827,
+      "cost_vs_baseline_stratified": 4.883118518811556,
+      "cost_ci95": [
+        4.053598098059166,
+        5.970944988509562
+      ]
+    },
+    "specific_prompt": {
+      "n_runs": 30,
+      "success_rate": 1.0,
+      "median_cost": 0.046062149999999996,
+      "cost_vs_baseline": 0.7447465408927951,
+      "tok_in_vs_baseline": 0.775627258676689,
+      "tok_out_vs_baseline": 0.846168528465238,
+      "peak_ctx_vs_baseline": 0.9408061526159668,
+      "turns_vs_baseline": 0.8434326653017492,
+      "wall_s_vs_baseline": 0.7858726473518168,
+      "cost_vs_baseline_stratified": 0.7215929188303476,
+      "cost_ci95": [
+        0.6547247634547011,
+        0.8190683605670768
+      ]
+    }
+  },
+  "sequences": {
+    "long_session__r1": {
+      "steps": 6,
+      "success": 6,
+      "total_cost": 0.3402606,
+      "total_tok_in": 898095,
+      "peak_ctx_by_step": [
+        27548,
+        29976,
+        32814,
+        36226,
+        38126,
+        46308
+      ],
+      "cost_by_step": [
+        0.0530658,
+        0.0943318,
+        0.1389418,
+        0.21291659999999998,
+        0.2578618,
+        0.3402606
+      ]
+    },
+    "long_session__r2": {
+      "steps": 6,
+      "success": 6,
+      "total_cost": 0.3550122,
+      "total_tok_in": 929307,
+      "peak_ctx_by_step": [
+        27485,
+        31508,
+        34554,
+        38438,
+        40371,
+        47092
+      ],
+      "cost_by_step": [
+        0.05200780000000001,
+        0.11018620000000001,
+        0.1563804,
+        0.22840039999999998,
+        0.2764306,
+        0.3550122
+      ]
+    },
+    "long_session__r3": {
+      "steps": 6,
+      "success": 6,
+      "total_cost": 0.37315380000000004,
+      "total_tok_in": 969937,
+      "peak_ctx_by_step": [
+        28152,
+        32755,
+        36633,
+        40376,
+        42323,
+        49404
+      ],
+      "cost_by_step": [
+        0.05580220000000001,
+        0.1250936,
+        0.1695856,
+        0.2446692,
+        0.29397680000000004,
+        0.37315380000000004
+      ]
+    },
+    "long_session__r4": {
+      "steps": 6,
+      "success": 6,
+      "total_cost": 0.31053020000000003,
+      "total_tok_in": 722964,
+      "peak_ctx_by_step": [
+        19305,
+        24361,
+        27432,
+        30439,
+        32430,
+        38304
+      ],
+      "cost_by_step": [
+        0.04901320000000001,
+        0.11215100000000001,
+        0.15251940000000003,
+        0.20971620000000005,
+        0.2516336,
+        0.31053020000000003
+      ]
+    },
+    "long_session__r5": {
+      "steps": 6,
+      "success": 6,
+      "total_cost": 0.3631867999999999,
+      "total_tok_in": 838093,
+      "peak_ctx_by_step": [
+        19457,
+        24704,
+        28385,
+        32371,
+        34315,
+        41804
+      ],
+      "cost_by_step": [
+        0.0510136,
+        0.126436,
+        0.16549879999999997,
+        0.23982719999999993,
+        0.28330799999999995,
+        0.3631867999999999
+      ]
+    },
+    "long_session_compact__r1": {
+      "steps": 6,
+      "success": 6,
+      "total_cost": 0.4917904000000001,
+      "total_tok_in": 651836,
+      "peak_ctx_by_step": [
+        19752,
+        22173,
+        25443,
+        25443,
+        25443,
+        25443
+      ],
+      "cost_by_step": [
+        0.0478548,
+        0.1348416,
+        0.2292912,
+        0.3220529,
+        0.40735280000000007,
+        0.4917904000000001
+      ]
+    },
+    "long_session_compact__r2": {
+      "steps": 6,
+      "success": 6,
+      "total_cost": 0.5609778,
+      "total_tok_in": 943398,
+      "peak_ctx_by_step": [
+        27475,
+        30042,
+        34436,
+        34436,
+        34436,
+        34436
+      ],
+      "cost_by_step": [
+        0.055414000000000005,
+        0.14767929999999999,
+        0.26157959999999997,
+        0.3630418999999999,
+        0.4609701999999999,
+        0.5609778
+      ]
+    },
+    "long_session_compact__r3": {
+      "steps": 6,
+      "success": 6,
+      "total_cost": 0.5696028,
+      "total_tok_in": 1031927,
+      "peak_ctx_by_step": [
+        27471,
+        32702,
+        33928,
+        33928,
+        33928,
+        33928
+      ],
+      "cost_by_step": [
+        0.055088399999999996,
+        0.1823757,
+        0.2895638,
+        0.3895033,
+        0.4826076,
+        0.5696028
+      ]
+    },
+    "long_session_compact__r4": {
+      "steps": 6,
+      "success": 6,
+      "total_cost": 0.5760163,
+      "total_tok_in": 955511,
+      "peak_ctx_by_step": [
+        28098,
+        32410,
+        34380,
+        34380,
+        34380,
+        34380
+      ],
+      "cost_by_step": [
+        0.0474076,
+        0.1660358,
+        0.27624630000000006,
+        0.3795667000000001,
+        0.4781330000000001,
+        0.5760163
+      ]
+    },
+    "long_session_compact__r5": {
+      "steps": 6,
+      "success": 6,
+      "total_cost": 0.5914689000000001,
+      "total_tok_in": 975802,
+      "peak_ctx_by_step": [
+        28350,
+        31812,
+        34537,
+        34537,
+        34537,
+        34630
+      ],
+      "cost_by_step": [
+        0.0482778,
+        0.1570908,
+        0.2656059,
+        0.3699324,
+        0.469954,
+        0.5914689000000001
+      ]
+    }
+  },
+  "baseline_fresh_total": {
+    "cost": 0.3755577,
+    "tok_in": 760022
+  }
+}

@@ -1,0 +1,154 @@
+{
+  "duration_api_ms": 45291,
+  "stop_reason": "end_turn",
+  "session_id": "6260423c-064d-40c1-a2b7-28aaffdd60f0",
+  "total_cost_usd": 0.3433356000000001,
+  "usage": {
+    "input_tokens": 6,
+    "cache_creation_input_tokens": 17080,
+    "cache_read_input_tokens": 74997,
+    "output_tokens": 799,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 17080,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "global",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 180,
+        "cache_read_input_tokens": 30783,
+        "cache_creation_input_tokens": 551,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 551
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1190,
+      "outputTokens": 14,
+      "thinkingTokens": 0,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.00012600000000000003,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000
+    },
+    "claude-opus-5-5": {
+      "inputTokens": 24,
+      "outputTokens": 3501,
+      "thinkingTokens": 602,
+      "cacheReadInputTokens": 288141,
+      "cacheCreationInputTokens": 15518,
+      "webSearchRequests": 0,
+      "costUSD": 0.25188820000000006,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000
+    },
+    "claude-sonnet-5-5": {
+      "inputTokens": 6,
+      "outputTokens": 799,
+      "cacheReadInputTokens": 74997,
+      "cacheCreationInputTokens": 17080,
+      "webSearchRequests": 0,
+      "costUSD": 0.0913214,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 0,
+      "canonicalModel": "claude-sonnet-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 18,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "Fixed. Short option names now come first in `--help`, so `@click.option(\"--alpha\", \"-a\")` shows as `-a, --alpha`.\n\n- **Fix:** removed `reverse=True` from the sort in `join_options` (`src/click/formatting.py:319`).\n- **Test:** added `test_help_short_option_name_listed_first` to `tests/test_formatting.py`.\n- **Results:** the full suite passes (1907 passed, 102 skipped, 1 xfailed), including the new test.\n\nI didn't commit anything.",
+  "ttft_ms": 1959,
+  "type": "result",
+  "duration_ms": 20819,
+  "uuid": "1054a7db-725c-432b-ab8b-05e8fdeb2213",
+  "ttft_stream_ms": 1148,
+  "time_to_request_ms": 82,
+  "time_to_request_phases_ms": {
+    "other": 12,
+    "system_prompt": 22,
+    "resume_other": 0,
+    "process_user_input": 2,
+    "input_attachments": 9,
+    "input_hooks": 1,
+    "transcript_persist": 1,
+    "tool_pool_refresh": 2,
+    "init_message": 9,
+    "engine_pickup": 0,
+    "message_prep": 1,
+    "model_config_wait": 1,
+    "autocompact": 1,
+    "query_setup": 1,
+    "model_gates": 0,
+    "tool_schema_build": 7,
+    "message_normalization": 4,
+    "client_creation": 3,
+    "request_build": 6
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 32,
+  "time_to_request_cpu_ms": 126,
+  "time_to_request_major_faults": 2215,
+  "input_attachments_detail": {
+    "slowest_producer": "queued_commands",
+    "slowest_producer_ms": 5,
+    "cpu_ms": 0,
+    "major_faults": 199,
+    "changed_files_reread": 0
+  },
+  "first_content_frame_ms": 1148,
+  "queued_turn_count": 0,
+  "result_index": 0
+}

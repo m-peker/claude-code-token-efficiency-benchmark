@@ -1,0 +1,18 @@
+# Local environments and build products
+venv/
+cli295/
+upstream-click/
+template/
+scratch*/
+probe*/
+harness/mcp/node_modules/
+harness/mcp/package-lock.json
+__pycache__/
+runs/*/ws/
+
+# Not part of the published benchmark
+article/
+STATUS.md
+results/pilot*
+results/summary_pilot*.json
+results/*.log

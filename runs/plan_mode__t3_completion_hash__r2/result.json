@@ -1,0 +1,143 @@
+{
+  "duration_api_ms": 51866,
+  "stop_reason": "end_turn",
+  "session_id": "b6293d23-f3e1-4b2e-aff1-b14f942e159a",
+  "total_cost_usd": 0.32080590000000003,
+  "usage": {
+    "input_tokens": 10,
+    "cache_creation_input_tokens": 2920,
+    "cache_read_input_tokens": 162773,
+    "output_tokens": 1530,
+    "output_tokens_details": {
+      "thinking_tokens": 36
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 2920,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 283,
+        "cache_read_input_tokens": 33786,
+        "cache_creation_input_tokens": 356,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 356
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1191,
+      "outputTokens": 20,
+      "thinkingTokens": 0,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.00012910000000000002,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000
+    },
+    "claude-sonnet-5-5": {
+      "inputTokens": 32,
+      "outputTokens": 6367,
+      "thinkingTokens": 179,
+      "cacheReadInputTokens": 333824,
+      "cacheCreationInputTokens": 55586,
+      "webSearchRequests": 0,
+      "costUSD": 0.32067680000000004,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "canonicalModel": "claude-sonnet-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 13,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "Shell completion no longer cuts off the command line at a `#`. `tests/test_parser.py` and `tests/test_shell_completion.py` pass (69 passed).\n\n- **Fix:** in `split_arg_string` (`src/click/shell_completion.py`), I set `lex.commenters = \"\"`. Python's `shlex` was treating an unquoted `#` as the start of a comment and discarding the rest of the line.\n- **Tests:** I added four cases to `tests/test_parser.py::test_split_arg_string`: `cli a#b`, `cli #foo`, `cli a #b c` and `cli \"a#b\"`.\n- **Changelog:** `CHANGES.md` had no unreleased section, so I added an \"Unreleased\" heading at the top. The entry has no issue or PR link, so add those if you want them.\n\nI didn't commit anything.",
+  "ttft_ms": 2175,
+  "type": "result",
+  "duration_ms": 15531,
+  "uuid": "b4fced2b-c55e-46c6-bceb-14b737757e61",
+  "ttft_stream_ms": 1084,
+  "time_to_request_ms": 115,
+  "time_to_request_phases_ms": {
+    "other": 9,
+    "system_prompt": 56,
+    "resume_other": 0,
+    "process_user_input": 3,
+    "input_attachments": 8,
+    "input_hooks": 3,
+    "transcript_persist": 1,
+    "tool_pool_refresh": 2,
+    "init_message": 7,
+    "engine_pickup": 1,
+    "message_prep": 0,
+    "model_config_wait": 1,
+    "autocompact": 1,
+    "query_setup": 0,
+    "model_gates": 1,
+    "tool_schema_build": 8,
+    "message_normalization": 3,
+    "client_creation": 3,
+    "request_build": 8
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 14,
+  "time_to_request_cpu_ms": 297,
+  "time_to_request_major_faults": 1211,
+  "input_attachments_detail": {
+    "slowest_producer": "queued_commands",
+    "slowest_producer_ms": 6,
+    "cpu_ms": 0,
+    "major_faults": 69,
+    "changed_files_reread": 0
+  },
+  "first_content_frame_ms": 1084,
+  "queued_turn_count": 0,
+  "result_index": 0
+}

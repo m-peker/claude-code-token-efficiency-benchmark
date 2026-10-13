@@ -1,0 +1,145 @@
+{
+  "duration_api_ms": 10148,
+  "stop_reason": "end_turn",
+  "session_id": "6579fa3c-1532-4925-9ead-715622b949d5",
+  "total_cost_usd": 0.0439527,
+  "usage": {
+    "input_tokens": 8,
+    "cache_creation_input_tokens": 3765,
+    "cache_read_input_tokens": 100097,
+    "output_tokens": 872,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 3765,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 137,
+        "cache_read_input_tokens": 26226,
+        "cache_creation_input_tokens": 441,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 441
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1283,
+      "outputTokens": 18,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.0001373,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 0,
+      "canonicalModel": "claude-haiku-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    },
+    "claude-sonnet-5-5": {
+      "inputTokens": 8,
+      "outputTokens": 872,
+      "cacheReadInputTokens": 100097,
+      "cacheCreationInputTokens": 3765,
+      "webSearchRequests": 0,
+      "costUSD": 0.0438154,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 0,
+      "canonicalModel": "claude-sonnet-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 5,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "Fixed. In `join_options` (`src/click/formatting.py`), the sort used `reverse=True`, which put longer prefixes first. I removed it, so `--verbose, -v` now renders as `-v, --verbose`.\n\nI added `test_join_options_shorter_prefix_first` to `tests/test_formatting.py`. The verification command passes, 681 tests in total, and I didn't run the full suite.",
+  "ttft_ms": 2656,
+  "type": "result",
+  "duration_ms": 13368,
+  "uuid": "21cf3e62-5aed-430a-8803-344fb29f1931",
+  "ttft_stream_ms": 1823,
+  "time_to_request_ms": 401,
+  "time_to_request_phases_ms": {
+    "other": 15,
+    "system_prompt": 51,
+    "resume_other": 0,
+    "process_user_input": 2,
+    "input_attachments": 301,
+    "input_hooks": 2,
+    "transcript_persist": 3,
+    "tool_pool_refresh": 2,
+    "init_message": 8,
+    "engine_pickup": 1,
+    "message_prep": 0,
+    "model_config_wait": 1,
+    "autocompact": 1,
+    "query_setup": 1,
+    "model_gates": 0,
+    "tool_schema_build": 7,
+    "message_normalization": 1,
+    "client_creation": 1,
+    "request_build": 4
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 167,
+  "time_to_request_cpu_ms": 344,
+  "time_to_request_major_faults": 5438,
+  "input_attachments_detail": {
+    "slowest_producer": "nested_memory",
+    "slowest_producer_ms": 206,
+    "cpu_ms": 203,
+    "major_faults": 2378
+  },
+  "first_content_frame_ms": 1824,
+  "queued_turn_count": 0,
+  "result_index": 0
+}

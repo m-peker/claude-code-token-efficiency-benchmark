@@ -1,0 +1,146 @@
+{
+  "duration_api_ms": 28091,
+  "stop_reason": "end_turn",
+  "session_id": "fdcc2065-b45b-4ea4-addb-b491d56e88db",
+  "total_cost_usd": 0.17005149999999997,
+  "usage": {
+    "input_tokens": 14,
+    "cache_creation_input_tokens": 9487,
+    "cache_read_input_tokens": 201352,
+    "output_tokens": 2685,
+    "output_tokens_details": {
+      "thinking_tokens": 161
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 9487,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 697,
+        "cache_read_input_tokens": 32738,
+        "cache_creation_input_tokens": 120,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 120
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1191,
+      "outputTokens": 20,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.00012910000000000002,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 0,
+      "canonicalModel": "claude-haiku-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    },
+    "claude-opus-5-5": {
+      "inputTokens": 14,
+      "outputTokens": 2685,
+      "cacheReadInputTokens": 201352,
+      "cacheCreationInputTokens": 9487,
+      "webSearchRequests": 0,
+      "costUSD": 0.16992239999999997,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 161,
+      "canonicalModel": "claude-opus-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 9,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "I found the cause and wrote a fix plan. Nothing has been changed yet because plan mode is on. The `ExitPlanMode` tool isn't available here, so I'm asking for your approval in this message instead. The plan is saved at `<home>\\.claude\\plans\\shell-completion-gives-wrong-lucky-hummingbird.md`.\n\n**Cause:** Every shell's completion (bash, zsh, fish, PowerShell) splits the command line with `split_arg_string` in `src/click/shell_completion.py:603`. That function uses Python's `shlex`, which treats `#` as the start of a comment by default and drops everything after it. For example, `split_arg_string(\"cli a#b c\")` returns `[\"cli\", \"a\"]`, so completion is worked out from cut-off arguments. The `#` should be treated as an ordinary character, because the completion input is already a list of command arguments, not a full shell script.\n\n**Plan:**\n1. **The fix:** in `split_arg_string`, add `lex.commenters = \"\"` after `lex.whitespace_split = True`. I'd also add a short `versionchanged` note to the docstring.\n2. **Tests:** in `tests/test_parser.py::test_split_arg_string`, add these cases:\n   - `\"cli a#b\"` \u2192 `[\"cli\", \"a#b\"]`\n   - `\"cli #a b\"` \u2192 `[\"cli\", \"#a\", \"b\"]`\n   - `\"cli 'a#b\"` \u2192 `[\"cli\", \"a#b\"]` (an unclosed quote)\n3. **Optional extra test:** one test in `tests/test_shell_completion.py` checking that completion still works after an argument that contains `#`.\n4. **Changelog:** 8.5.0 is already released, so I'd add a new `## Version 8.5.1` / `Unreleased` section to `CHANGES.md` with a note about this fix.\n\n**How I'd check it:** run `pytest tests/test_parser.py tests/test_shell_completion.py`, then the full `pytest` suite.\n\nShall I go ahead?",
+  "ttft_ms": 2346,
+  "type": "result",
+  "duration_ms": 36686,
+  "uuid": "6a854a7e-2a82-499a-a400-e48ecee9f7f4",
+  "ttft_stream_ms": 1737,
+  "time_to_request_ms": 965,
+  "time_to_request_phases_ms": {
+    "other": 25,
+    "system_prompt": 234,
+    "resume_other": 1,
+    "process_user_input": 2,
+    "input_attachments": 14,
+    "input_hooks": 3,
+    "transcript_persist": 15,
+    "tool_pool_refresh": 4,
+    "init_message": 206,
+    "engine_pickup": 1,
+    "message_prep": 1,
+    "model_config_wait": 2,
+    "autocompact": 1,
+    "query_setup": 196,
+    "auto_mode_context_wait": 239,
+    "model_gates": 0,
+    "tool_schema_build": 11,
+    "message_normalization": 2,
+    "client_creation": 2,
+    "request_build": 6
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 427,
+  "time_to_request_cpu_ms": 858,
+  "time_to_request_major_faults": 5345,
+  "input_attachments_detail": {
+    "slowest_producer": "model",
+    "slowest_producer_ms": 9,
+    "cpu_ms": 30,
+    "major_faults": 102
+  },
+  "first_content_frame_ms": 1737,
+  "queued_turn_count": 0,
+  "result_index": 0
+}

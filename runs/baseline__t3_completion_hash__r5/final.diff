@@ -1,0 +1,30 @@
+diff --git a/src/click/shell_completion.py b/src/click/shell_completion.py
+index 42e8885..3380bf9 100644
+--- a/src/click/shell_completion.py
++++ b/src/click/shell_completion.py
+@@ -622,6 +622,8 @@ def split_arg_string(string: str) -> list[str]:
+ 
+     lex = shlex.shlex(string, posix=True)
+     lex.whitespace_split = True
++    # Don't treat ``#`` as the start of a comment, it's a regular character.
++    lex.commenters = ""
+     out: list[str] = []
+ 
+     try:
+diff --git a/tests/test_shell_completion.py b/tests/test_shell_completion.py
+index 10d5cfa..f6f8519 100644
+--- a/tests/test_shell_completion.py
++++ b/tests/test_shell_completion.py
+@@ -76,6 +76,12 @@ def test_nested_group(args: list[str], word: str, expect: list[str]) -> None:
+     assert _get_words(cli, args, word) == expect
+ 
+ 
++def test_split_arg_string_hash_not_comment():
++    from click.shell_completion import split_arg_string
++
++    assert split_arg_string("cli a#b #c") == ["cli", "a#b", "#c"]
++
++
+ def test_group_command_same_option():
+     cli = Group(
+         "cli", params=[Option(["-a"])], commands=[Command("x", params=[Option(["-a"])])]

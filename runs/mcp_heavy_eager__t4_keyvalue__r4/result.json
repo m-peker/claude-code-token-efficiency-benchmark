@@ -1,0 +1,145 @@
+{
+  "duration_api_ms": 19495,
+  "stop_reason": "end_turn",
+  "session_id": "5645cdab-b494-4395-b1fb-39e6de46d769",
+  "total_cost_usd": 0.2882837,
+  "usage": {
+    "input_tokens": 12,
+    "cache_creation_input_tokens": 53211,
+    "cache_read_input_tokens": 249599,
+    "output_tokens": 2536,
+    "output_tokens_details": {
+      "thinking_tokens": 23
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 53211,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "global",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 350,
+        "cache_read_input_tokens": 52664,
+        "cache_creation_input_tokens": 547,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 547
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1259,
+      "outputTokens": 20,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.0001359,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 0,
+      "canonicalModel": "claude-haiku-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    },
+    "claude-sonnet-5-5": {
+      "inputTokens": 12,
+      "outputTokens": 2536,
+      "cacheReadInputTokens": 249599,
+      "cacheCreationInputTokens": 53211,
+      "webSearchRequests": 0,
+      "costUSD": 0.2881478,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 23,
+      "canonicalModel": "claude-sonnet-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 11,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "I added `click.KeyValue`, which parses `key=value` strings into a `(key, value)` tuple. The existing test suite passes, but I didn't add dedicated tests for the new type.\n\nI tried it by hand on a `--set` option:\n\n| Input | Result |\n|---|---|\n| `a=b=c` | `('a', 'b=c')` \u2014 split on the first `=` only |\n| `a=` | `('a', '')` \u2014 an empty value is allowed |\n| `ab` | exit code 2, `'ab' is not a valid key=value pair.` |\n| `=x` | exit code 2, `'=x' is not a valid key=value pair.` |\n\n- **Code:** the class is in `src/click/types.py` and is exported from `src/click/__init__.py`.\n- **Docs:** I added it to `docs/api.md`.\n- **Defaults:** a default value that is already a tuple is passed through unchanged.\n\nI put `.. versionadded:: 8.3` in the docstring as a guess; adjust it to the actual release. I did not add a `CHANGES.md` entry.",
+  "ttft_ms": 2273,
+  "type": "result",
+  "duration_ms": 30671,
+  "uuid": "8a828614-c65f-4983-9f2f-573db1c5e9d1",
+  "ttft_stream_ms": 1628,
+  "time_to_request_ms": 54,
+  "time_to_request_phases_ms": {
+    "other": 10,
+    "system_prompt": 4,
+    "resume_other": 0,
+    "process_user_input": 1,
+    "input_attachments": 16,
+    "input_hooks": 1,
+    "transcript_persist": 1,
+    "tool_pool_refresh": 2,
+    "init_message": 5,
+    "engine_pickup": 1,
+    "message_prep": 0,
+    "model_config_wait": 1,
+    "autocompact": 1,
+    "query_setup": 0,
+    "model_gates": 0,
+    "tool_schema_build": 6,
+    "message_normalization": 0,
+    "client_creation": 1,
+    "request_build": 4
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 4,
+  "time_to_request_cpu_ms": 62,
+  "time_to_request_major_faults": 2290,
+  "input_attachments_detail": {
+    "slowest_producer": "at_mentioned_files",
+    "slowest_producer_ms": 8,
+    "cpu_ms": 15,
+    "major_faults": 747
+  },
+  "first_content_frame_ms": 1628,
+  "queued_turn_count": 0,
+  "result_index": 0
+}

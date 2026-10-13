@@ -1,0 +1,100 @@
+diff --git a/CHANGES.md b/CHANGES.md
+index 3c9a94e..9d19ae6 100644
+--- a/CHANGES.md
++++ b/CHANGES.md
+@@ -1,3 +1,9 @@
++## Unreleased
++
++- Subcommands read their defaults from the `default_map` entry matching
++  their name, instead of receiving the parent's entire mapping. Previously
++  `default_map` values set for a subcommand were ignored.
++
+ ## Version 8.5.0
+ 
+ Released 2026-08-24
+diff --git a/src/click/core.py b/src/click/core.py
+index d5390bd..de129ec 100644
+--- a/src/click/core.py
++++ b/src/click/core.py
+@@ -389,7 +389,7 @@ class Context:
+             and parent is not None
+             and parent.default_map is not None
+         ):
+-            default_map = parent.default_map
++            default_map = parent.default_map.get(info_name)
+ 
+         self.default_map = default_map
+ 
+diff --git a/tests/test_defaults.py b/tests/test_defaults.py
+index bb2684c..144b63c 100644
+--- a/tests/test_defaults.py
++++ b/tests/test_defaults.py
+@@ -556,3 +556,68 @@ def test_unset_in_default_map(runner):
+     result = runner.invoke(cli, [])
+     assert result.exit_code == 0
+     assert result.output.strip() == "port=8000"
++
++
++def test_subcommand_default_map(runner):
++    """A subcommand reads its defaults from the nested ``default_map``
++    entry matching its name, not from the parent's whole mapping.
++    """
++
++    @click.group(context_settings={"default_map": {"sub": {"opt": "from-map"}}})
++    def cli():
++        pass
++
++    @cli.command("sub")
++    @click.option("--opt", default="from-param")
++    def sub(opt):
++        click.echo(f"opt={opt}")
++
++    result = runner.invoke(cli, ["sub"])
++    assert result.exit_code == 0
++    assert result.output.strip() == "opt=from-map"
++
++    result = runner.invoke(cli, ["sub", "--opt", "from-cli"])
++    assert result.exit_code == 0
++    assert result.output.strip() == "opt=from-cli"
++
++
++def test_subcommand_default_map_missing_entry(runner):
++    """A subcommand without a matching ``default_map`` entry falls back
++    to its parameter default.
++    """
++
++    @click.group(context_settings={"default_map": {"other": {"opt": "x"}}})
++    def cli():
++        pass
++
++    @cli.command("sub")
++    @click.option("--opt", default="from-param")
++    def sub(opt):
++        click.echo(f"opt={opt}")
++
++    result = runner.invoke(cli, ["sub"])
++    assert result.exit_code == 0
++    assert result.output.strip() == "opt=from-param"
++
++
++def test_nested_group_default_map(runner):
++    """Defaults are resolved through nested groups by name at each level."""
++
++    @click.group(
++        context_settings={"default_map": {"outer": {"inner": {"opt": "deep"}}}}
++    )
++    def cli():
++        pass
++
++    @cli.group("outer")
++    def outer():
++        pass
++
++    @outer.command("inner")
++    @click.option("--opt", default="from-param")
++    def inner(opt):
++        click.echo(f"opt={opt}")
++
++    result = runner.invoke(cli, ["outer", "inner"])
++    assert result.exit_code == 0
++    assert result.output.strip() == "opt=deep"

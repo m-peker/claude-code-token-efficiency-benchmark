@@ -1,0 +1,145 @@
+{
+  "duration_api_ms": 8418,
+  "stop_reason": "end_turn",
+  "session_id": "c1b5e4f8-46f4-4a4a-9d1b-789abe723262",
+  "total_cost_usd": 0.031056100000000003,
+  "usage": {
+    "input_tokens": 4,
+    "cache_creation_input_tokens": 3504,
+    "cache_read_input_tokens": 47583,
+    "output_tokens": 738,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 3504,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 612,
+        "cache_read_input_tokens": 24681,
+        "cache_creation_input_tokens": 1725,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1725
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1245,
+      "outputTokens": 22,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.00013550000000000001,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 0,
+      "canonicalModel": "claude-haiku-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    },
+    "claude-sonnet-5-5": {
+      "inputTokens": 4,
+      "outputTokens": 738,
+      "cacheReadInputTokens": 47583,
+      "cacheCreationInputTokens": 3504,
+      "webSearchRequests": 0,
+      "costUSD": 0.030920600000000003,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 0,
+      "canonicalModel": "claude-sonnet-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 2,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "`Parameter.consume_value` (`src/click/core.py:2481`) checks four places in order and stops at the first one that gives a value. A later source is only tried while `value is UNSET`.\n\n1. **Command line:** it reads `opts.get(self.name, UNSET)`, the value the parser produced. If one is found, the source is `ParameterSource.COMMANDLINE`.\n2. **Environment variable:** `value_from_envvar(ctx)` is called, and any result other than `None` is used. The source becomes `ParameterSource.ENVIRONMENT`.\n3. **default_map:** `ctx.lookup_default(self.name)` is used if it returns something other than `None`, or if `ctx._default_map_has(name)` is true. That second check lets an explicit `None` entry in the map count. The source becomes `ParameterSource.DEFAULT_MAP`. If the value is a string and `nargs != 1`, it is split with `type.split_envvar_value`, as the environment path does.\n4. **Default:** `self.get_default(ctx)` is used if it isn't `UNSET`, and the source is `ParameterSource.DEFAULT`.\n\nThe source variable starts as `DEFAULT` when the parser gave nothing. So `DEFAULT` is also what is returned if no source supplies a value, in which case the value is still the `UNSET` sentinel.\n\nThe method returns a `(value, source)` tuple.\n\n`Option.consume_value` (line 3589) calls this parent method first. It then overrides the source in a few cases:\n- **Prompt:** a flag that needs a value gets `PROMPT` when the option has a prompt.\n- **Flag activation:** a flag used without a value takes its activation value and is recorded as `COMMANDLINE`.\n- **Missing value:** an option with no value can also be prompted for, in the code after line 3632.",
+  "ttft_ms": 2023,
+  "type": "result",
+  "duration_ms": 7641,
+  "uuid": "b0b4ecda-abe4-4b0d-9d4a-a4e8dae603d2",
+  "ttft_stream_ms": 1368,
+  "time_to_request_ms": 128,
+  "time_to_request_phases_ms": {
+    "other": 11,
+    "system_prompt": 80,
+    "resume_other": 0,
+    "process_user_input": 2,
+    "input_attachments": 7,
+    "input_hooks": 1,
+    "transcript_persist": 4,
+    "tool_pool_refresh": 1,
+    "init_message": 8,
+    "engine_pickup": 1,
+    "message_prep": 1,
+    "model_config_wait": 0,
+    "autocompact": 1,
+    "query_setup": 1,
+    "model_gates": 0,
+    "tool_schema_build": 5,
+    "message_normalization": 1,
+    "client_creation": 1,
+    "request_build": 3
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 17,
+  "time_to_request_cpu_ms": 203,
+  "time_to_request_major_faults": 5024,
+  "input_attachments_detail": {
+    "slowest_producer": "model",
+    "slowest_producer_ms": 5,
+    "cpu_ms": 0,
+    "major_faults": 96
+  },
+  "first_content_frame_ms": 1368,
+  "queued_turn_count": 0,
+  "result_index": 0
+}

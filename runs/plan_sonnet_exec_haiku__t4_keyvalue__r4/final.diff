@@ -1,0 +1,155 @@
+diff --git a/CHANGES.md b/CHANGES.md
+index 3c9a94e..96aa6ff 100644
+--- a/CHANGES.md
++++ b/CHANGES.md
+@@ -1,3 +1,11 @@
++## Version 8.6.0
++
++Unreleased
++
++- Add the {class}`KeyValue` parameter type, which parses `key=value` strings
++  into a `(key, value)` tuple. Input without `=` or with an empty key fails
++  with a bad parameter error.
++
+ ## Version 8.5.0
+ 
+ Released 2026-08-24
+diff --git a/docs/api.md b/docs/api.md
+index df62cf5..7a0776d 100644
+--- a/docs/api.md
++++ b/docs/api.md
+@@ -260,6 +260,10 @@ classes and functions.
+ .. autoclass:: Tuple
+ ```
+ 
++```{eval-rst}
++.. autoclass:: KeyValue
++```
++
+ ```{eval-rst}
+ .. autoclass:: ParamType
+    :members:
+diff --git a/docs/parameter-types.md b/docs/parameter-types.md
+index cdf0b5c..a1a1477 100644
+--- a/docs/parameter-types.md
++++ b/docs/parameter-types.md
+@@ -148,6 +148,11 @@ The supported parameter {ref}`click-api-types` are
+        :noindex:
+ ```
+ 
++```{eval-rst}
++*   .. autoclass:: KeyValue
++       :noindex:
++```
++
+ ```{eval-rst}
+ *   .. autoclass:: Path
+        :noindex:
+diff --git a/src/click/__init__.py b/src/click/__init__.py
+index a34ab02..702da98 100644
+--- a/src/click/__init__.py
++++ b/src/click/__init__.py
+@@ -61,6 +61,7 @@ from .types import FLOAT as FLOAT
+ from .types import FloatRange as FloatRange
+ from .types import INT as INT
+ from .types import IntRange as IntRange
++from .types import KeyValue as KeyValue
+ from .types import ParamType as ParamType
+ from .types import Path as Path
+ from .types import STRING as STRING
+diff --git a/src/click/types.py b/src/click/types.py
+index 22f76f5..06cd32d 100644
+--- a/src/click/types.py
++++ b/src/click/types.py
+@@ -1293,6 +1293,44 @@ class Tuple(CompositeParamType[tuple[t.Any, ...]]):
+         )
+ 
+ 
++class KeyValue(ParamType):
++    """Parse a ``key=value`` string into a ``(key, value)`` tuple.
++
++    The string is split on the first ``=``, so the value may contain
++    ``=`` itself. The value may be empty, but the key must not be.
++
++    .. code-block:: python
++
++        @click.option("--set", type=click.KeyValue())
++        def cli(set):
++            key, value = set
++
++    .. versionadded:: 8.6.0
++    """
++
++    name = "key=value"
++
++    def convert(
++        self,
++        value: t.Any,
++        param: Parameter | None,
++        ctx: Context | None,
++    ) -> tuple[str, str]:
++        if isinstance(value, tuple):
++            return value
++
++        key, sep, val = str(value).partition("=")
++
++        if not sep or not key:
++            self.fail(
++                _("{value!r} is not a valid key=value pair.").format(value=value),
++                param,
++                ctx,
++            )
++
++        return key, val
++
++
+ def _guess_type(
+     ty: type[t.Any] | ParamType[t.Any] | None,
+     default: t.Any | None,
+diff --git a/tests/test_types.py b/tests/test_types.py
+index 842c426..9450bc3 100644
+--- a/tests/test_types.py
++++ b/tests/test_types.py
+@@ -12,6 +12,42 @@ import click
+ from click import FileError
+ 
+ 
++@pytest.mark.parametrize(
++    ("value", "expect"),
++    [
++        ("a=b", ("a", "b")),
++        ("a=b=c", ("a", "b=c")),
++        ("a=", ("a", "")),
++        (("a", "b"), ("a", "b")),
++    ],
++)
++def test_key_value(value, expect):
++    assert click.KeyValue().convert(value, None, None) == expect
++
++
++@pytest.mark.parametrize("value", ["novalue", "=value", ""])
++def test_key_value_fail(value):
++    with pytest.raises(click.BadParameter) as exc_info:
++        click.KeyValue().convert(value, None, None)
++
++    assert "is not a valid key=value pair" in exc_info.value.message
++
++
++def test_key_value_option(runner):
++    @click.command()
++    @click.option("--set", "pairs", type=click.KeyValue(), multiple=True)
++    def cli(pairs):
++        click.echo(repr(pairs))
++
++    result = runner.invoke(cli, ["--set", "a=1", "--set", "b=2=3"])
++    assert result.exit_code == 0
++    assert result.output == "(('a', '1'), ('b', '2=3'))\n"
++
++    result = runner.invoke(cli, ["--set", "novalue"])
++    assert result.exit_code == 2
++    assert "is not a valid key=value pair" in result.output
++
++
+ @pytest.mark.parametrize(
+     ("type", "value", "expect"),
+     [

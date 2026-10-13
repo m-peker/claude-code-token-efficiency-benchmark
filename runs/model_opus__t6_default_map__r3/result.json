@@ -1,0 +1,145 @@
+{
+  "duration_api_ms": 19005,
+  "stop_reason": "end_turn",
+  "session_id": "7be28f14-b98f-4ee2-ae02-683b5f0ed68a",
+  "total_cost_usd": 0.078939,
+  "usage": {
+    "input_tokens": 10,
+    "cache_creation_input_tokens": 3858,
+    "cache_read_input_tokens": 125030,
+    "output_tokens": 1145,
+    "output_tokens_details": {
+      "thinking_tokens": 26
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 3858,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 365,
+        "cache_read_input_tokens": 26348,
+        "cache_creation_input_tokens": 287,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 287
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1190,
+      "outputTokens": 20,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.00012900000000000002,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 0,
+      "canonicalModel": "claude-haiku-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    },
+    "claude-opus-5-5": {
+      "inputTokens": 10,
+      "outputTokens": 1145,
+      "cacheReadInputTokens": 125030,
+      "cacheCreationInputTokens": 3858,
+      "webSearchRequests": 0,
+      "costUSD": 0.07881,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 26,
+      "canonicalModel": "claude-opus-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 6,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "I fixed it. Subcommands now pick up their defaults from `default_map`.\n\n**Cause:** In `src/click/core.py:392`, when a subcommand's context was created, it was given the parent's entire `default_map`. It should only get the entry under its own name. So `default_map={\"sub\": {\"name\": \"...\"}}` made the subcommand look for `name` at the top level, never found it, and silently fell back to the option's normal default.\n\n**Fix:** That line is now `default_map = parent.default_map.get(info_name)`. This is the behaviour documented for Click: each subcommand gets the nested dictionary keyed by its own name.\n\n**Checked:**\n- A small script with a group and a `sub` command now prints the value from `default_map` (`fromdm`). It used to print the hard-coded default.\n- The test suite passes: 1906 passed, 102 skipped, 1 xfailed. pytest also reported 31,000 tests as deselected; I didn't look into why.\n\nI didn't add a regression test for this case. I haven't committed anything.",
+  "ttft_ms": 3135,
+  "type": "result",
+  "duration_ms": 31363,
+  "uuid": "3141360d-4b99-4c39-b414-4b8fe32c93cd",
+  "ttft_stream_ms": 2010,
+  "time_to_request_ms": 160,
+  "time_to_request_phases_ms": {
+    "other": 14,
+    "system_prompt": 83,
+    "resume_other": 0,
+    "process_user_input": 2,
+    "input_attachments": 8,
+    "input_hooks": 2,
+    "transcript_persist": 4,
+    "tool_pool_refresh": 2,
+    "init_message": 8,
+    "engine_pickup": 1,
+    "message_prep": 0,
+    "model_config_wait": 1,
+    "autocompact": 1,
+    "query_setup": 0,
+    "model_gates": 19,
+    "tool_schema_build": 9,
+    "message_normalization": 1,
+    "client_creation": 2,
+    "request_build": 3
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 15,
+  "time_to_request_cpu_ms": 375,
+  "time_to_request_major_faults": 5223,
+  "input_attachments_detail": {
+    "slowest_producer": "model",
+    "slowest_producer_ms": 5,
+    "cpu_ms": 0,
+    "major_faults": 88
+  },
+  "first_content_frame_ms": 2011,
+  "queued_turn_count": 0,
+  "result_index": 0
+}

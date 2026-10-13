@@ -1,0 +1,154 @@
+{
+  "duration_api_ms": 52061,
+  "stop_reason": "end_turn",
+  "session_id": "6fad5f5b-0d17-44c6-9f7d-96c2f1151645",
+  "total_cost_usd": 0.5474848999999999,
+  "usage": {
+    "input_tokens": 6,
+    "cache_creation_input_tokens": 36276,
+    "cache_read_input_tokens": 68517,
+    "output_tokens": 2454,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 36276,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 497,
+        "cache_read_input_tokens": 35400,
+        "cache_creation_input_tokens": 876,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 876
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1259,
+      "outputTokens": 20,
+      "thinkingTokens": 0,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.0001359,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000
+    },
+    "claude-opus-5-5": {
+      "inputTokens": 16,
+      "outputTokens": 3257,
+      "thinkingTokens": 87,
+      "cacheReadInputTokens": 205688,
+      "cacheCreationInputTokens": 32206,
+      "webSearchRequests": 0,
+      "costUSD": 0.3639895999999999,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000
+    },
+    "claude-sonnet-5-5": {
+      "inputTokens": 6,
+      "outputTokens": 2454,
+      "cacheReadInputTokens": 68517,
+      "cacheCreationInputTokens": 36276,
+      "webSearchRequests": 0,
+      "costUSD": 0.18335939999999998,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 0,
+      "canonicalModel": "claude-sonnet-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 17,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "`click.KeyValue` is in. The full test suite passes (1913 passed, 102 skipped, 1 xfailed), including the new tests; I didn't run a type checker.\n\n`--set a=1` now gives `(\"a\", \"1\")`. Input with no `=`, or with an empty key (like `novalue` or `=value`), exits with code 2 and the message `'novalue' is not a valid key=value pair.`\n\nBehaviours your spec didn't cover, matching the plan:\n- The value is split on the first `=`, so `a=b=c` gives `(\"a\", \"b=c\")`.\n- An empty value is allowed, so `a=` gives `(\"a\", \"\")`.\n- Spaces around the key are kept, not trimmed.\n- The empty string `\"\"` is rejected like any input without `=`.\n- If the value is already a tuple (for example a tuple default), it is passed through unchanged.\n\nWhat changed:\n- **`src/click/types.py`:** the new `KeyValue` class.\n- **`src/click/__init__.py`:** exports it as `click.KeyValue`.\n- **`docs/api.md`:** adds an entry in the Types section.\n- **`CHANGES.md`:** adds a new unreleased 8.6.0 section for it.\n- **`tests/test_types.py`:** new tests for a normal pair, a value containing `=`, an empty value, `multiple=True` turned into a `dict`, and the failure cases.\n\nI skipped the optional `tests/test_info_dict.py` entry.\n\nI haven't committed anything.",
+  "ttft_ms": 3226,
+  "type": "result",
+  "duration_ms": 25549,
+  "uuid": "9b9f77c3-90de-4806-8ce9-94715a602eb2",
+  "ttft_stream_ms": 1100,
+  "time_to_request_ms": 110,
+  "time_to_request_phases_ms": {
+    "other": 10,
+    "system_prompt": 51,
+    "resume_other": 0,
+    "process_user_input": 2,
+    "input_attachments": 9,
+    "input_hooks": 2,
+    "transcript_persist": 0,
+    "tool_pool_refresh": 2,
+    "init_message": 8,
+    "engine_pickup": 0,
+    "message_prep": 1,
+    "model_config_wait": 1,
+    "autocompact": 1,
+    "query_setup": 0,
+    "model_gates": 0,
+    "tool_schema_build": 10,
+    "message_normalization": 3,
+    "client_creation": 4,
+    "request_build": 6
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 9,
+  "time_to_request_cpu_ms": 187,
+  "time_to_request_major_faults": 1596,
+  "input_attachments_detail": {
+    "slowest_producer": "queued_commands",
+    "slowest_producer_ms": 6,
+    "cpu_ms": 0,
+    "major_faults": 76,
+    "changed_files_reread": 0
+  },
+  "first_content_frame_ms": 1100,
+  "queued_turn_count": 0,
+  "result_index": 0
+}

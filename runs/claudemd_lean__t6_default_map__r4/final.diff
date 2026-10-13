@@ -1,0 +1,39 @@
+diff --git a/src/click/core.py b/src/click/core.py
+index d5390bd..de129ec 100644
+--- a/src/click/core.py
++++ b/src/click/core.py
+@@ -389,7 +389,7 @@ class Context:
+             and parent is not None
+             and parent.default_map is not None
+         ):
+-            default_map = parent.default_map
++            default_map = parent.default_map.get(info_name)
+ 
+         self.default_map = default_map
+ 
+diff --git a/tests/test_defaults.py b/tests/test_defaults.py
+index bb2684c..45da017 100644
+--- a/tests/test_defaults.py
++++ b/tests/test_defaults.py
+@@ -126,6 +126,21 @@ def test_flag_default_map(runner):
+     assert "default: no-name" in result.output
+ 
+ 
++def test_default_map_subcommand(runner):
++    """default_map entries keyed by subcommand name apply to that subcommand."""
++
++    @click.group()
++    def cli():
++        pass
++
++    @cli.command()
++    @click.option("--name", default="builtin")
++    def foo(name):
++        click.echo(name)
++
++    result = runner.invoke(cli, ["foo"], default_map={"foo": {"name": "mapped"}})
++    assert result.output.strip() == "mapped"
++
+ 
+ def test_shared_param_prefers_first_default(runner):
+     """The first ``default=True`` wins when multiple ``flag_value`` options share

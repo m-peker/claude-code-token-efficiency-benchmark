@@ -1,0 +1,131 @@
+{
+  "duration_api_ms": 28192,
+  "stop_reason": "end_turn",
+  "session_id": "efd206d9-4150-4f30-a845-d50dfc119b44",
+  "total_cost_usd": 0.009291879999999999,
+  "usage": {
+    "input_tokens": 22,
+    "cache_creation_input_tokens": 15163,
+    "cache_read_input_tokens": 355568,
+    "output_tokens": 5131,
+    "output_tokens_details": {
+      "thinking_tokens": 1150
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 15163,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 471,
+        "cache_read_input_tokens": 38526,
+        "cache_creation_input_tokens": 319,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 319
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1281,
+      "outputTokens": 5151,
+      "cacheReadInputTokens": 355568,
+      "cacheCreationInputTokens": 15163,
+      "webSearchRequests": 0,
+      "costUSD": 0.009291879999999999,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 1150,
+      "canonicalModel": "claude-haiku-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 11,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "I added `click.KeyValue`, a parameter type that turns `key=value` into a `(key, value)` tuple. Invalid input fails with an error containing \"is not a valid key=value pair\". The full test suite passes (1914 passed, 102 skipped, 1 xfailed), including 8 new tests for the type.\n\nThe changes:\n- **`src/click/types.py`**: the `KeyValue` class. It splits on the first `=` only, so `a=b=c` gives `(\"a\", \"b=c\")`. An empty value is allowed (`a=` gives `(\"a\", \"\")`). An empty key or a missing `=` fails.\n- **`src/click/__init__.py`**: exports `KeyValue` so `click.KeyValue()` works.\n- **`tests/test_types.py`**: conversion cases, invalid-input cases, and an end-to-end `--set` option with `multiple=True`.\n- **Docs and changelog**: an entry in `docs/api.md`, `docs/parameter-types.md`, and a new \"Version 8.6.0 / Unreleased\" section at the top of `CHANGES.md`.\n\nChoices I made that you may want to change:\n- The version is `8.6.0`, because the current version is 8.5.0 and this is a new feature. Adjust if you target a different release.\n- Whitespace around `=` is kept as-is, so `\" a = 1\"` gives `(\" a \", \" 1\")`.\n- I did not commit anything.",
+  "ttft_ms": 1362,
+  "type": "result",
+  "duration_ms": 48777,
+  "uuid": "53f8f170-6fed-4895-88c7-d66137da7c28",
+  "ttft_stream_ms": 1150,
+  "time_to_request_ms": 163,
+  "time_to_request_phases_ms": {
+    "other": 13,
+    "system_prompt": 78,
+    "resume_other": 0,
+    "process_user_input": 2,
+    "input_attachments": 38,
+    "input_hooks": 2,
+    "transcript_persist": 5,
+    "tool_pool_refresh": 1,
+    "init_message": 9,
+    "engine_pickup": 1,
+    "message_prep": 0,
+    "model_config_wait": 1,
+    "autocompact": 1,
+    "query_setup": 0,
+    "model_gates": 1,
+    "tool_schema_build": 5,
+    "message_normalization": 1,
+    "client_creation": 1,
+    "request_build": 4
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 10,
+  "time_to_request_cpu_ms": 204,
+  "time_to_request_major_faults": 4753,
+  "input_attachments_detail": {
+    "slowest_producer": "at_mentioned_files",
+    "slowest_producer_ms": 24,
+    "cpu_ms": 47,
+    "major_faults": 708
+  },
+  "first_content_frame_ms": 1150,
+  "queued_turn_count": 0,
+  "result_index": 0
+}

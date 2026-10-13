@@ -1,0 +1,146 @@
+{
+  "duration_api_ms": 36431,
+  "stop_reason": "end_turn",
+  "session_id": "22d7001b-3cbb-4712-8523-b2d2b93d4acf",
+  "total_cost_usd": 0.2330181,
+  "usage": {
+    "input_tokens": 16,
+    "cache_creation_input_tokens": 15992,
+    "cache_read_input_tokens": 181711,
+    "output_tokens": 3427,
+    "output_tokens_details": {
+      "thinking_tokens": 277
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 15992,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "global",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 645,
+        "cache_read_input_tokens": 30126,
+        "cache_creation_input_tokens": 120,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 120
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1259,
+      "outputTokens": 20,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.0001359,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 0,
+      "canonicalModel": "claude-haiku-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    },
+    "claude-opus-5-5": {
+      "inputTokens": 16,
+      "outputTokens": 3427,
+      "cacheReadInputTokens": 181711,
+      "cacheCreationInputTokens": 15992,
+      "webSearchRequests": 0,
+      "costUSD": 0.2328822,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 277,
+      "canonicalModel": "claude-opus-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 9,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "The plan is written to `<home>\\.claude\\plans\\add-a-new-parameter-serene-pebble.md`. I haven't changed any code yet. The plan-approval tool isn't available here, so please reply to approve it or ask for changes.\n\n**The new class:** add `KeyValue(ParamType[tuple[str, str]])` in `src/click/types.py`, right after the `UUIDParameterType` class at line 877, using the same pattern.\n- **Parsing:** it turns the input into a string with the existing `STRING` type, which also handles bytes. Then it splits at the first `=`. If there's no `=` or the key is empty, it fails with `'<input>' is not a valid key=value pair.`\n- **Other inputs:** a value that's already a 2-tuple is returned unchanged.\n- **Results:** `a=b=c` gives `(\"a\", \"b=c\")` and `a=` gives `(\"a\", \"\")`. No whitespace is stripped.\n\n**Other changes:**\n- **Export:** add `from .types import KeyValue as KeyValue` to `src/click/__init__.py`.\n- **Docs:** add `KeyValue` to `docs/parameter-types.md` and `docs/api.md`.\n- **Changelog:** add a new \"Version 8.6.0 / Unreleased\" section at the top of `CHANGES.md`.\n- **Tests:** in `tests/test_types.py`, cover the valid inputs, `multiple=True`, and the failing inputs `abc`, `=value` and the empty string (exit code 2 plus the required message). Add a case to `tests/test_info_dict.py`.\n\n**Checks:** run `uv run pytest tests/test_types.py tests/test_info_dict.py`, then the full test suite.\n\nTwo choices you might want to change: an empty value (`key=`) is allowed, and whitespace is kept as typed.",
+  "ttft_ms": 2109,
+  "type": "result",
+  "duration_ms": 44597,
+  "uuid": "a75727bd-03e5-4a5b-8b1a-c943a7d38008",
+  "ttft_stream_ms": 1253,
+  "time_to_request_ms": 404,
+  "time_to_request_phases_ms": {
+    "other": 17,
+    "system_prompt": 15,
+    "resume_other": 0,
+    "process_user_input": 2,
+    "input_attachments": 27,
+    "input_hooks": 2,
+    "transcript_persist": 2,
+    "tool_pool_refresh": 2,
+    "init_message": 9,
+    "engine_pickup": 1,
+    "message_prep": 1,
+    "model_config_wait": 1,
+    "autocompact": 1,
+    "query_setup": 134,
+    "auto_mode_context_wait": 178,
+    "model_gates": 0,
+    "tool_schema_build": 5,
+    "message_normalization": 2,
+    "client_creation": 1,
+    "request_build": 4
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 106,
+  "time_to_request_cpu_ms": 187,
+  "time_to_request_major_faults": 2093,
+  "input_attachments_detail": {
+    "slowest_producer": "at_mentioned_files",
+    "slowest_producer_ms": 11,
+    "cpu_ms": 47,
+    "major_faults": 389
+  },
+  "first_content_frame_ms": 1254,
+  "queued_turn_count": 0,
+  "result_index": 0
+}

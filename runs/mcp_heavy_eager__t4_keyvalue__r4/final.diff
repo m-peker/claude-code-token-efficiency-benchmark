@@ -1,0 +1,72 @@
+diff --git a/docs/api.md b/docs/api.md
+index df62cf5..7a0776d 100644
+--- a/docs/api.md
++++ b/docs/api.md
+@@ -260,6 +260,10 @@ classes and functions.
+ .. autoclass:: Tuple
+ ```
+ 
++```{eval-rst}
++.. autoclass:: KeyValue
++```
++
+ ```{eval-rst}
+ .. autoclass:: ParamType
+    :members:
+diff --git a/src/click/__init__.py b/src/click/__init__.py
+index a34ab02..702da98 100644
+--- a/src/click/__init__.py
++++ b/src/click/__init__.py
+@@ -61,6 +61,7 @@ from .types import FLOAT as FLOAT
+ from .types import FloatRange as FloatRange
+ from .types import INT as INT
+ from .types import IntRange as IntRange
++from .types import KeyValue as KeyValue
+ from .types import ParamType as ParamType
+ from .types import Path as Path
+ from .types import STRING as STRING
+diff --git a/src/click/types.py b/src/click/types.py
+index 22f76f5..d33e3a6 100644
+--- a/src/click/types.py
++++ b/src/click/types.py
+@@ -896,6 +896,40 @@ class UUIDParameterType(ParamType[uuid.UUID]):
+         return "UUID"
+ 
+ 
++class KeyValue(ParamType[t.Tuple[str, str]]):
++    """Parses a ``key=value`` string into a ``(key, value)`` tuple. The
++    string is split on the first ``=``, so the value may itself contain
++    ``=``. The key must not be empty; the value may be.
++
++    .. versionadded:: 8.3
++    """
++
++    name = "key_value"
++
++    def convert(
++        self,
++        value: t.Any,
++        param: Parameter | None,
++        ctx: Context | None,
++    ) -> tuple[str, str]:
++        if isinstance(value, tuple):
++            return value  # type: ignore[no-any-return]
++
++        key, sep, val = str(value).partition("=")
++
++        if not sep or not key:
++            self.fail(
++                _("{value!r} is not a valid key=value pair.").format(value=value),
++                param,
++                ctx,
++            )
++
++        return key, val
++
++    def __repr__(self) -> str:
++        return "KeyValue"
++
++
+ class FileInfoDict(ParamTypeInfoDict):
+     mode: str
+     encoding: str | None

@@ -1,0 +1,153 @@
+diff --git a/CHANGES.md b/CHANGES.md
+index 3c9a94e..1107675 100644
+--- a/CHANGES.md
++++ b/CHANGES.md
+@@ -1,3 +1,10 @@
++## Version 8.6.0
++
++Unreleased
++
++- Add {class}`KeyValue` parameter type that parses `key=value` strings into a
++  `(key, value)` tuple.
++
+ ## Version 8.5.0
+ 
+ Released 2026-08-24
+diff --git a/docs/api.md b/docs/api.md
+index df62cf5..7a0776d 100644
+--- a/docs/api.md
++++ b/docs/api.md
+@@ -260,6 +260,10 @@ classes and functions.
+ .. autoclass:: Tuple
+ ```
+ 
++```{eval-rst}
++.. autoclass:: KeyValue
++```
++
+ ```{eval-rst}
+ .. autoclass:: ParamType
+    :members:
+diff --git a/docs/parameter-types.md b/docs/parameter-types.md
+index cdf0b5c..f4e485e 100644
+--- a/docs/parameter-types.md
++++ b/docs/parameter-types.md
+@@ -123,6 +123,9 @@ The supported parameter {ref}`click-api-types` are
+ - {data}`click.UUID`: A parameter that accepts UUID values. This is not automatically guessed but represented as
+   {class}`uuid.UUID`.
+ 
++- {class}`click.KeyValue`: A parameter that accepts `key=value` strings and converts them to a `(key, value)`
++  tuple. The string is split on the first `=`; the key must not be empty.
++
+ ```{eval-rst}
+ *   .. autoclass:: Choice
+        :noindex:
+diff --git a/src/click/__init__.py b/src/click/__init__.py
+index a34ab02..702da98 100644
+--- a/src/click/__init__.py
++++ b/src/click/__init__.py
+@@ -61,6 +61,7 @@ from .types import FLOAT as FLOAT
+ from .types import FloatRange as FloatRange
+ from .types import INT as INT
+ from .types import IntRange as IntRange
++from .types import KeyValue as KeyValue
+ from .types import ParamType as ParamType
+ from .types import Path as Path
+ from .types import STRING as STRING
+diff --git a/src/click/types.py b/src/click/types.py
+index 22f76f5..6b70328 100644
+--- a/src/click/types.py
++++ b/src/click/types.py
+@@ -896,6 +896,42 @@ class UUIDParameterType(ParamType[uuid.UUID]):
+         return "UUID"
+ 
+ 
++class KeyValue(ParamType[tuple[str, str]]):
++    """Parse a ``key=value`` string into a ``(key, value)`` tuple.
++
++    The string is split on the first ``=``, so the value may itself contain
++    ``=``. The key must not be empty, but the value may be.
++
++    .. code-block:: python
++
++        @click.option("--set", "pairs", multiple=True, type=click.KeyValue())
++
++    .. versionadded:: 8.6
++    """
++
++    name = "key=value"
++
++    def convert(
++        self, value: t.Any, param: Parameter | None, ctx: Context | None
++    ) -> tuple[str, str]:
++        if isinstance(value, tuple) and len(value) == 2:
++            return value
++
++        key, sep, val = str(value).partition("=")
++
++        if not sep or not key:
++            self.fail(
++                _("{value!r} is not a valid key=value pair.").format(value=value),
++                param,
++                ctx,
++            )
++
++        return key, val
++
++    def __repr__(self) -> str:
++        return "KeyValue"
++
++
+ class FileInfoDict(ParamTypeInfoDict):
+     mode: str
+     encoding: str | None
+diff --git a/tests/test_types.py b/tests/test_types.py
+index 842c426..1b71cb3 100644
+--- a/tests/test_types.py
++++ b/tests/test_types.py
+@@ -328,3 +328,45 @@ def test_param_type_subclass_omitting_input_parameter():
+     doubling = DoublingType()
+     assert doubling("21") == 42
+     assert doubling(None) is None
++
++
++@pytest.mark.parametrize(
++    ("value", "expect"),
++    [
++        ("a=b", ("a", "b")),
++        ("a=", ("a", "")),
++        ("a=b=c", ("a", "b=c")),
++        (" a = b ", (" a ", " b ")),
++    ],
++)
++def test_key_value(runner, value, expect):
++    @click.command()
++    @click.option("--set", "pair", type=click.KeyValue())
++    def cli(pair):
++        click.echo(repr(pair))
++
++    result = runner.invoke(cli, ["--set", value])
++    assert result.exit_code == 0, result.output
++    assert result.output == f"{expect!r}\n"
++
++
++@pytest.mark.parametrize("value", ["ab", "", "=b"])
++def test_key_value_invalid(runner, value):
++    @click.command()
++    @click.option("--set", "pair", type=click.KeyValue())
++    def cli(pair):
++        pass
++
++    result = runner.invoke(cli, ["--set", value])
++    assert result.exit_code == 2
++    assert "is not a valid key=value pair" in result.output
++
++
++def test_key_value_multiple(runner):
++    @click.command()
++    @click.option("--set", "pairs", multiple=True, type=click.KeyValue())
++    def cli(pairs):
++        click.echo(repr(dict(pairs)))
++
++    result = runner.invoke(cli, ["--set", "a=1", "--set", "b=2"])
++    assert result.output == "{'a': '1', 'b': '2'}\n"

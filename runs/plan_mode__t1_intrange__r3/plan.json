@@ -1,0 +1,146 @@
+{
+  "duration_api_ms": 15543,
+  "stop_reason": "end_turn",
+  "session_id": "4502d37c-d0a1-43cb-bfdf-82376dafdd77",
+  "total_cost_usd": 0.07148479999999999,
+  "usage": {
+    "input_tokens": 8,
+    "cache_creation_input_tokens": 8072,
+    "cache_read_input_tokens": 108065,
+    "output_tokens": 1744,
+    "output_tokens_details": {
+      "thinking_tokens": 116
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 8072,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 541,
+        "cache_read_input_tokens": 30425,
+        "cache_creation_input_tokens": 1147,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1147
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1193,
+      "outputTokens": 17,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.00012780000000000002,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 0,
+      "canonicalModel": "claude-haiku-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    },
+    "claude-sonnet-5-5": {
+      "inputTokens": 8,
+      "outputTokens": 1744,
+      "cacheReadInputTokens": 108065,
+      "cacheCreationInputTokens": 8072,
+      "webSearchRequests": 0,
+      "costUSD": 0.071357,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 116,
+      "canonicalModel": "claude-sonnet-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 5,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "I found the bug, but I haven't changed any code because plan mode is on. I couldn't call ExitPlanMode (it's disabled in this session), so I'm presenting the plan here instead.\n\n**Cause:** `IntRange._clamp` in `src/click/types.py:754` returns `bound - dir`. `convert` passes `dir=1` for the min side and `dir=-1` for the max side, so `dir` points inward. Subtracting it moves the result outward, past the bound. This only affects open bounds (`min_open`/`max_open`), since closed bounds return the bound unchanged.\n\n- `IntRange(0, 10, min_open=True, clamp=True)` given `-5` returns `-1`. It should return `1`.\n- `IntRange(0, 10, max_open=True, clamp=True)` given `20` returns `11`. It should return `9`.\n\n**Plan:**\n1. In `src/click/types.py:754`, change `return bound - dir` to `return bound + dir`.\n2. Add two cases to the parametrized conversion list in `tests/test_types.py`:\n   - `(click.IntRange(0, 10, min_open=True, clamp=True), \"-5\", 1)`\n   - `(click.IntRange(0, 10, max_open=True, clamp=True), \"20\", 9)`\n3. Run `pytest tests/test_types.py tests/test_info_dict.py`. The new cases should fail before the fix and pass after it.\n\nThe plan is saved at `<home>\\.claude\\plans\\some-users-report-that-effervescent-hanrahan.md`. Tell me to go ahead and I'll make the change.",
+  "ttft_ms": 2623,
+  "type": "result",
+  "duration_ms": 16504,
+  "uuid": "5344f4cb-924d-4906-8914-25be92f6996f",
+  "ttft_stream_ms": 1754,
+  "time_to_request_ms": 760,
+  "time_to_request_phases_ms": {
+    "other": 20,
+    "system_prompt": 191,
+    "resume_other": 0,
+    "process_user_input": 2,
+    "input_attachments": 11,
+    "input_hooks": 3,
+    "transcript_persist": 18,
+    "tool_pool_refresh": 3,
+    "init_message": 183,
+    "engine_pickup": 1,
+    "message_prep": 1,
+    "model_config_wait": 1,
+    "autocompact": 1,
+    "query_setup": 153,
+    "auto_mode_context_wait": 157,
+    "model_gates": 0,
+    "tool_schema_build": 8,
+    "message_normalization": 1,
+    "client_creation": 2,
+    "request_build": 4
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 322,
+  "time_to_request_cpu_ms": 610,
+  "time_to_request_major_faults": 6067,
+  "input_attachments_detail": {
+    "slowest_producer": "model",
+    "slowest_producer_ms": 7,
+    "cpu_ms": 15,
+    "major_faults": 40
+  },
+  "first_content_frame_ms": 1754,
+  "queued_turn_count": 0,
+  "result_index": 0
+}

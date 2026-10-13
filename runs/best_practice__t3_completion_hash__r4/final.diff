@@ -1,0 +1,27 @@
+diff --git a/src/click/shell_completion.py b/src/click/shell_completion.py
+index 42e8885..8a2668b 100644
+--- a/src/click/shell_completion.py
++++ b/src/click/shell_completion.py
+@@ -622,6 +622,7 @@ def split_arg_string(string: str) -> list[str]:
+ 
+     lex = shlex.shlex(string, posix=True)
+     lex.whitespace_split = True
++    lex.commenters = ""
+     out: list[str] = []
+ 
+     try:
+diff --git a/tests/test_shell_completion.py b/tests/test_shell_completion.py
+index 10d5cfa..6b3e905 100644
+--- a/tests/test_shell_completion.py
++++ b/tests/test_shell_completion.py
+@@ -615,3 +615,10 @@ def test_powershell_format_completion_escapes_help():
+     # produced by ZshComplete.
+     item = CompletionItem("--at")
+     assert pc.format_completion(item) == "plain\n--at\n_"
++
++
++def test_split_arg_string_hash_not_comment():
++    from click.shell_completion import split_arg_string
++
++    assert split_arg_string("cmd a#b") == ["cmd", "a#b"]
++    assert split_arg_string("cmd #a b") == ["cmd", "#a", "b"]

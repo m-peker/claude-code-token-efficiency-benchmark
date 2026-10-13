@@ -1,0 +1,153 @@
+{
+  "duration_api_ms": 56766,
+  "stop_reason": "end_turn",
+  "session_id": "b0ee965b-586b-4cb6-a578-1657afc75c39",
+  "total_cost_usd": 0.1955366,
+  "usage": {
+    "input_tokens": 6,
+    "cache_creation_input_tokens": 5317,
+    "cache_read_input_tokens": 57935,
+    "output_tokens": 2065,
+    "output_tokens_details": {
+      "thinking_tokens": 222
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 5317,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 534,
+        "cache_read_input_tokens": 30758,
+        "cache_creation_input_tokens": 1736,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1736
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1259,
+      "outputTokens": 20,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.0001359,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 0,
+      "canonicalModel": "claude-haiku-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    },
+    "claude-sonnet-5-5": {
+      "inputTokens": 20,
+      "outputTokens": 7313,
+      "cacheReadInputTokens": 189081,
+      "cacheCreationInputTokens": 28409,
+      "webSearchRequests": 0,
+      "costUSD": 0.19540069999999998,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 310,
+      "canonicalModel": "claude-sonnet-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "origin": {
+    "kind": "task-notification",
+    "producer": "session-task",
+    "runId": "0mv6be4l3-e3f249a2"
+  },
+  "subagent_stats": {
+    "spawned": 1,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 1
+    },
+    "started_in_background": 1,
+    "max_depth": 1,
+    "spawned_by_subagents": 0,
+    "completed": 1,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {
+      "Explore": 1
+    }
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 3,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "I've written the plan to `<home>\\.claude\\plans\\add-a-new-parameter-glowing-goblet.md`. I haven't changed any code, because plan mode is still on. `ExitPlanMode` isn't available in this session, so I can't request approval the normal way.\n\n**Plan**\n- **Type:** add `class KeyValue(ParamType[tuple[str, str]])` in `src/click/types.py`, modeled on `UUIDParameterType`.\n  - It splits on the first `=`, so `a=b=c` gives `(\"a\", \"b=c\")`, and `a=` is allowed with an empty value.\n  - Input with no `=`, or with an empty key, calls `self.fail(\"{value!r} is not a valid key=value pair.\")`, so it raises `BadParameter`.\n  - A tuple that is already converted passes through unchanged.\n  - The metavar is `KEY=VALUE`.\n- **Export:** add `from .types import KeyValue as KeyValue` to `src/click/__init__.py`.\n- **Docs:** add entries in `docs/api.md`, `docs/parameter-types.md` and `CHANGES.md`.\n- **Tests:** add valid and invalid cases and an end-to-end `CliRunner` test in `tests/test_types.py`. Add a `KeyValue` entry to the parametrized list in `tests/test_info_dict.py`.\n- **Verification:** run pytest, run the type checker if one is configured, and try `--set a=b`, `--set a` and `--set =b` by hand.\n\nReply to approve the plan and I'll implement it.",
+  "ttft_ms": 3575,
+  "type": "result",
+  "duration_ms": 15916,
+  "uuid": "8f14b882-ee4d-4887-b3fe-0cc130239d24",
+  "ttft_stream_ms": 2303,
+  "time_to_request_ms": 352,
+  "time_to_request_phases_ms": {
+    "other": 11,
+    "system_prompt": 3,
+    "resume_other": 0,
+    "process_user_input": 3,
+    "input_attachments": 8,
+    "input_hooks": 3,
+    "transcript_persist": 1,
+    "tool_pool_refresh": 3,
+    "init_message": 2,
+    "engine_pickup": 1,
+    "message_prep": 1,
+    "model_config_wait": 1,
+    "autocompact": 1,
+    "query_setup": 177,
+    "auto_mode_context_wait": 116,
+    "model_gates": 0,
+    "tool_schema_build": 2,
+    "message_normalization": 5,
+    "client_creation": 4,
+    "request_build": 10
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 1,
+  "time_to_request_loop_lag_ms": 203,
+  "time_to_request_cpu_ms": 218,
+  "time_to_request_major_faults": 677,
+  "input_attachments_detail": {
+    "slowest_producer": "agent_listing_delta",
+    "slowest_producer_ms": 6,
+    "cpu_ms": 0,
+    "major_faults": 8
+  },
+  "first_content_frame_ms": 2303,
+  "queued_turn_count": 0,
+  "result_index": 1
+}

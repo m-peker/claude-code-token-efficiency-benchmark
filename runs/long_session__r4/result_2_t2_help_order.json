@@ -1,0 +1,143 @@
+{
+  "duration_api_ms": 25972,
+  "stop_reason": "end_turn",
+  "session_id": "7e887f59-b4b8-4d03-a039-95dca2861938",
+  "total_cost_usd": 0.11215100000000001,
+  "usage": {
+    "input_tokens": 12,
+    "cache_creation_input_tokens": 5056,
+    "cache_read_input_tokens": 128049,
+    "output_tokens": 1728,
+    "output_tokens_details": {
+      "thinking_tokens": 252
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 5056,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "global",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 321,
+        "cache_read_input_tokens": 23716,
+        "cache_creation_input_tokens": 643,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 643
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-sonnet-5-5": {
+      "inputTokens": 24,
+      "outputTokens": 2628,
+      "thinkingTokens": 304,
+      "cacheReadInputTokens": 228876,
+      "cacheCreationInputTokens": 9980,
+      "webSearchRequests": 0,
+      "costUSD": 0.11202320000000002,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "canonicalModel": "claude-sonnet-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    },
+    "claude-haiku-5-5": {
+      "inputTokens": 1193,
+      "outputTokens": 17,
+      "thinkingTokens": 0,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.00012780000000000002,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 10,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "I found and fixed one cause of the odd ordering in `--help`, but I'm not certain it's the one you meant, since you didn't say what order you saw.\n\n**What changed:** In `join_options` (`src/click/formatting.py:319`), the names for a single option were sorted by prefix length in reverse. A `-v` / `--verbose` option therefore printed as `--verbose, -v` instead of `-v, --verbose`. I removed `reverse=True`.\n\n**Not touched:** The order of the options themselves in the list comes from `Command.get_params` and `format_options`, and that code is fine. The `reversed(decorator_params)` in `decorators.py` is intentional, because decorators apply bottom-up.\n\n**Tests:** The full suite passes (1906 passed, 102 skipped, 1 xfailed). No test covers this ordering, so I didn't add one.\n\nIf the odd order you saw was between different options rather than within one option's names, tell me what you saw and I'll look again.",
+  "ttft_ms": 1556,
+  "type": "result",
+  "duration_ms": 26955,
+  "uuid": "5ba26d65-67a1-4d07-9a8d-36f52e4ce151",
+  "ttft_stream_ms": 983,
+  "time_to_request_ms": 55,
+  "time_to_request_phases_ms": {
+    "other": 8,
+    "system_prompt": 13,
+    "resume_other": 0,
+    "process_user_input": 2,
+    "input_attachments": 6,
+    "input_hooks": 2,
+    "transcript_persist": 1,
+    "tool_pool_refresh": 1,
+    "init_message": 6,
+    "engine_pickup": 1,
+    "message_prep": 0,
+    "model_config_wait": 1,
+    "autocompact": 1,
+    "query_setup": 0,
+    "model_gates": 0,
+    "tool_schema_build": 5,
+    "message_normalization": 2,
+    "client_creation": 2,
+    "request_build": 4
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 5,
+  "time_to_request_cpu_ms": 109,
+  "time_to_request_major_faults": 1439,
+  "input_attachments_detail": {
+    "slowest_producer": "queued_commands",
+    "slowest_producer_ms": 4,
+    "cpu_ms": 15,
+    "major_faults": 164,
+    "changed_files_reread": 0
+  },
+  "first_content_frame_ms": 983,
+  "queued_turn_count": 0,
+  "result_index": 0
+}

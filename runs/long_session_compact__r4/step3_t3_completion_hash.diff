@@ -1,0 +1,14 @@
+diff --git a/src/click/shell_completion.py b/src/click/shell_completion.py
+index 42e8885..1a78180 100644
+--- a/src/click/shell_completion.py
++++ b/src/click/shell_completion.py
+@@ -622,6 +622,9 @@ def split_arg_string(string: str) -> list[str]:
+ 
+     lex = shlex.shlex(string, posix=True)
+     lex.whitespace_split = True
++    # shlex treats "#" as a comment start by default, which would drop
++    # the rest of the line when an argument contains one.
++    lex.commenters = ""
+     out: list[str] = []
+ 
+     try:

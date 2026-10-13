@@ -1,0 +1,153 @@
+{
+  "duration_api_ms": 40113,
+  "stop_reason": "end_turn",
+  "session_id": "199d19cb-c4e0-4b3a-942c-172aed3b6b1d",
+  "total_cost_usd": 0.14409309999999997,
+  "usage": {
+    "input_tokens": 6,
+    "cache_creation_input_tokens": 3357,
+    "cache_read_input_tokens": 57143,
+    "output_tokens": 1564,
+    "output_tokens_details": {
+      "thinking_tokens": 171
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 3357,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 543,
+        "cache_read_input_tokens": 29660,
+        "cache_creation_input_tokens": 1180,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1180
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1191,
+      "outputTokens": 20,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.00012910000000000002,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 0,
+      "canonicalModel": "claude-haiku-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    },
+    "claude-sonnet-5-5": {
+      "inputTokens": 20,
+      "outputTokens": 4974,
+      "cacheReadInputTokens": 176365,
+      "cacheCreationInputTokens": 19395,
+      "webSearchRequests": 0,
+      "costUSD": 0.14396399999999998,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 295,
+      "canonicalModel": "claude-sonnet-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "origin": {
+    "kind": "task-notification",
+    "producer": "session-task",
+    "runId": "0mv6d5728-6cf4a910"
+  },
+  "subagent_stats": {
+    "spawned": 1,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 1
+    },
+    "started_in_background": 1,
+    "max_depth": 1,
+    "spawned_by_subagents": 0,
+    "completed": 1,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {
+      "Explore": 1
+    }
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 3,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "I haven't changed any code yet. I'm in plan mode, and the plan is written to `<home>\\.claude\\plans\\shell-completion-gives-wrong-enumerated-mochi.md`. I couldn't call ExitPlanMode because it isn't available in this session, so please review the plan and tell me to go ahead.\n\n**Cause (from reading the code, not yet reproduced):** `split_arg_string` in `src/click/shell_completion.py` (around line 603) builds its lexer with `shlex.shlex(string, posix=True)`. shlex treats `#` as a comment character by default, so an unquoted `#` at the start of a word drops everything after it. Bash, zsh, fish and PowerShell all run `COMP_WORDS` through this function. In fish, a `#foo` word can also make `split_arg_string(incomplete)[0]` raise `IndexError` (around line 494).\n\n**Planned fix:**\n1. Set `lex.commenters = \"\"` in `split_arg_string` so `#` stays part of its word.\n2. Check that the fish `[0]` index is safe once comments are off, and guard it if not.\n3. Add tests:\n   - `#` cases in `tests/test_parser.py::test_split_arg_string`.\n   - A `#` case in `test_full_complete` in `tests/test_shell_completion.py`.\n   - A changelog entry in `CHANGES.rst`, if the repo uses one.\n\n**Verification:** I'll first run `split_arg_string('cli a #b')` to confirm the bug. After the change I'll run the parser, shell completion and deprecation tests, then the full suite.",
+  "ttft_ms": 3056,
+  "type": "result",
+  "duration_ms": 12735,
+  "uuid": "5a469259-f172-45b8-bc95-d0a890273a8a",
+  "ttft_stream_ms": 1378,
+  "time_to_request_ms": 376,
+  "time_to_request_phases_ms": {
+    "other": 8,
+    "system_prompt": 4,
+    "resume_other": 0,
+    "process_user_input": 2,
+    "input_attachments": 4,
+    "input_hooks": 4,
+    "transcript_persist": 1,
+    "tool_pool_refresh": 2,
+    "init_message": 1,
+    "engine_pickup": 1,
+    "message_prep": 1,
+    "model_config_wait": 1,
+    "autocompact": 1,
+    "query_setup": 128,
+    "auto_mode_context_wait": 202,
+    "model_gates": 0,
+    "tool_schema_build": 4,
+    "message_normalization": 3,
+    "client_creation": 3,
+    "request_build": 6
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 1,
+  "time_to_request_loop_lag_ms": 110,
+  "time_to_request_cpu_ms": 171,
+  "time_to_request_major_faults": 530,
+  "input_attachments_detail": {
+    "slowest_producer": "environment",
+    "slowest_producer_ms": 4,
+    "cpu_ms": 30,
+    "major_faults": 4
+  },
+  "first_content_frame_ms": 1378,
+  "queued_turn_count": 0,
+  "result_index": 1
+}

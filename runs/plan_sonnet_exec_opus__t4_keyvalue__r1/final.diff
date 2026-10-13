@@ -1,0 +1,124 @@
+diff --git a/CHANGES.md b/CHANGES.md
+index 3c9a94e..68a67ee 100644
+--- a/CHANGES.md
++++ b/CHANGES.md
+@@ -2,6 +2,8 @@
+ 
+ Released 2026-08-24
+ 
++- Add {class}`KeyValue` parameter type, which parses a `key=value` string
++  into a `(key, value)` tuple.
+ - Add built-in shell completion support for PowerShell (Windows PowerShell
+   5.1+ and pwsh 7+) alongside the existing `bash`, `zsh`, and `fish`
+   completers. Use `_FOO_BAR_COMPLETE=powershell_source foo-bar` to generate
+diff --git a/docs/api.md b/docs/api.md
+index df62cf5..bab693b 100644
+--- a/docs/api.md
++++ b/docs/api.md
+@@ -252,6 +252,10 @@ classes and functions.
+ .. autoclass:: FloatRange
+ ```
+ 
++```{eval-rst}
++.. autoclass:: KeyValue
++```
++
+ ```{eval-rst}
+ .. autoclass:: DateTime
+ ```
+diff --git a/src/click/__init__.py b/src/click/__init__.py
+index a34ab02..702da98 100644
+--- a/src/click/__init__.py
++++ b/src/click/__init__.py
+@@ -61,6 +61,7 @@ from .types import FLOAT as FLOAT
+ from .types import FloatRange as FloatRange
+ from .types import INT as INT
+ from .types import IntRange as IntRange
++from .types import KeyValue as KeyValue
+ from .types import ParamType as ParamType
+ from .types import Path as Path
+ from .types import STRING as STRING
+diff --git a/src/click/types.py b/src/click/types.py
+index 22f76f5..6f9bc41 100644
+--- a/src/click/types.py
++++ b/src/click/types.py
+@@ -896,6 +896,35 @@ class UUIDParameterType(ParamType[uuid.UUID]):
+         return "UUID"
+ 
+ 
++class KeyValue(ParamType[tuple[str, str]]):
++    """Parses a ``key=value`` string into a ``(key, value)`` tuple. The
++    string is split on the first ``=``, so the value may contain ``=``.
++    The key must not be empty, but the value may be.
++    """
++
++    name = "key=value"
++
++    def convert(
++        self, value: t.Any, param: Parameter | None, ctx: Context | None
++    ) -> tuple[str, str]:
++        if isinstance(value, tuple):
++            return value  # type: ignore[return-value]
++
++        key, sep, val = str(value).partition("=")
++
++        if not sep or not key:
++            self.fail(
++                _("{value!r} is not a valid key=value pair.").format(value=value),
++                param,
++                ctx,
++            )
++
++        return key, val
++
++    def __repr__(self) -> str:
++        return "KeyValue"
++
++
+ class FileInfoDict(ParamTypeInfoDict):
+     mode: str
+     encoding: str | None
+diff --git a/tests/test_types.py b/tests/test_types.py
+index 842c426..9a6a904 100644
+--- a/tests/test_types.py
++++ b/tests/test_types.py
+@@ -328,3 +328,39 @@ def test_param_type_subclass_omitting_input_parameter():
+     doubling = DoublingType()
+     assert doubling("21") == 42
+     assert doubling(None) is None
++
++
++@pytest.mark.parametrize(
++    ("value", "expect"),
++    [
++        ("a=b", ("a", "b")),
++        ("a=b=c", ("a", "b=c")),
++        ("a=", ("a", "")),
++        (("a", "b"), ("a", "b")),
++    ],
++)
++def test_key_value(value, expect):
++    assert click.KeyValue().convert(value, None, None) == expect
++
++
++@pytest.mark.parametrize("value", ["novalue", "=v", ""])
++def test_key_value_invalid(runner, value):
++    @click.command()
++    @click.option("--set", "pairs", type=click.KeyValue())
++    def cli(pairs):
++        pass
++
++    result = runner.invoke(cli, ["--set", value])
++    assert result.exit_code == 2
++    assert "is not a valid key=value pair" in result.output
++
++
++def test_key_value_multiple(runner):
++    @click.command()
++    @click.option("--set", "pairs", type=click.KeyValue(), multiple=True)
++    def cli(pairs):
++        click.echo(repr(dict(pairs)))
++
++    result = runner.invoke(cli, ["--set", "a=1", "--set", "b=x=y"])
++    assert result.exit_code == 0, result.output
++    assert result.output == "{'a': '1', 'b': 'x=y'}\n"

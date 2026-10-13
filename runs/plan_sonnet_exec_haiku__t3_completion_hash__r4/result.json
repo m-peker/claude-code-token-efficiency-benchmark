@@ -1,0 +1,143 @@
+{
+  "duration_api_ms": 70602,
+  "stop_reason": "end_turn",
+  "session_id": "c8d8445d-8b78-4c62-bcc8-ec149a604562",
+  "total_cost_usd": 0.15379618999999994,
+  "usage": {
+    "input_tokens": 16,
+    "cache_creation_input_tokens": 17902,
+    "cache_read_input_tokens": 278639,
+    "output_tokens": 5420,
+    "output_tokens_details": {
+      "thinking_tokens": 1425
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 17902,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 568,
+        "cache_read_input_tokens": 40556,
+        "cache_creation_input_tokens": 248,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 248
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1207,
+      "outputTokens": 5437,
+      "thinkingTokens": 1425,
+      "cacheReadInputTokens": 278639,
+      "cacheCreationInputTokens": 17902,
+      "webSearchRequests": 0,
+      "costUSD": 0.00920599,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "canonicalModel": "claude-haiku-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    },
+    "claude-sonnet-5-5": {
+      "inputTokens": 20,
+      "outputTokens": 5015,
+      "thinkingTokens": 528,
+      "cacheReadInputTokens": 184756,
+      "cacheCreationInputTokens": 18437,
+      "webSearchRequests": 0,
+      "costUSD": 0.1445902,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 19,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "The `#` fix is in. Completion now keeps `#` as an ordinary character, and the full test suite passes (1910 passed, 102 skipped, 1 xfailed).\n\n**Changes:**\n- **`src/click/shell_completion.py`**: `split_arg_string` sets `lex.commenters = \"\"`, so `shlex` no longer drops everything after a `#`. I also added a `versionchanged` note to the docstring.\n- **`tests/test_shell_completion.py`**:\n  - a direct test of `split_arg_string` covering `\"a #b c\"`, `\"foo#bar\"` and `\"a '#b\"`;\n  - a bash `test_full_complete` case with `COMP_WORDS=\"a #\"`, which expects no matches.\n- **`CHANGES.md`**: a new \"Version 8.5.1 / Unreleased\" entry above 8.5.0. The version number is my guess at the next release, so please check it.\n\n**Verification:** With the fix, the test file passes (62 tests). Without the fix, the bash case and two of the `split_arg_string` cases fail, so the tests catch the bug. The `\"a '#b\"` case passes either way; it guards against regressions inside quotes.\n\n**Not covered:** I didn't add a Fish test. With the old code, a Fish incomplete word starting with `#` raises `IndexError`, but the test helper only compares output, so that case would not show the failure. The fix covers it through the same splitter, but nothing checks it directly.\n\nI haven't committed anything. Say if you want a commit with the `Co-Authored-By` line from your reminder.",
+  "ttft_ms": 1955,
+  "type": "result",
+  "duration_ms": 40699,
+  "uuid": "374f4810-158a-443a-b1b6-39e469ef1ce4",
+  "ttft_stream_ms": 1517,
+  "time_to_request_ms": 125,
+  "time_to_request_phases_ms": {
+    "other": 12,
+    "system_prompt": 58,
+    "resume_other": 0,
+    "process_user_input": 2,
+    "input_attachments": 10,
+    "input_hooks": 2,
+    "transcript_persist": 1,
+    "tool_pool_refresh": 2,
+    "init_message": 13,
+    "engine_pickup": 0,
+    "message_prep": 1,
+    "model_config_wait": 1,
+    "autocompact": 1,
+    "query_setup": 0,
+    "model_gates": 1,
+    "tool_schema_build": 9,
+    "message_normalization": 4,
+    "client_creation": 3,
+    "request_build": 5
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 23,
+  "time_to_request_cpu_ms": 172,
+  "time_to_request_major_faults": 2303,
+  "input_attachments_detail": {
+    "slowest_producer": "queued_commands",
+    "slowest_producer_ms": 7,
+    "cpu_ms": 0,
+    "major_faults": 246,
+    "changed_files_reread": 0
+  },
+  "first_content_frame_ms": 1517,
+  "queued_turn_count": 0,
+  "result_index": 0
+}

@@ -1,0 +1,35 @@
+diff --git a/src/click/core.py b/src/click/core.py
+index d5390bd..de129ec 100644
+--- a/src/click/core.py
++++ b/src/click/core.py
+@@ -389,7 +389,7 @@ class Context:
+             and parent is not None
+             and parent.default_map is not None
+         ):
+-            default_map = parent.default_map
++            default_map = parent.default_map.get(info_name)
+ 
+         self.default_map = default_map
+ 
+diff --git a/tests/test_commands.py b/tests/test_commands.py
+index 4c7fd57..98cda8b 100644
+--- a/tests/test_commands.py
++++ b/tests/test_commands.py
+@@ -672,3 +672,17 @@ def test_suggest_possible_commands(runner, value, expect):
+ 
+     result = runner.invoke(cli, [value])
+     assert expect in result.output
++
++
++def test_group_subcommand_default_map(runner):
++    @click.group()
++    def cli():
++        pass
++
++    @cli.command()
++    @click.option("--name", default="normal")
++    def foo(name):
++        click.echo(name)
++
++    result = runner.invoke(cli, ["foo"], default_map={"foo": {"name": "changed"}})
++    assert result.output.strip() == "changed"

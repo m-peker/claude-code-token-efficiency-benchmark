@@ -1,0 +1,131 @@
+{
+  "duration_api_ms": 26503,
+  "stop_reason": "end_turn",
+  "session_id": "077b52a0-a9b5-4faa-b1a0-7dee7e67b76c",
+  "total_cost_usd": 0.0091135,
+  "usage": {
+    "input_tokens": 20,
+    "cache_creation_input_tokens": 16316,
+    "cache_read_input_tokens": 327930,
+    "output_tokens": 4880,
+    "output_tokens_details": {
+      "thinking_tokens": 1774
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 16316,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 406,
+        "cache_read_input_tokens": 39362,
+        "cache_creation_input_tokens": 636,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 636
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1210,
+      "outputTokens": 4900,
+      "cacheReadInputTokens": 327930,
+      "cacheCreationInputTokens": 16316,
+      "webSearchRequests": 0,
+      "costUSD": 0.0091135,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 1774,
+      "canonicalModel": "claude-haiku-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 11,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "Subcommands now receive their own section of `default_map`. Before this fix, `{\"runserver\": {\"port\": 5000}}` never reached `runserver`, so `--port` fell back to 8000.\n\n**Cause:** In `Context.__init__` (`src/click/core.py`), a subcommand context copied the parent's whole `default_map` instead of the entry keyed by its name.\n\n**Fix:** The subcommand context now takes `parent.default_map.get(info_name)`. It only uses that value when it is a mapping, so a non-dict entry such as `True` or `UNSET` under a command name doesn't break lookups.\n\n**Verification:**\n- Full test suite: 1907 passed, 102 skipped, 1 xfailed, no failures.\n- A new regression test, `test_default_map_applies_to_subcommand` in `tests/test_defaults.py`, checks that `runserver` picks up `port=5000` from the nested map.\n- I kept the CRLF line endings the files already use.\n\nI didn't add a `CHANGES.md` entry or commit anything. Say if you want either.",
+  "ttft_ms": 1373,
+  "type": "result",
+  "duration_ms": 46922,
+  "uuid": "17926d94-3980-4116-92e4-0bd877d3024e",
+  "ttft_stream_ms": 1217,
+  "time_to_request_ms": 262,
+  "time_to_request_phases_ms": {
+    "other": 16,
+    "system_prompt": 99,
+    "resume_other": 0,
+    "process_user_input": 2,
+    "input_attachments": 10,
+    "input_hooks": 4,
+    "transcript_persist": 5,
+    "tool_pool_refresh": 3,
+    "init_message": 12,
+    "engine_pickup": 0,
+    "message_prep": 1,
+    "model_config_wait": 2,
+    "autocompact": 2,
+    "query_setup": 0,
+    "model_gates": 75,
+    "tool_schema_build": 19,
+    "message_normalization": 2,
+    "client_creation": 5,
+    "request_build": 5
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 20,
+  "time_to_request_cpu_ms": 453,
+  "time_to_request_major_faults": 5248,
+  "input_attachments_detail": {
+    "slowest_producer": "model",
+    "slowest_producer_ms": 7,
+    "cpu_ms": 31,
+    "major_faults": 90
+  },
+  "first_content_frame_ms": 1217,
+  "queued_turn_count": 0,
+  "result_index": 0
+}

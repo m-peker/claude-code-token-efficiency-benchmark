@@ -1,0 +1,145 @@
+{
+  "duration_api_ms": 9095,
+  "stop_reason": "end_turn",
+  "session_id": "b28a13ac-02fe-4b96-b8dd-b5cc4a5c3dee",
+  "total_cost_usd": 0.0387293,
+  "usage": {
+    "input_tokens": 6,
+    "cache_creation_input_tokens": 3796,
+    "cache_read_input_tokens": 73989,
+    "output_tokens": 860,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 3796,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 593,
+        "cache_read_input_tokens": 26406,
+        "cache_creation_input_tokens": 292,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 292
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1245,
+      "outputTokens": 22,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.00013550000000000001,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 0,
+      "canonicalModel": "claude-haiku-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    },
+    "claude-sonnet-5-5": {
+      "inputTokens": 6,
+      "outputTokens": 860,
+      "cacheReadInputTokens": 73989,
+      "cacheCreationInputTokens": 3796,
+      "webSearchRequests": 0,
+      "costUSD": 0.0385938,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 0,
+      "canonicalModel": "claude-sonnet-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 3,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "`Parameter.consume_value` (`src/click/core.py:2481`) tries four sources in order and stops at the first that yields a value. It returns a `(value, source)` tuple.\n\n1. **Command line.** It reads `opts.get(self.name, UNSET)`, the value the parser produced. If that isn't `UNSET`, the source is `ParameterSource.COMMANDLINE`. Otherwise the source starts as `DEFAULT`.\n2. **Environment variable.** If the value is still `UNSET`, it calls `value_from_envvar(ctx)`. A result that isn't `None` is used, and the source becomes `ENVIRONMENT`.\n3. **default_map.** If still `UNSET`, it calls `ctx.lookup_default(self.name)`. The value is accepted if it isn't `None`, or if the key is present in the map (`_default_map_has`), so an explicit `None` counts. The source becomes `DEFAULT_MAP`. A string value for a parameter with `nargs != 1` is split with `type.split_envvar_value`, as for environment variables.\n4. **Default.** If still `UNSET`, it calls `self.get_default(ctx)`. A result that isn't `UNSET` is used, and the source is `DEFAULT`.\n\nIf nothing supplies a value, it returns the `UNSET` sentinel with source `DEFAULT`.\n\nThe `Option` override (`core.py:3589`) calls this method first, then adjusts the result:\n- A flag given without a value resolves to a prompt (source `PROMPT`) or to its activation value (source `COMMANDLINE`).\n- A multiple option that contains `FLAG_NEEDS_VALUE` entries has each one replaced with the activation value, and its source becomes `COMMANDLINE`.",
+  "ttft_ms": 2067,
+  "type": "result",
+  "duration_ms": 8587,
+  "uuid": "8d40a160-aa28-4726-97fe-fe54932cee67",
+  "ttft_stream_ms": 1420,
+  "time_to_request_ms": 222,
+  "time_to_request_phases_ms": {
+    "other": 18,
+    "system_prompt": 114,
+    "resume_other": 0,
+    "process_user_input": 3,
+    "input_attachments": 11,
+    "input_hooks": 3,
+    "transcript_persist": 36,
+    "tool_pool_refresh": 2,
+    "init_message": 14,
+    "engine_pickup": 1,
+    "message_prep": 0,
+    "model_config_wait": 1,
+    "autocompact": 2,
+    "query_setup": 0,
+    "model_gates": 1,
+    "tool_schema_build": 9,
+    "message_normalization": 1,
+    "client_creation": 1,
+    "request_build": 5
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 42,
+  "time_to_request_cpu_ms": 344,
+  "time_to_request_major_faults": 4364,
+  "input_attachments_detail": {
+    "slowest_producer": "model",
+    "slowest_producer_ms": 8,
+    "cpu_ms": 15,
+    "major_faults": 74
+  },
+  "first_content_frame_ms": 1420,
+  "queued_turn_count": 0,
+  "result_index": 0
+}

@@ -1,0 +1,28 @@
+diff --git a/src/click/formatting.py b/src/click/formatting.py
+index b123ac4..c4aa2de 100644
+--- a/src/click/formatting.py
++++ b/src/click/formatting.py
+@@ -316,5 +316,5 @@ def join_options(options: cabc.Iterable[str]) -> tuple[str, bool]:
+ 
+         rv.append((len(prefix), opt))
+ 
+-    rv.sort(key=lambda x: x[0], reverse=True)
++    rv.sort(key=lambda x: x[0])
+     return ", ".join(x[1] for x in rv), any_prefix_is_slash
+diff --git a/tests/test_formatting.py b/tests/test_formatting.py
+index 272b075..d22a079 100644
+--- a/tests/test_formatting.py
++++ b/tests/test_formatting.py
+@@ -4,6 +4,12 @@ import click
+ from click._compat import strip_ansi
+ 
+ 
++def test_join_options_short_first():
++    from click.formatting import join_options
++
++    assert join_options(["--verbose", "-v"]) == ("-v, --verbose", False)
++
++
+ def test_basic_functionality(runner):
+     @click.command()
+     def cli():

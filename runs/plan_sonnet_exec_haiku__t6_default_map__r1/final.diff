@@ -1,0 +1,67 @@
+diff --git a/src/click/core.py b/src/click/core.py
+index d5390bd..de129ec 100644
+--- a/src/click/core.py
++++ b/src/click/core.py
+@@ -389,7 +389,7 @@ class Context:
+             and parent is not None
+             and parent.default_map is not None
+         ):
+-            default_map = parent.default_map
++            default_map = parent.default_map.get(info_name)
+ 
+         self.default_map = default_map
+ 
+diff --git a/tests/test_defaults.py b/tests/test_defaults.py
+index bb2684c..a79363d 100644
+--- a/tests/test_defaults.py
++++ b/tests/test_defaults.py
+@@ -556,3 +556,49 @@ def test_unset_in_default_map(runner):
+     result = runner.invoke(cli, [])
+     assert result.exit_code == 0
+     assert result.output.strip() == "port=8000"
++
++
++def test_default_map_subcommand(runner):
++    """A subcommand's options read defaults from ``default_map[subcommand]``,
++    not from the top-level ``default_map`` itself.
++    """
++
++    @click.group()
++    def cli():
++        pass
++
++    @cli.command()
++    @click.option("--name", default="original")
++    def sub(name):
++        click.echo(f"name={name}")
++
++    result = runner.invoke(cli, ["sub"], default_map={"sub": {"name": "mapped"}})
++    assert not result.exception
++    assert "name=mapped" in result.output
++
++    # Entry for another subcommand does not apply.
++    result = runner.invoke(cli, ["sub"], default_map={"other": {"name": "mapped"}})
++    assert not result.exception
++    assert "name=original" in result.output
++
++
++def test_default_map_nested_subcommand(runner):
++    """``default_map`` is resolved one level at a time for nested groups."""
++
++    @click.group()
++    def cli():
++        pass
++
++    @cli.group()
++    def group():
++        pass
++
++    @group.command()
++    @click.option("--name", default="original")
++    def sub(name):
++        click.echo(f"name={name}")
++
++    default_map = {"group": {"sub": {"name": "mapped"}}}
++    result = runner.invoke(cli, ["group", "sub"], default_map=default_map)
++    assert not result.exception
++    assert "name=mapped" in result.output

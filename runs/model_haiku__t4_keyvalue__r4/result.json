@@ -1,0 +1,131 @@
+{
+  "duration_api_ms": 16982,
+  "stop_reason": "end_turn",
+  "session_id": "46a79f5d-69b5-4f28-8eee-7d00cf50c634",
+  "total_cost_usd": 0.00521033,
+  "usage": {
+    "input_tokens": 14,
+    "cache_creation_input_tokens": 9867,
+    "cache_read_input_tokens": 142463,
+    "output_tokens": 3350,
+    "output_tokens_details": {
+      "thinking_tokens": 936
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 9867,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "global",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 606,
+        "cache_read_input_tokens": 24220,
+        "cache_creation_input_tokens": 806,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 806
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1273,
+      "outputTokens": 3370,
+      "cacheReadInputTokens": 142463,
+      "cacheCreationInputTokens": 9867,
+      "webSearchRequests": 0,
+      "costUSD": 0.00521033,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 936,
+      "canonicalModel": "claude-haiku-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 7,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "I added `click.KeyValue`, exported it from `click`, and added tests. The full test suite passes (1912 passed, 102 skipped, 1 xfailed).\n\n- **Behaviour:** `KeyValue` splits on the first `=`, so `a=b=c` gives `(\"a\", \"b=c\")`. An empty value is allowed (`a=` gives `(\"a\", \"\")`). A missing `=` or an empty key (`abc`, `=value`, `\"\"`) fails with `\"'abc' is not a valid key=value pair.\"`, exit code 2.\n- **Files:** the class is in `src/click/types.py` after `Tuple`, the export is in `src/click/__init__.py`, and the tests are appended to `tests/test_types.py`.\n- **Choices I made:**\n  - The type's name is `\"key=value\"`.\n  - Values that are already tuples are returned unchanged, so tuple defaults still work.\n  - The docstring says `versionadded:: 8.6` because `pyproject.toml` is at 8.5.0. Adjust it if the next release is numbered differently.\n  - I did not add a `CHANGES.md` entry, since that file's top section is already released. Say if you want one.\n\nNothing is committed.",
+  "ttft_ms": 929,
+  "type": "result",
+  "duration_ms": 29787,
+  "uuid": "33be2b7f-59f1-476a-a356-8b111145565d",
+  "ttft_stream_ms": 771,
+  "time_to_request_ms": 64,
+  "time_to_request_phases_ms": {
+    "other": 10,
+    "system_prompt": 15,
+    "resume_other": 0,
+    "process_user_input": 2,
+    "input_attachments": 16,
+    "input_hooks": 2,
+    "transcript_persist": 1,
+    "tool_pool_refresh": 1,
+    "init_message": 7,
+    "engine_pickup": 0,
+    "message_prep": 1,
+    "model_config_wait": 1,
+    "autocompact": 1,
+    "query_setup": 0,
+    "model_gates": 0,
+    "tool_schema_build": 3,
+    "message_normalization": 0,
+    "client_creation": 1,
+    "request_build": 3
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 14,
+  "time_to_request_cpu_ms": 77,
+  "time_to_request_major_faults": 1199,
+  "input_attachments_detail": {
+    "slowest_producer": "at_mentioned_files",
+    "slowest_producer_ms": 8,
+    "cpu_ms": 15,
+    "major_faults": 299
+  },
+  "first_content_frame_ms": 771,
+  "queued_turn_count": 0,
+  "result_index": 0
+}

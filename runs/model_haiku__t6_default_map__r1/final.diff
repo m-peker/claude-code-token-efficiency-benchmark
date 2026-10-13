@@ -1,0 +1,46 @@
+diff --git a/src/click/core.py b/src/click/core.py
+index d5390bd..6b28c67 100644
+--- a/src/click/core.py
++++ b/src/click/core.py
+@@ -389,7 +389,12 @@ class Context:
+             and parent is not None
+             and parent.default_map is not None
+         ):
+-            default_map = parent.default_map
++            # The parent's map is nested per subcommand, so only the
++            # sub-map for this command applies.
++            sub_default_map = parent.default_map.get(info_name)
++
++            if isinstance(sub_default_map, cabc.Mapping):
++                default_map = sub_default_map
+ 
+         self.default_map = default_map
+ 
+diff --git a/tests/test_defaults.py b/tests/test_defaults.py
+index bb2684c..e4569d9 100644
+--- a/tests/test_defaults.py
++++ b/tests/test_defaults.py
+@@ -556,3 +556,23 @@ def test_unset_in_default_map(runner):
+     result = runner.invoke(cli, [])
+     assert result.exit_code == 0
+     assert result.output.strip() == "port=8000"
++
++
++def test_default_map_applies_to_subcommand(runner):
++    """A nested ``default_map`` entry keyed by subcommand name applies to
++    that subcommand's options.
++    """
++
++    @click.group()
++    def cli():
++        pass
++
++    @cli.command()
++    @click.option("--port", default=8000)
++    def runserver(port):
++        click.echo(port)
++
++    result = runner.invoke(
++        cli, ["runserver"], default_map={"runserver": {"port": 5000}}
++    )
++    assert result.output == "5000\n"

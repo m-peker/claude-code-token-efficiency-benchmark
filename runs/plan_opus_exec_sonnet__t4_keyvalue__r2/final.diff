@@ -1,0 +1,130 @@
+diff --git a/CHANGES.md b/CHANGES.md
+index 3c9a94e..9b51a18 100644
+--- a/CHANGES.md
++++ b/CHANGES.md
+@@ -1,3 +1,10 @@
++## Version 8.6.0
++
++Unreleased
++
++- Add {class}`KeyValue` parameter type that parses `key=value` into a
++  `(key, value)` tuple.
++
+ ## Version 8.5.0
+ 
+ Released 2026-08-24
+diff --git a/docs/api.md b/docs/api.md
+index df62cf5..d3c30dc 100644
+--- a/docs/api.md
++++ b/docs/api.md
+@@ -239,6 +239,10 @@ classes and functions.
+ .. autoclass:: Path
+ ```
+ 
++```{eval-rst}
++.. autoclass:: KeyValue
++```
++
+ ```{eval-rst}
+ .. autoclass:: Choice
+    :members:
+diff --git a/src/click/__init__.py b/src/click/__init__.py
+index a34ab02..702da98 100644
+--- a/src/click/__init__.py
++++ b/src/click/__init__.py
+@@ -61,6 +61,7 @@ from .types import FLOAT as FLOAT
+ from .types import FloatRange as FloatRange
+ from .types import INT as INT
+ from .types import IntRange as IntRange
++from .types import KeyValue as KeyValue
+ from .types import ParamType as ParamType
+ from .types import Path as Path
+ from .types import STRING as STRING
+diff --git a/src/click/types.py b/src/click/types.py
+index 22f76f5..a204dc3 100644
+--- a/src/click/types.py
++++ b/src/click/types.py
+@@ -896,6 +896,37 @@ class UUIDParameterType(ParamType[uuid.UUID]):
+         return "UUID"
+ 
+ 
++class KeyValue(ParamType[tuple[str, str]]):
++    """Parse a ``key=value`` string into a ``(key, value)`` tuple. The value
++    is split on the first ``=``, so the value may itself contain ``=``.
++    The key must not be empty; the value may be empty.
++
++    .. versionadded:: 8.6
++    """
++
++    name = "key=value"
++
++    def convert(
++        self, value: t.Any, param: Parameter | None, ctx: Context | None
++    ) -> tuple[str, str]:
++        if isinstance(value, tuple):
++            return value  # already converted (e.g. a tuple default)
++
++        key, sep, val = str(value).partition("=")
++
++        if not sep or not key:
++            self.fail(
++                _("{value!r} is not a valid key=value pair.").format(value=value),
++                param,
++                ctx,
++            )
++
++        return key, val
++
++    def __repr__(self) -> str:
++        return "KeyValue"
++
++
+ class FileInfoDict(ParamTypeInfoDict):
+     mode: str
+     encoding: str | None
+diff --git a/tests/test_types.py b/tests/test_types.py
+index 842c426..0aaea5f 100644
+--- a/tests/test_types.py
++++ b/tests/test_types.py
+@@ -328,3 +328,41 @@ def test_param_type_subclass_omitting_input_parameter():
+     doubling = DoublingType()
+     assert doubling("21") == 42
+     assert doubling(None) is None
++
++
++@pytest.mark.parametrize(
++    ("value", "expect"),
++    [("a=1", ("a", "1")), ("a=b=c", ("a", "b=c")), ("a=", ("a", ""))],
++)
++def test_key_value(runner, value, expect):
++    @click.command()
++    @click.option("--set", "pair", type=click.KeyValue())
++    def cli(pair):
++        click.echo(repr(pair))
++
++    result = runner.invoke(cli, ["--set", value])
++    assert result.exit_code == 0
++    assert result.output.strip() == repr(expect)
++
++
++def test_key_value_multiple(runner):
++    @click.command()
++    @click.option("--set", "pairs", type=click.KeyValue(), multiple=True)
++    def cli(pairs):
++        click.echo(repr(dict(pairs)))
++
++    result = runner.invoke(cli, ["--set", "a=1", "--set", "b=2"])
++    assert result.exit_code == 0
++    assert result.output.strip() == repr({"a": "1", "b": "2"})
++
++
++@pytest.mark.parametrize("value", ["novalue", "=value", ""])
++def test_key_value_invalid(runner, value):
++    @click.command()
++    @click.option("--set", "pair", type=click.KeyValue())
++    def cli(pair):
++        pass
++
++    result = runner.invoke(cli, ["--set", value])
++    assert result.exit_code == 2
++    assert "is not a valid key=value pair" in result.output

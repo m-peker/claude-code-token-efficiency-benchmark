@@ -1,0 +1,131 @@
+{
+  "duration_api_ms": 36535,
+  "stop_reason": "end_turn",
+  "session_id": "98f1ef38-6018-495d-b1f4-cbe89c692df7",
+  "total_cost_usd": 0.01180867,
+  "usage": {
+    "input_tokens": 32,
+    "cache_creation_input_tokens": 16601,
+    "cache_read_input_tokens": 531927,
+    "output_tokens": 6080,
+    "output_tokens_details": {
+      "thinking_tokens": 1564
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 16601,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 347,
+        "cache_read_input_tokens": 39693,
+        "cache_creation_input_tokens": 590,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 590
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1222,
+      "outputTokens": 6094,
+      "cacheReadInputTokens": 531927,
+      "cacheCreationInputTokens": 16601,
+      "webSearchRequests": 0,
+      "costUSD": 0.01180867,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 1564,
+      "canonicalModel": "claude-haiku-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 17,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "I fixed the help output order. Option names were listed longest prefix first, so `-v, --verbose` showed as `--verbose, -v`. Now short flags come first, as in `-v, --verbose`.\n\nThe cause was one line in `src/click/formatting.py`, in `join_options`. It sorted the option names with `reverse=True`. I removed that, so the sort is now ascending by prefix length.\n\n- **Verification:** the full test suite passes (1907 passed, 102 skipped, 1 xfailed, 0 failures). A `--help` run on a sample command now shows `-v, --verbose`.\n- **Regression test:** I added `test_option_help_lists_short_flag_before_long` to `tests/test_formatting.py`.\n- **Line endings:** the working copy uses CRLF, so I matched that in the test file.\n\nNothing is committed. The other ordering I checked is intentional: options follow declaration order, `--help` comes last, and group subcommands are listed alphabetically. If you expected a different order for any of those, tell me which and I'll change it.",
+  "ttft_ms": 1328,
+  "type": "result",
+  "duration_ms": 72605,
+  "uuid": "ffbccf9b-1d20-4bb0-9c55-1694003a09cc",
+  "ttft_stream_ms": 1083,
+  "time_to_request_ms": 249,
+  "time_to_request_phases_ms": {
+    "other": 16,
+    "system_prompt": 81,
+    "resume_other": 0,
+    "process_user_input": 2,
+    "input_attachments": 9,
+    "input_hooks": 2,
+    "transcript_persist": 11,
+    "tool_pool_refresh": 2,
+    "init_message": 10,
+    "engine_pickup": 1,
+    "message_prep": 1,
+    "model_config_wait": 1,
+    "autocompact": 1,
+    "query_setup": 1,
+    "model_gates": 90,
+    "tool_schema_build": 12,
+    "message_normalization": 1,
+    "client_creation": 3,
+    "request_build": 5
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 9,
+  "time_to_request_cpu_ms": 281,
+  "time_to_request_major_faults": 4166,
+  "input_attachments_detail": {
+    "slowest_producer": "model",
+    "slowest_producer_ms": 6,
+    "cpu_ms": 16,
+    "major_faults": 81
+  },
+  "first_content_frame_ms": 1083,
+  "queued_turn_count": 0,
+  "result_index": 0
+}

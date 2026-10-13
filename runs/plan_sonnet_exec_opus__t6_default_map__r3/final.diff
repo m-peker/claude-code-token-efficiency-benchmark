@@ -1,0 +1,62 @@
+diff --git a/CHANGES.md b/CHANGES.md
+index 3c9a94e..47c98b4 100644
+--- a/CHANGES.md
++++ b/CHANGES.md
+@@ -1,3 +1,10 @@
++## Version 8.5.1
++
++Unreleased
++
++- Subcommand contexts look up their own entry in the parent's
++  `default_map` again, so defaults configured for subcommands are applied.
++
+ ## Version 8.5.0
+ 
+ Released 2026-08-24
+diff --git a/src/click/core.py b/src/click/core.py
+index d5390bd..de129ec 100644
+--- a/src/click/core.py
++++ b/src/click/core.py
+@@ -389,7 +389,7 @@ class Context:
+             and parent is not None
+             and parent.default_map is not None
+         ):
+-            default_map = parent.default_map
++            default_map = parent.default_map.get(info_name)
+ 
+         self.default_map = default_map
+ 
+diff --git a/tests/test_context.py b/tests/test_context.py
+index e35c532..e5f4f8d 100644
+--- a/tests/test_context.py
++++ b/tests/test_context.py
+@@ -780,3 +780,29 @@ def test_propagate_opt_prefixes():
+     ctx = click.Context(click.Command("test2"), parent=parent)
+ 
+     assert ctx._opt_prefixes == {"-", "--", "!"}
++
++
++def test_default_map_subcommands(runner):
++    @click.group()
++    def cli():
++        pass
++
++    @cli.group()
++    def nested():
++        pass
++
++    @cli.command()
++    @click.option("--port", type=int)
++    def sub(port):
++        click.echo(f"sub={port}")
++
++    @nested.command()
++    @click.option("--port", type=int)
++    def deep(port):
++        click.echo(f"deep={port}")
++
++    default_map = {"sub": {"port": 5000}, "nested": {"deep": {"port": 6000}}}
++    result = runner.invoke(cli, ["sub"], default_map=default_map)
++    assert result.output == "sub=5000\n"
++    result = runner.invoke(cli, ["nested", "deep"], default_map=default_map)
++    assert result.output == "deep=6000\n"

@@ -1,0 +1,146 @@
+{
+  "duration_api_ms": 23380,
+  "stop_reason": "end_turn",
+  "session_id": "29fecdf1-f7c8-4a9c-9cb7-3373c82726dc",
+  "total_cost_usd": 0.10620379999999999,
+  "usage": {
+    "input_tokens": 16,
+    "cache_creation_input_tokens": 11083,
+    "cache_read_input_tokens": 169719,
+    "output_tokens": 2777,
+    "output_tokens_details": {
+      "thinking_tokens": 439
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 11083,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "global",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 378,
+        "cache_read_input_tokens": 25312,
+        "cache_creation_input_tokens": 150,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 150
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1190,
+      "outputTokens": 14,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.00012600000000000003,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 0,
+      "canonicalModel": "claude-haiku-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    },
+    "claude-sonnet-5-5": {
+      "inputTokens": 16,
+      "outputTokens": 2777,
+      "cacheReadInputTokens": 169719,
+      "cacheCreationInputTokens": 11083,
+      "webSearchRequests": 0,
+      "costUSD": 0.10607779999999997,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 439,
+      "canonicalModel": "claude-sonnet-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 13,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "The cause is in `join_options` (`src/click/formatting.py:319`). It sorts an option's names by prefix length with `reverse=True`, so `--help` lands before `-h`. The existing test at `tests/test_commands.py:188` expects `-h, --help`.\n\nI'm in plan mode, so I haven't edited anything. The plan is saved at `<home>\\.claude\\plans\\the-help-output-looks-linked-penguin.md`.\n\n**Proposed fix:** change line 319 from `rv.sort(key=lambda x: x[0], reverse=True)` to `rv.sort(key=lambda x: x[0])`.\n\n**Verification:** run `pytest tests/test_commands.py tests/test_formatting.py tests/test_options.py`, then check that a `--verbose`/`-v` option prints `-v, --verbose`.\n\nLet me know if you want me to apply it, since plan mode blocks edits. If by \"options\" you meant the order of the options in the list rather than the names within one option, tell me and I'll look at that instead.",
+  "ttft_ms": 2107,
+  "type": "result",
+  "duration_ms": 25064,
+  "uuid": "b2b55c4f-3954-4f0a-80a9-a969449b76f9",
+  "ttft_stream_ms": 1047,
+  "time_to_request_ms": 299,
+  "time_to_request_phases_ms": {
+    "other": 11,
+    "system_prompt": 14,
+    "resume_other": 0,
+    "process_user_input": 1,
+    "input_attachments": 6,
+    "input_hooks": 1,
+    "transcript_persist": 2,
+    "tool_pool_refresh": 1,
+    "init_message": 6,
+    "engine_pickup": 1,
+    "message_prep": 0,
+    "model_config_wait": 1,
+    "autocompact": 1,
+    "query_setup": 135,
+    "auto_mode_context_wait": 112,
+    "model_gates": 0,
+    "tool_schema_build": 3,
+    "message_normalization": 1,
+    "client_creation": 1,
+    "request_build": 2
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 137,
+  "time_to_request_cpu_ms": 109,
+  "time_to_request_major_faults": 2025,
+  "input_attachments_detail": {
+    "slowest_producer": "queued_commands",
+    "slowest_producer_ms": 3,
+    "cpu_ms": 16,
+    "major_faults": 59
+  },
+  "first_content_frame_ms": 1047,
+  "queued_turn_count": 0,
+  "result_index": 0
+}

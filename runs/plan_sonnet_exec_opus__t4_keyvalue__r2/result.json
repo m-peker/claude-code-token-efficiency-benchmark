@@ -1,0 +1,154 @@
+{
+  "duration_api_ms": 93844,
+  "stop_reason": "end_turn",
+  "session_id": "548a3aad-7491-4761-b5c4-59538d7471d9",
+  "total_cost_usd": 0.4783076,
+  "usage": {
+    "input_tokens": 16,
+    "cache_creation_input_tokens": 17987,
+    "cache_read_input_tokens": 288308,
+    "output_tokens": 4367,
+    "output_tokens_details": {
+      "thinking_tokens": 201
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 17987,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 612,
+        "cache_read_input_tokens": 40523,
+        "cache_creation_input_tokens": 366,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 366
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1259,
+      "outputTokens": 20,
+      "thinkingTokens": 0,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.0001359,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000
+    },
+    "claude-sonnet-5-5": {
+      "inputTokens": 18,
+      "outputTokens": 7077,
+      "thinkingTokens": 544,
+      "cacheReadInputTokens": 167423,
+      "cacheCreationInputTokens": 28698,
+      "webSearchRequests": 0,
+      "costUSD": 0.1892101,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000
+    },
+    "claude-opus-5-5": {
+      "inputTokens": 16,
+      "outputTokens": 4367,
+      "cacheReadInputTokens": 288308,
+      "cacheCreationInputTokens": 17987,
+      "webSearchRequests": 0,
+      "costUSD": 0.2889616,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 201,
+      "canonicalModel": "claude-opus-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 10,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "I've added `click.KeyValue`. It turns `--set a=b` into `(\"a\", \"b\")`, and the full test suite passes (1920 passed, 102 skipped, 1 expected failure). Ruff checks are clean. I didn't run mypy because it isn't installed here.\n\n**How it behaves:**\n- It splits on the first `=`, so `a=b=c` becomes `(\"a\", \"b=c\")`.\n- An empty value is allowed: `a=` becomes `(\"a\", \"\")`.\n- Input with no `=` (like `ab`), with an empty key (like `=b`), or an empty string fails. The error reads, for example: `Error: Invalid value for '--set': 'ab' is not a valid key=value pair.` (exit code 2).\n- With `multiple=True`, you get a list of pairs, which `dict(...)` turns straight into a dictionary.\n\n**What changed:**\n- **`src/click/types.py`**: the new `KeyValue` class, next to the UUID type.\n- **`src/click/__init__.py`**: exports it as `click.KeyValue`.\n- **Docs**: added it to `docs/api.md` and the built-in types list in `docs/parameter-types.md`.\n- **`CHANGES.md`**: version 8.5.0 has already been released, so I started a new \"Version 8.6.0 \u2014 Unreleased\" section for this entry. The docstring is marked as added in 8.6 to match.\n- **Tests**:\n  - `tests/test_types.py`: direct checks of valid and invalid inputs.\n  - `tests/test_basic.py`: command-line tests, including the error message and `multiple=True`.\n  - `tests/test_info_dict.py`: a new entry for the type.\n\nRunning the formatter also reformatted `tests/test_defaults.py`, which isn't part of this change, so I undid that.\n\nNothing is committed yet.",
+  "ttft_ms": 3012,
+  "type": "result",
+  "duration_ms": 69602,
+  "uuid": "2aee5087-e94b-44d5-989d-45ec9c1edbf3",
+  "ttft_stream_ms": 1450,
+  "time_to_request_ms": 171,
+  "time_to_request_phases_ms": {
+    "other": 21,
+    "system_prompt": 51,
+    "resume_other": 0,
+    "process_user_input": 3,
+    "input_attachments": 17,
+    "input_hooks": 4,
+    "transcript_persist": 1,
+    "tool_pool_refresh": 3,
+    "init_message": 19,
+    "engine_pickup": 1,
+    "message_prep": 1,
+    "model_config_wait": 2,
+    "autocompact": 3,
+    "query_setup": 1,
+    "model_gates": 0,
+    "tool_schema_build": 19,
+    "message_normalization": 6,
+    "client_creation": 8,
+    "request_build": 11
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 71,
+  "time_to_request_cpu_ms": 265,
+  "time_to_request_major_faults": 2660,
+  "input_attachments_detail": {
+    "slowest_producer": "model",
+    "slowest_producer_ms": 11,
+    "cpu_ms": 16,
+    "major_faults": 271,
+    "changed_files_reread": 0
+  },
+  "first_content_frame_ms": 1451,
+  "queued_turn_count": 0,
+  "result_index": 0
+}

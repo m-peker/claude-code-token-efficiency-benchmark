@@ -1,0 +1,70 @@
+diff --git a/CHANGES.md b/CHANGES.md
+index 3c9a94e..1b6c4a1 100644
+--- a/CHANGES.md
++++ b/CHANGES.md
+@@ -1,3 +1,11 @@
++## Version 8.5.1
++
++Unreleased
++
++- Shell completion no longer treats `#` as the start of a comment when
++  splitting the command line, so arguments containing `#` are completed
++  correctly.
++
+ ## Version 8.5.0
+ 
+ Released 2026-08-24
+diff --git a/src/click/shell_completion.py b/src/click/shell_completion.py
+index 42e8885..a8ece32 100644
+--- a/src/click/shell_completion.py
++++ b/src/click/shell_completion.py
+@@ -622,6 +622,8 @@ def split_arg_string(string: str) -> list[str]:
+ 
+     lex = shlex.shlex(string, posix=True)
+     lex.whitespace_split = True
++    # Don't treat ``#`` as the start of a comment, like ``shlex.split``.
++    lex.commenters = ""
+     out: list[str] = []
+ 
+     try:
+diff --git a/tests/test_parser.py b/tests/test_parser.py
+index f2a3ad5..4868914 100644
+--- a/tests/test_parser.py
++++ b/tests/test_parser.py
+@@ -13,6 +13,9 @@ from click.shell_completion import split_arg_string
+         ("cli 'my file'", ["cli", "my file"]),
+         ("cli my\\", ["cli", "my"]),
+         ("cli my\\ file", ["cli", "my file"]),
++        ("cli a#b c", ["cli", "a#b", "c"]),
++        ("cli #b", ["cli", "#b"]),
++        ("cli 'a#b", ["cli", "a#b"]),
+     ],
+ )
+ def test_split_arg_string(value, expect):
+diff --git a/tests/test_shell_completion.py b/tests/test_shell_completion.py
+index 10d5cfa..17fb6c2 100644
+--- a/tests/test_shell_completion.py
++++ b/tests/test_shell_completion.py
+@@ -391,6 +391,22 @@ def test_full_complete(runner, shell, env, expect):
+     assert result.output == expect
+ 
+ 
++def test_complete_args_with_hash(runner):
++    cli = Command(
++        "cli",
++        params=[Option(["--name"]), Option(["--other"])],
++    )
++    result = runner.invoke(
++        cli,
++        env={
++            "COMP_WORDS": "cli --name a#b --o",
++            "COMP_CWORD": "3",
++            "_CLI_COMPLETE": "bash_complete",
++        },
++    )
++    assert result.output == "plain,--other\n"
++
++
+ def test_source_uses_lf_line_endings(monkeypatch):
+     stdout = io.BytesIO()
+     stream = io.TextIOWrapper(stdout, encoding="utf-8", newline="\r\n")

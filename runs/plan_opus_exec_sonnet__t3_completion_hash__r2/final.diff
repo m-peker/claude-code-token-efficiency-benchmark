@@ -1,0 +1,79 @@
+diff --git a/CHANGES.md b/CHANGES.md
+index 3c9a94e..1b6c4a1 100644
+--- a/CHANGES.md
++++ b/CHANGES.md
+@@ -1,3 +1,11 @@
++## Version 8.5.1
++
++Unreleased
++
++- Shell completion no longer treats `#` as the start of a comment when
++  splitting the command line, so arguments containing `#` are completed
++  correctly.
++
+ ## Version 8.5.0
+ 
+ Released 2026-08-24
+diff --git a/src/click/shell_completion.py b/src/click/shell_completion.py
+index 42e8885..ba4f45c 100644
+--- a/src/click/shell_completion.py
++++ b/src/click/shell_completion.py
+@@ -615,6 +615,9 @@ def split_arg_string(string: str) -> list[str]:
+ 
+     :param string: String to split.
+ 
++    .. versionchanged:: 8.5.1
++        ``#`` is no longer treated as the start of a comment.
++
+     .. versionchanged:: 8.2
+         Moved to ``shell_completion`` from ``parser``.
+     """
+@@ -622,6 +625,8 @@ def split_arg_string(string: str) -> list[str]:
+ 
+     lex = shlex.shlex(string, posix=True)
+     lex.whitespace_split = True
++    # The shell already handled comments, so ``#`` is a regular character.
++    lex.commenters = ""
+     out: list[str] = []
+ 
+     try:
+diff --git a/tests/test_parser.py b/tests/test_parser.py
+index f2a3ad5..1952583 100644
+--- a/tests/test_parser.py
++++ b/tests/test_parser.py
+@@ -13,6 +13,10 @@ from click.shell_completion import split_arg_string
+         ("cli 'my file'", ["cli", "my file"]),
+         ("cli my\\", ["cli", "my"]),
+         ("cli my\\ file", ["cli", "my file"]),
++        ("cli a#b", ["cli", "a#b"]),
++        ("cli #tag", ["cli", "#tag"]),
++        ("cli 'my#file", ["cli", "my#file"]),
++        ("cli a # b", ["cli", "a", "#", "b"]),
+     ],
+ )
+ def test_split_arg_string(value, expect):
+diff --git a/tests/test_shell_completion.py b/tests/test_shell_completion.py
+index 10d5cfa..7ad37de 100644
+--- a/tests/test_shell_completion.py
++++ b/tests/test_shell_completion.py
+@@ -157,6 +157,20 @@ def test_choice_special_characters():
+     assert _get_words(cli, ["-c"], "!2") == ["!2"]
+ 
+ 
++@pytest.mark.parametrize("shell", ["bash", "zsh", "powershell"])
++@pytest.mark.usefixtures("_patch_for_completion")
++def test_hash_in_args(runner, shell):
++    cli = Group("cli", commands=[Command("a#bc"), Command("ad")])
++    env = {
++        "_CLI_COMPLETE": f"{shell}_complete",
++        "COMP_WORDS": "cli a#b",
++        "COMP_CWORD": "1",
++    }
++    result = runner.invoke(cli, env=env)
++    assert "a#bc" in result.output
++    assert "ad" not in result.output
++
++
+ def test_choice_conflicting_prefix():
+     cli = Command(
+         "cli",

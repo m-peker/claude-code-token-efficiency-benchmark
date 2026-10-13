@@ -1,0 +1,72 @@
+diff --git a/CHANGES.md b/CHANGES.md
+index 3c9a94e..72cd69e 100644
+--- a/CHANGES.md
++++ b/CHANGES.md
+@@ -91,6 +91,9 @@ Released 2026-08-24
+   {pr}`3777`
+ - {func}`edit` accepts `os.PathLike` values for `filename`, in addition to
+   strings. {issue}`2869` {pr}`3781`
++- Subcommand contexts use the nested `default_map` entry for their own name
++  instead of inheriting the parent's whole map, so `default_map` defaults apply
++  to subcommands.
+ 
+ ## Version 8.4.2
+ 
+diff --git a/src/click/core.py b/src/click/core.py
+index d5390bd..de129ec 100644
+--- a/src/click/core.py
++++ b/src/click/core.py
+@@ -389,7 +389,7 @@ class Context:
+             and parent is not None
+             and parent.default_map is not None
+         ):
+-            default_map = parent.default_map
++            default_map = parent.default_map.get(info_name)
+ 
+         self.default_map = default_map
+ 
+diff --git a/tests/test_defaults.py b/tests/test_defaults.py
+index bb2684c..98d961f 100644
+--- a/tests/test_defaults.py
++++ b/tests/test_defaults.py
+@@ -556,3 +556,40 @@ def test_unset_in_default_map(runner):
+     result = runner.invoke(cli, [])
+     assert result.exit_code == 0
+     assert result.output.strip() == "port=8000"
++
++
++def test_default_map_subcommand(runner):
++    @click.group()
++    def cli():
++        pass
++
++    @cli.command()
++    @click.option("--port", default=1)
++    def sub(port):
++        click.echo(port)
++
++    result = runner.invoke(cli, ["sub"], default_map={"sub": {"port": 5000}})
++    assert result.output == "5000\n"
++    # Missing subcommand key falls back to the parameter default.
++    result = runner.invoke(cli, ["sub"], default_map={"other": {"port": 5000}})
++    assert result.output == "1\n"
++
++
++def test_default_map_nested_groups(runner):
++    @click.group()
++    def cli():
++        pass
++
++    @cli.group()
++    def grp():
++        pass
++
++    @grp.command()
++    @click.option("--port", default=1)
++    def sub(port):
++        click.echo(port)
++
++    result = runner.invoke(
++        cli, ["grp", "sub"], default_map={"grp": {"sub": {"port": 7}}}
++    )
++    assert result.output == "7\n"

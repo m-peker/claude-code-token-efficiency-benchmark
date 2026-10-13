@@ -1,0 +1,153 @@
+{
+  "duration_api_ms": 53409,
+  "stop_reason": "end_turn",
+  "session_id": "7131eb47-e046-42c3-bf63-82cf7063aa9c",
+  "total_cost_usd": 0.21175950000000002,
+  "usage": {
+    "input_tokens": 8,
+    "cache_creation_input_tokens": 4562,
+    "cache_read_input_tokens": 87683,
+    "output_tokens": 1712,
+    "output_tokens_details": {
+      "thinking_tokens": 77
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 4562,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 587,
+        "cache_read_input_tokens": 30757,
+        "cache_creation_input_tokens": 962,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 962
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1190,
+      "outputTokens": 20,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.00012900000000000002,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 0,
+      "canonicalModel": "claude-haiku-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    },
+    "claude-sonnet-5-5": {
+      "inputTokens": 22,
+      "outputTokens": 6677,
+      "cacheReadInputTokens": 203050,
+      "cacheCreationInputTokens": 35871,
+      "webSearchRequests": 0,
+      "costUSD": 0.21163050000000003,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 430,
+      "canonicalModel": "claude-sonnet-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "origin": {
+    "kind": "task-notification",
+    "producer": "session-task",
+    "runId": "0mv6asifn-316b7f94"
+  },
+  "subagent_stats": {
+    "spawned": 1,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 1
+    },
+    "started_in_background": 1,
+    "max_depth": 1,
+    "spawned_by_subagents": 0,
+    "completed": 1,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {
+      "Explore": 1
+    }
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 5,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "I haven't changed any code yet. Plan mode is on, and I couldn't find an ExitPlanMode tool to submit the plan, so I'm giving it here as text. It's also saved at `<home>\\.claude\\plans\\defaults-configured-through-default-map-imperative-sunset.md`.\n\n**Cause:** in `Context.__init__` (`src/click/core.py:392`), a child context is given the parent's whole `default_map`. It should get only the entry for its own name. With `{\"runserver\": {\"port\": 5000}}`, the `runserver` context looks for `port` in the top-level dict and misses. That contradicts the nested-map behaviour described in `docs/commands.md`.\n\n**Fix:** change line 392 to `default_map = parent.default_map.get(info_name)`. A missing key gives the child no map, so it falls back to its own defaults.\n\n**Tests** (in `tests/test_defaults.py`):\n- A group's `context_settings` default_map sets a subcommand option, and the parameter source is `DEFAULT_MAP`.\n- The same through `runner.invoke(..., default_map=...)`.\n- Two levels of nesting, group then group then command.\n- A sibling subcommand with no entry keeps its own default.\n- A chained group.\n\n**Changelog:** add a bullet to `CHANGES.md`. The top section is 8.5.0, already released on 2026-08-24, so this will probably need a new unreleased section.\n\n**Verification:** confirm the new tests fail before the fix, then run `pytest` on the defaults, context and options test files and on the full suite.\n\nDo you want me to go ahead? Plan mode has to be lifted before I can edit anything.",
+  "ttft_ms": 3061,
+  "type": "result",
+  "duration_ms": 16478,
+  "uuid": "0829f2d7-484e-45f2-a0d3-b9b729dd03c1",
+  "ttft_stream_ms": 2294,
+  "time_to_request_ms": 527,
+  "time_to_request_phases_ms": {
+    "other": 13,
+    "system_prompt": 3,
+    "resume_other": 0,
+    "process_user_input": 2,
+    "input_attachments": 5,
+    "input_hooks": 3,
+    "transcript_persist": 1,
+    "tool_pool_refresh": 3,
+    "init_message": 2,
+    "engine_pickup": 1,
+    "message_prep": 1,
+    "model_config_wait": 1,
+    "autocompact": 1,
+    "query_setup": 216,
+    "auto_mode_context_wait": 244,
+    "model_gates": 1,
+    "tool_schema_build": 13,
+    "message_normalization": 5,
+    "client_creation": 4,
+    "request_build": 8
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 1,
+  "time_to_request_loop_lag_ms": 201,
+  "time_to_request_cpu_ms": 157,
+  "time_to_request_major_faults": 663,
+  "input_attachments_detail": {
+    "slowest_producer": "queued_commands",
+    "slowest_producer_ms": 5,
+    "cpu_ms": 0,
+    "major_faults": 13
+  },
+  "first_content_frame_ms": 2295,
+  "queued_turn_count": 0,
+  "result_index": 1
+}

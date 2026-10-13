@@ -1,0 +1,143 @@
+{
+  "duration_api_ms": 33304,
+  "stop_reason": "end_turn",
+  "session_id": "7e887f59-b4b8-4d03-a039-95dca2861938",
+  "total_cost_usd": 0.15251940000000003,
+  "usage": {
+    "input_tokens": 8,
+    "cache_creation_input_tokens": 3071,
+    "cache_read_input_tokens": 102042,
+    "output_tokens": 766,
+    "output_tokens_details": {
+      "thinking_tokens": 95
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 3071,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "global",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 154,
+        "cache_read_input_tokens": 26863,
+        "cache_creation_input_tokens": 567,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 567
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-sonnet-5-5": {
+      "inputTokens": 32,
+      "outputTokens": 3394,
+      "thinkingTokens": 399,
+      "cacheReadInputTokens": 330918,
+      "cacheCreationInputTokens": 13051,
+      "webSearchRequests": 0,
+      "costUSD": 0.15239160000000002,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "canonicalModel": "claude-sonnet-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    },
+    "claude-haiku-5-5": {
+      "inputTokens": 1193,
+      "outputTokens": 17,
+      "thinkingTokens": 0,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.00012780000000000002,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 5,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "Fixed in `split_arg_string` (`src/click/shell_completion.py`). `shlex` treats `#` as a comment start by default, so everything after a `#` was dropped from the completion words. I set `lex.commenters = \"\"` so `#` is kept as a normal character.\n\nCheck: `split_arg_string('ex a#b #c')` now returns `['ex', 'a#b', '#c']`. The full test suite passes. I didn't add a regression test for this case.",
+  "ttft_ms": 1342,
+  "type": "result",
+  "duration_ms": 19188,
+  "uuid": "b035bdfb-c619-4092-be4e-00a09401abdf",
+  "ttft_stream_ms": 970,
+  "time_to_request_ms": 57,
+  "time_to_request_phases_ms": {
+    "other": 8,
+    "system_prompt": 14,
+    "resume_other": 0,
+    "process_user_input": 1,
+    "input_attachments": 7,
+    "input_hooks": 1,
+    "transcript_persist": 1,
+    "tool_pool_refresh": 1,
+    "init_message": 6,
+    "engine_pickup": 1,
+    "message_prep": 0,
+    "model_config_wait": 1,
+    "autocompact": 1,
+    "query_setup": 0,
+    "model_gates": 0,
+    "tool_schema_build": 5,
+    "message_normalization": 3,
+    "client_creation": 3,
+    "request_build": 4
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 7,
+  "time_to_request_cpu_ms": 78,
+  "time_to_request_major_faults": 2053,
+  "input_attachments_detail": {
+    "slowest_producer": "queued_commands",
+    "slowest_producer_ms": 4,
+    "cpu_ms": 16,
+    "major_faults": 198,
+    "changed_files_reread": 0
+  },
+  "first_content_frame_ms": 970,
+  "queued_turn_count": 0,
+  "result_index": 0
+}

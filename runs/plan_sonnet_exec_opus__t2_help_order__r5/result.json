@@ -1,0 +1,154 @@
+{
+  "duration_api_ms": 37891,
+  "stop_reason": "end_turn",
+  "session_id": "8f538ca3-351e-417d-8ca6-ad3a3a0cb87c",
+  "total_cost_usd": 0.28133779999999997,
+  "usage": {
+    "input_tokens": 8,
+    "cache_creation_input_tokens": 14893,
+    "cache_read_input_tokens": 133328,
+    "output_tokens": 1687,
+    "output_tokens_details": {
+      "thinking_tokens": 139
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 14893,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 378,
+        "cache_read_input_tokens": 37748,
+        "cache_creation_input_tokens": 440,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 440
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1190,
+      "outputTokens": 14,
+      "thinkingTokens": 0,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.00012600000000000003,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000
+    },
+    "claude-sonnet-5-5": {
+      "inputTokens": 12,
+      "outputTokens": 2290,
+      "thinkingTokens": 352,
+      "cacheReadInputTokens": 179331,
+      "cacheCreationInputTokens": 10710,
+      "webSearchRequests": 0,
+      "costUSD": 0.10163019999999999,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000
+    },
+    "claude-opus-5-5": {
+      "inputTokens": 8,
+      "outputTokens": 1687,
+      "cacheReadInputTokens": 133328,
+      "cacheCreationInputTokens": 14893,
+      "webSearchRequests": 0,
+      "costUSD": 0.17958159999999998,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 139,
+      "canonicalModel": "claude-opus-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 16,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "Fixed. Options in `--help` now list their short name first again (`-h, --help`, `-v, --verbose`) instead of `--help, -h`.\n\n**Changes:**\n- **`src/click/formatting.py:319`**: removed `reverse=True` from the sort in `join_options`. Names are now ordered shortest prefix first, and names with the same prefix keep the order they were declared in.\n- **`tests/test_formatting.py`**: added tests that check `join_options` directly and check the end-to-end `--help` output (`-v, --verbose`).\n- **`CHANGES.md`**: version 8.5.0 is already released, so I started a new \"8.5.1 \u2014 Unreleased\" section for the entry.\n\n**Tests:** the full suite passes (1910 passed, 102 skipped, 1 xfailed), including the 4 new tests. I tried to confirm the new tests fail without the fix, but that check didn't work: stashing the changes also removed the new tests, so nothing ran.\n\nI haven't committed anything.",
+  "ttft_ms": 2267,
+  "type": "result",
+  "duration_ms": 37874,
+  "uuid": "128042f6-9911-45b3-8472-35184596d3e4",
+  "ttft_stream_ms": 1065,
+  "time_to_request_ms": 391,
+  "time_to_request_phases_ms": {
+    "other": 18,
+    "system_prompt": 299,
+    "resume_other": 1,
+    "process_user_input": 2,
+    "input_attachments": 13,
+    "input_hooks": 4,
+    "transcript_persist": 1,
+    "tool_pool_refresh": 3,
+    "init_message": 12,
+    "engine_pickup": 1,
+    "message_prep": 1,
+    "model_config_wait": 1,
+    "autocompact": 1,
+    "query_setup": 1,
+    "model_gates": 1,
+    "tool_schema_build": 15,
+    "message_normalization": 4,
+    "client_creation": 5,
+    "request_build": 8
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 178,
+  "time_to_request_cpu_ms": 375,
+  "time_to_request_major_faults": 5237,
+  "input_attachments_detail": {
+    "slowest_producer": "queued_commands",
+    "slowest_producer_ms": 9,
+    "cpu_ms": 32,
+    "major_faults": 404,
+    "changed_files_reread": 0
+  },
+  "first_content_frame_ms": 1066,
+  "queued_turn_count": 0,
+  "result_index": 0
+}

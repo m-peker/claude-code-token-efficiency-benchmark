@@ -1,0 +1,146 @@
+{
+  "duration_api_ms": 24989,
+  "stop_reason": "end_turn",
+  "session_id": "188f84f3-5b0f-44c1-be2f-93c4fc4000c0",
+  "total_cost_usd": 0.1009939,
+  "usage": {
+    "input_tokens": 12,
+    "cache_creation_input_tokens": 10501,
+    "cache_read_input_tokens": 122850,
+    "output_tokens": 3426,
+    "output_tokens_details": {
+      "thinking_tokens": 233
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 10501,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "global",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 581,
+        "cache_read_input_tokens": 24730,
+        "cache_creation_input_tokens": 150,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 150
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1259,
+      "outputTokens": 20,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.0001359,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 0,
+      "canonicalModel": "claude-haiku-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    },
+    "claude-sonnet-5-5": {
+      "inputTokens": 12,
+      "outputTokens": 3426,
+      "cacheReadInputTokens": 122850,
+      "cacheCreationInputTokens": 10501,
+      "webSearchRequests": 0,
+      "costUSD": 0.10085799999999999,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 233,
+      "canonicalModel": "claude-sonnet-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 12,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "The plan is written to `<home>\\.claude\\plans\\add-a-new-parameter-playful-parasol.md`. The `ExitPlanMode` tool isn't available in this session, so I'm presenting it here for approval.\n\n**Plan for `click.KeyValue`**\n- **`src/click/types.py`**: add `class KeyValue(ParamType[tuple[str, str]])` after `UUIDParameterType`.\n  - It splits on the first `=` only, so `a=b=c` gives `('a', 'b=c')` and `a=` gives `('a', '')`.\n  - It fails via `self.fail` with `\"{value!r} is not a valid key=value pair.\"` when there is no `=` or the key is empty.\n  - It passes already-converted tuples through unchanged, as defaults need.\n- **`src/click/__init__.py`**: export `KeyValue`.\n- **Docs**: add an `autoclass` entry in `docs/api.md`, a bullet in `docs/parameter-types.md`, and a `CHANGES.md` entry. 8.5.0 is already released, so this needs a new unreleased section.\n- **Tests**: add parametrized cases in `tests/test_basic.py` for valid input, `a=b=c`, `a=`, `novalue` and `=v` (exit code 2 with the error message), and `multiple=True`. Also add an entry in `tests/test_info_dict.py`.\n- **Verification**: run `pytest`, plus a manual check with a small CLI using `--set`.\n\nApprove and I'll implement it (this needs plan mode to be exited), or tell me what to change.",
+  "ttft_ms": 1947,
+  "type": "result",
+  "duration_ms": 26104,
+  "uuid": "d7192a22-2113-4b1f-ad96-814f99d90334",
+  "ttft_stream_ms": 1301,
+  "time_to_request_ms": 316,
+  "time_to_request_phases_ms": {
+    "other": 12,
+    "system_prompt": 9,
+    "resume_other": 0,
+    "process_user_input": 1,
+    "input_attachments": 17,
+    "input_hooks": 2,
+    "transcript_persist": 2,
+    "tool_pool_refresh": 1,
+    "init_message": 7,
+    "engine_pickup": 1,
+    "message_prep": 0,
+    "model_config_wait": 1,
+    "autocompact": 1,
+    "query_setup": 134,
+    "auto_mode_context_wait": 120,
+    "model_gates": 1,
+    "tool_schema_build": 3,
+    "message_normalization": 0,
+    "client_creation": 1,
+    "request_build": 3
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 139,
+  "time_to_request_cpu_ms": 125,
+  "time_to_request_major_faults": 2942,
+  "input_attachments_detail": {
+    "slowest_producer": "at_mentioned_files",
+    "slowest_producer_ms": 7,
+    "cpu_ms": 32,
+    "major_faults": 388
+  },
+  "first_content_frame_ms": 1301,
+  "queued_turn_count": 0,
+  "result_index": 0
+}

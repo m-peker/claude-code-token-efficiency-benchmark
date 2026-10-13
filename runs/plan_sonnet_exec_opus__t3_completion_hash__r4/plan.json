@@ -1,0 +1,153 @@
+{
+  "duration_api_ms": 48745,
+  "stop_reason": "end_turn",
+  "session_id": "c0e3513c-e25c-41b5-bdb5-a413b44fd92e",
+  "total_cost_usd": 0.1722081,
+  "usage": {
+    "input_tokens": 6,
+    "cache_creation_input_tokens": 3731,
+    "cache_read_input_tokens": 56941,
+    "output_tokens": 1374,
+    "output_tokens_details": {
+      "thinking_tokens": 115
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 3731,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 533,
+        "cache_read_input_tokens": 29835,
+        "cache_creation_input_tokens": 1002,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1002
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1191,
+      "outputTokens": 20,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.00012910000000000002,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 0,
+      "canonicalModel": "claude-haiku-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    },
+    "claude-sonnet-5-5": {
+      "inputTokens": 22,
+      "outputTokens": 5510,
+      "cacheReadInputTokens": 212695,
+      "cacheCreationInputTokens": 25355,
+      "webSearchRequests": 0,
+      "costUSD": 0.172079,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 585,
+      "canonicalModel": "claude-sonnet-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "origin": {
+    "kind": "task-notification",
+    "producer": "session-task",
+    "runId": "0mv6blab0-7801d087"
+  },
+  "subagent_stats": {
+    "spawned": 1,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 1
+    },
+    "started_in_background": 1,
+    "max_depth": 1,
+    "spawned_by_subagents": 0,
+    "completed": 1,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {
+      "Explore": 1
+    }
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 3,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "I've found the cause and written a plan, but I haven't changed any code. I couldn't call ExitPlanMode because it isn't available in this session, so this is my request for your approval.\n\n**Cause:** `split_arg_string` in `src/click/shell_completion.py` (around lines 603\u2013635) creates `shlex.shlex(...)` directly. That leaves `#` as a comment character, so an unquoted `#` drops the rest of the line. For example, `cli a#b c` splits to `['cli', 'a']`. All four shells (bash, zsh, fish, PowerShell) use this function, so all are affected. Fish can also raise an `IndexError` (around line 494).\n\n**Planned fix:**\n1. Set `lex.commenters = \"\"` in `split_arg_string`, which matches what `shlex.split()` does.\n2. Add `#` cases to `test_split_arg_string` in `tests/test_parser.py`.\n3. Add a `#` case to the full-completion tests in `tests/test_shell_completion.py`.\n4. Add a changelog entry if the repo has one.\n\nTo verify, I'd run `pytest tests/test_parser.py tests/test_shell_completion.py`.\n\nOne thing the fix won't cover: in bash, zsh and fish, the shell itself may treat an unquoted `#` as a comment before it reaches Python. I'd check that separately if it still misbehaves after this change.\n\nThe plan is saved at `<home>\\.claude\\plans\\shell-completion-gives-wrong-dreamy-sunbeam.md`. Tell me to proceed and I'll make the edits.",
+  "ttft_ms": 2975,
+  "type": "result",
+  "duration_ms": 11256,
+  "uuid": "845fa6a2-45e7-4f2f-8bd5-01ccbd0eb7db",
+  "ttft_stream_ms": 1816,
+  "time_to_request_ms": 307,
+  "time_to_request_phases_ms": {
+    "other": 7,
+    "system_prompt": 3,
+    "resume_other": 0,
+    "process_user_input": 2,
+    "input_attachments": 5,
+    "input_hooks": 3,
+    "transcript_persist": 1,
+    "tool_pool_refresh": 2,
+    "init_message": 2,
+    "engine_pickup": 1,
+    "message_prep": 0,
+    "model_config_wait": 1,
+    "autocompact": 1,
+    "query_setup": 149,
+    "auto_mode_context_wait": 116,
+    "model_gates": 0,
+    "tool_schema_build": 3,
+    "message_normalization": 3,
+    "client_creation": 2,
+    "request_build": 6
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 1,
+  "time_to_request_loop_lag_ms": 131,
+  "time_to_request_cpu_ms": 157,
+  "time_to_request_major_faults": 615,
+  "input_attachments_detail": {
+    "slowest_producer": "queued_commands",
+    "slowest_producer_ms": 4,
+    "cpu_ms": 0,
+    "major_faults": 23
+  },
+  "first_content_frame_ms": 1817,
+  "queued_turn_count": 0,
+  "result_index": 1
+}

@@ -1,0 +1,154 @@
+{
+  "duration_api_ms": 32085,
+  "stop_reason": "end_turn",
+  "session_id": "2d866738-9ca7-432b-ae96-844e496d4a1a",
+  "total_cost_usd": 0.1866502,
+  "usage": {
+    "input_tokens": 6,
+    "cache_creation_input_tokens": 10408,
+    "cache_read_input_tokens": 61159,
+    "output_tokens": 1035,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 10408,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "global",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 229,
+        "cache_read_input_tokens": 23876,
+        "cache_creation_input_tokens": 786,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 786
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1190,
+      "outputTokens": 20,
+      "thinkingTokens": 0,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.00012900000000000002,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000
+    },
+    "claude-opus-5-5": {
+      "inputTokens": 12,
+      "outputTokens": 1751,
+      "thinkingTokens": 213,
+      "cacheReadInputTokens": 112657,
+      "cacheCreationInputTokens": 8087,
+      "webSearchRequests": 0,
+      "costUSD": 0.12229540000000001,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000
+    },
+    "claude-sonnet-5-5": {
+      "inputTokens": 6,
+      "outputTokens": 1035,
+      "cacheReadInputTokens": 61159,
+      "cacheCreationInputTokens": 10408,
+      "webSearchRequests": 0,
+      "costUSD": 0.0642258,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 0,
+      "canonicalModel": "claude-sonnet-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 10,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "`default_map` entries are now applied to subcommands. The full test suite passes (1907 passed, 102 skipped, 1 xfailed).\n\n- **Fix:** in `src/click/core.py:392`, a child context now takes `parent.default_map.get(info_name)` instead of inheriting the parent's whole map. A map like `{\"sub\": {\"name\": \"from-map\"}}` now supplies `--name` for `sub`.\n- **Test:** I added `test_default_map_nested_subcommands` to `tests/test_defaults.py`. It covers a direct subcommand, a nested group (`a` \u2192 `b`), and a top-level key not leaking into a subcommand.\n\nI haven't committed anything.",
+  "ttft_ms": 1992,
+  "type": "result",
+  "duration_ms": 18497,
+  "uuid": "478f2477-c0a1-40fa-9157-30df0c38a597",
+  "ttft_stream_ms": 1158,
+  "time_to_request_ms": 56,
+  "time_to_request_phases_ms": {
+    "other": 8,
+    "system_prompt": 14,
+    "resume_other": 0,
+    "process_user_input": 1,
+    "input_attachments": 7,
+    "input_hooks": 1,
+    "transcript_persist": 0,
+    "tool_pool_refresh": 2,
+    "init_message": 6,
+    "engine_pickup": 0,
+    "message_prep": 1,
+    "model_config_wait": 0,
+    "autocompact": 1,
+    "query_setup": 1,
+    "model_gates": 0,
+    "tool_schema_build": 4,
+    "message_normalization": 3,
+    "client_creation": 3,
+    "request_build": 4
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 6,
+  "time_to_request_cpu_ms": 78,
+  "time_to_request_major_faults": 1440,
+  "input_attachments_detail": {
+    "slowest_producer": "queued_commands",
+    "slowest_producer_ms": 4,
+    "cpu_ms": 0,
+    "major_faults": 157,
+    "changed_files_reread": 0
+  },
+  "first_content_frame_ms": 1158,
+  "queued_turn_count": 0,
+  "result_index": 0
+}

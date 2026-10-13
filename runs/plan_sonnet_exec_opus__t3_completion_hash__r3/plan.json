@@ -1,0 +1,153 @@
+{
+  "duration_api_ms": 46804,
+  "stop_reason": "end_turn",
+  "session_id": "dfaf78fa-5ebd-48c1-8eaf-81c4989b09d6",
+  "total_cost_usd": 0.16007800000000003,
+  "usage": {
+    "input_tokens": 6,
+    "cache_creation_input_tokens": 3737,
+    "cache_read_input_tokens": 57115,
+    "output_tokens": 1127,
+    "output_tokens_details": {
+      "thinking_tokens": 159
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 3737,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 407,
+        "cache_read_input_tokens": 30018,
+        "cache_creation_input_tokens": 816,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 816
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1191,
+      "outputTokens": 20,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.00012910000000000002,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 0,
+      "canonicalModel": "claude-haiku-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    },
+    "claude-sonnet-5-5": {
+      "inputTokens": 20,
+      "outputTokens": 5398,
+      "cacheReadInputTokens": 177237,
+      "cacheCreationInputTokens": 23791,
+      "webSearchRequests": 0,
+      "costUSD": 0.15994890000000003,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 337,
+      "canonicalModel": "claude-sonnet-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "origin": {
+    "kind": "task-notification",
+    "producer": "session-task",
+    "runId": "0mv6b39x5-6fc3f476"
+  },
+  "subagent_stats": {
+    "spawned": 1,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 1
+    },
+    "started_in_background": 1,
+    "max_depth": 1,
+    "spawned_by_subagents": 0,
+    "completed": 1,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {
+      "Explore": 1
+    }
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 2,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "I haven't changed any code yet. I'm in plan mode, so I only wrote the plan. I don't have a plan-approval tool here, so please tell me to proceed if you want me to implement it.\n\n**Cause:** `split_arg_string` in `src/click/shell_completion.py` splits the command line with `shlex`. `shlex` treats an unquoted `#` as the start of a comment and drops the rest of the line. The bash, zsh, fish and PowerShell completers all use it, so `args` and `incomplete` come out wrong. In fish it can also crash with an `IndexError`.\n\n**Fix:** set `lex.commenters = \"\"` in `split_arg_string`.\n\n**Tests:**\n- Add `#` cases to `tests/test_parser.py::test_split_arg_string`.\n- Add `#` cases to `test_full_complete` in `tests/test_shell_completion.py`.\n- Add a `CHANGES.md` entry.\n\nI haven't run `shlex` to confirm how it handles `a#b` (a `#` in the middle of a word). The new test cases will check that.\n\nThe plan is at `<home>\\.claude\\plans\\shell-completion-gives-wrong-floofy-eagle.md`.",
+  "ttft_ms": 3110,
+  "type": "result",
+  "duration_ms": 10344,
+  "uuid": "c54e89e8-8b7e-4472-bf39-3e583effb280",
+  "ttft_stream_ms": 1519,
+  "time_to_request_ms": 286,
+  "time_to_request_phases_ms": {
+    "other": 4,
+    "system_prompt": 3,
+    "resume_other": 0,
+    "process_user_input": 2,
+    "input_attachments": 4,
+    "input_hooks": 3,
+    "transcript_persist": 0,
+    "tool_pool_refresh": 3,
+    "init_message": 1,
+    "engine_pickup": 1,
+    "message_prep": 0,
+    "model_config_wait": 1,
+    "autocompact": 0,
+    "query_setup": 145,
+    "auto_mode_context_wait": 110,
+    "model_gates": 0,
+    "tool_schema_build": 1,
+    "message_normalization": 2,
+    "client_creation": 2,
+    "request_build": 4
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 1,
+  "time_to_request_loop_lag_ms": 120,
+  "time_to_request_cpu_ms": 109,
+  "time_to_request_major_faults": 396,
+  "input_attachments_detail": {
+    "slowest_producer": "queued_commands",
+    "slowest_producer_ms": 4,
+    "cpu_ms": 0,
+    "major_faults": 1
+  },
+  "first_content_frame_ms": 1519,
+  "queued_turn_count": 0,
+  "result_index": 1
+}

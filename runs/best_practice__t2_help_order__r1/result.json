@@ -1,0 +1,145 @@
+{
+  "duration_api_ms": 11763,
+  "stop_reason": "end_turn",
+  "session_id": "22c5c52c-f18b-4c09-83ca-824aaa7dd5e4",
+  "total_cost_usd": 0.053172300000000006,
+  "usage": {
+    "input_tokens": 10,
+    "cache_creation_input_tokens": 4271,
+    "cache_read_input_tokens": 127105,
+    "output_tokens": 1051,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 4271,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 233,
+        "cache_read_input_tokens": 26905,
+        "cache_creation_input_tokens": 268,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 268
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1283,
+      "outputTokens": 18,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.0001373,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 0,
+      "canonicalModel": "claude-haiku-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    },
+    "claude-sonnet-5-5": {
+      "inputTokens": 10,
+      "outputTokens": 1051,
+      "cacheReadInputTokens": 127105,
+      "cacheCreationInputTokens": 4271,
+      "webSearchRequests": 0,
+      "costUSD": 0.053035,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 0,
+      "canonicalModel": "claude-sonnet-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 6,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "Fixed: `join_options` in `src/click/formatting.py` now sorts by prefix length ascending (I removed `reverse=True`). `@click.option('--verbose', '-v')` now renders as `-v, --verbose`.\n\nI added a regression test, `test_join_options_shorter_prefix_first`, at the end of `tests/test_formatting.py`. The requested run, `tests/test_formatting.py` plus `tests/test_options.py`, gives 681 passed. I did not run the full suite.\n\nI only checked the `-v` / `--verbose` and `/v` / `--verbose` pairs. For `/v` with `--verbose`, the slash prefix has length 1, so it now also comes first.",
+  "ttft_ms": 2429,
+  "type": "result",
+  "duration_ms": 17046,
+  "uuid": "22138126-1be3-4a7f-afcc-84352dbe6474",
+  "ttft_stream_ms": 1642,
+  "time_to_request_ms": 497,
+  "time_to_request_phases_ms": {
+    "other": 19,
+    "system_prompt": 55,
+    "resume_other": 0,
+    "process_user_input": 2,
+    "input_attachments": 369,
+    "input_hooks": 2,
+    "transcript_persist": 17,
+    "tool_pool_refresh": 2,
+    "init_message": 11,
+    "engine_pickup": 1,
+    "message_prep": 0,
+    "model_config_wait": 2,
+    "autocompact": 1,
+    "query_setup": 0,
+    "model_gates": 1,
+    "tool_schema_build": 8,
+    "message_normalization": 1,
+    "client_creation": 2,
+    "request_build": 4
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 237,
+  "time_to_request_cpu_ms": 562,
+  "time_to_request_major_faults": 5092,
+  "input_attachments_detail": {
+    "slowest_producer": "nested_memory",
+    "slowest_producer_ms": 257,
+    "cpu_ms": 282,
+    "major_faults": 2328
+  },
+  "first_content_frame_ms": 1642,
+  "queued_turn_count": 0,
+  "result_index": 0
+}

@@ -1,0 +1,131 @@
+{
+  "duration_api_ms": 19131,
+  "stop_reason": "end_turn",
+  "session_id": "ff7d7426-1875-4266-8e51-93c20365390c",
+  "total_cost_usd": 0.006166369999999999,
+  "usage": {
+    "input_tokens": 14,
+    "cache_creation_input_tokens": 11563,
+    "cache_read_input_tokens": 203737,
+    "output_tokens": 3378,
+    "output_tokens_details": {
+      "thinking_tokens": 988
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 11563,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 568,
+        "cache_read_input_tokens": 34337,
+        "cache_creation_input_tokens": 908,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 908
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1204,
+      "outputTokens": 3392,
+      "cacheReadInputTokens": 203737,
+      "cacheCreationInputTokens": 11563,
+      "webSearchRequests": 0,
+      "costUSD": 0.006166369999999999,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 988,
+      "canonicalModel": "claude-haiku-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 7,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "I couldn't find a bug in the `--help` ordering, so I haven't changed anything. The repo is Click 8.5.0, and the help output I get matches its documented behavior.\n\nWhat I checked by running the code from `src/` with the test suite:\n\n- **Options** appear in declaration order, with `--help` last. `get_params` in `src/click/core.py:1102` appends the help option after the user's params.\n- **Groups**: subcommands are sorted alphabetically (`list_commands`, `core.py:1945`), and they're listed after the options.\n- **Help names**: aliases like `-h, -?, --help` keep the order given in `help_option_names`, per the docstring at `core.py:1177`.\n- **Section order** in `format_help` (`core.py:1258`) is usage, help text, arguments, options, epilog. Arguments only appear if they have `help=`, which is why my argument test showed no Positional arguments section.\n- **Tests**: `pytest tests` gives 1906 passed, 102 skipped, 1 xfailed, 0 failures.\n\nCould you tell me what looks wrong? For example, which command you ran, the output you got, and the order you expected. With that I can check the specific case. If you meant a different ordering, such as alphabetical options or `--help` first, that would be a behavior change to Click's design, and I'd want you to confirm it before I edit `format_options` or `get_params`.",
+  "ttft_ms": 1522,
+  "type": "result",
+  "duration_ms": 29904,
+  "uuid": "6c0abb4e-6e00-4483-9f76-4ff99af83abb",
+  "ttft_stream_ms": 974,
+  "time_to_request_ms": 180,
+  "time_to_request_phases_ms": {
+    "other": 15,
+    "system_prompt": 112,
+    "resume_other": 0,
+    "process_user_input": 3,
+    "input_attachments": 12,
+    "input_hooks": 3,
+    "transcript_persist": 5,
+    "tool_pool_refresh": 2,
+    "init_message": 11,
+    "engine_pickup": 1,
+    "message_prep": 0,
+    "model_config_wait": 1,
+    "autocompact": 2,
+    "query_setup": 0,
+    "model_gates": 0,
+    "tool_schema_build": 7,
+    "message_normalization": 1,
+    "client_creation": 2,
+    "request_build": 3
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 18,
+  "time_to_request_cpu_ms": 297,
+  "time_to_request_major_faults": 4357,
+  "input_attachments_detail": {
+    "slowest_producer": "model",
+    "slowest_producer_ms": 8,
+    "cpu_ms": 16,
+    "major_faults": 82
+  },
+  "first_content_frame_ms": 975,
+  "queued_turn_count": 0,
+  "result_index": 0
+}

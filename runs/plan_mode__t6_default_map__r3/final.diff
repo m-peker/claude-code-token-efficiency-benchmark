@@ -1,0 +1,77 @@
+diff --git a/CHANGES.md b/CHANGES.md
+index 3c9a94e..e2f4000 100644
+--- a/CHANGES.md
++++ b/CHANGES.md
+@@ -1,3 +1,9 @@
++## Unreleased
++
++- Fix `default_map` being ignored for subcommands. A child context now uses
++  the entry of the parent's `default_map` matching its command name, instead
++  of the parent's whole map.
++
+ ## Version 8.5.0
+ 
+ Released 2026-08-24
+diff --git a/src/click/core.py b/src/click/core.py
+index d5390bd..de129ec 100644
+--- a/src/click/core.py
++++ b/src/click/core.py
+@@ -389,7 +389,7 @@ class Context:
+             and parent is not None
+             and parent.default_map is not None
+         ):
+-            default_map = parent.default_map
++            default_map = parent.default_map.get(info_name)
+ 
+         self.default_map = default_map
+ 
+diff --git a/tests/test_defaults.py b/tests/test_defaults.py
+index bb2684c..1f167a7 100644
+--- a/tests/test_defaults.py
++++ b/tests/test_defaults.py
+@@ -556,3 +556,45 @@ def test_unset_in_default_map(runner):
+     result = runner.invoke(cli, [])
+     assert result.exit_code == 0
+     assert result.output.strip() == "port=8000"
++
++
++def test_default_map_subcommand(runner):
++    """``default_map`` entries nested under a subcommand name apply to that
++    subcommand, including through nested groups and ``context_settings``.
++    """
++
++    @click.group()
++    def cli():
++        pass
++
++    @cli.command()
++    @click.option("--port", default=1)
++    def sub(port):
++        click.echo(f"port={port}")
++
++    @cli.group()
++    def grp():
++        pass
++
++    @grp.command()
++    @click.option("--port", default=1)
++    def leaf(port):
++        click.echo(f"port={port}")
++
++    result = runner.invoke(cli, ["sub"], default_map={"sub": {"port": 5}})
++    assert result.output.strip() == "port=5"
++
++    result = runner.invoke(cli, ["sub"], default_map={"other": {"port": 5}})
++    assert result.output.strip() == "port=1"
++
++    result = runner.invoke(cli, ["sub"], default_map={"port": 5})
++    assert result.output.strip() == "port=1"
++
++    result = runner.invoke(
++        cli, ["grp", "leaf"], default_map={"grp": {"leaf": {"port": 7}}}
++    )
++    assert result.output.strip() == "port=7"
++
++    cli.context_settings = {"default_map": {"sub": {"port": 9}}}
++    result = runner.invoke(cli, ["sub"])
++    assert result.output.strip() == "port=9"

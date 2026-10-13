@@ -1,0 +1,154 @@
+{
+  "duration_api_ms": 33756,
+  "stop_reason": "end_turn",
+  "session_id": "33f0856c-9d92-44d1-85dc-35843e69ddbf",
+  "total_cost_usd": 0.2404048,
+  "usage": {
+    "input_tokens": 6,
+    "cache_creation_input_tokens": 12527,
+    "cache_read_input_tokens": 92270,
+    "output_tokens": 906,
+    "output_tokens_details": {
+      "thinking_tokens": 60
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 12527,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 347,
+        "cache_read_input_tokens": 35051,
+        "cache_creation_input_tokens": 378,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 378
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1190,
+      "outputTokens": 14,
+      "thinkingTokens": 0,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.00012600000000000003,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000
+    },
+    "claude-sonnet-5-5": {
+      "inputTokens": 14,
+      "outputTokens": 2356,
+      "thinkingTokens": 336,
+      "cacheReadInputTokens": 201504,
+      "cacheCreationInputTokens": 9894,
+      "webSearchRequests": 0,
+      "costUSD": 0.10346480000000001,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000
+    },
+    "claude-opus-5-5": {
+      "inputTokens": 6,
+      "outputTokens": 906,
+      "cacheReadInputTokens": 92270,
+      "cacheCreationInputTokens": 12527,
+      "webSearchRequests": 0,
+      "costUSD": 0.136814,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 60,
+      "canonicalModel": "claude-opus-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 15,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "I fixed it: `--help` now lists short option names first, e.g. `-n, --name TEXT` instead of `--name, -n TEXT`.\n\nThe fix is the one-line change from the plan: I removed `reverse=True` from the sort in `join_options` (`src/click/formatting.py:319`).\n\n**Checks:**\n- I ran `--help` on a sample command with `--name` and `-n` and it now shows `-n, --name TEXT`.\n- The test suite gives the same result with and without the change: 1906 passed, 102 skipped, 1 xfailed. pytest also reported 31,000 tests as deselected; I didn't pass any filter, so I don't know what's excluding them and they didn't run.\n\nBecause the tests pass either way, no current test checks this ordering, so it could come back unnoticed. I can add a small test in `tests/test_formatting.py` that checks the short name comes first if you'd like.\n\nI haven't committed anything.",
+  "ttft_ms": 3416,
+  "type": "result",
+  "duration_ms": 33288,
+  "uuid": "823d3f67-3853-4881-8965-0a10d5da7394",
+  "ttft_stream_ms": 1614,
+  "time_to_request_ms": 287,
+  "time_to_request_phases_ms": {
+    "other": 9,
+    "system_prompt": 236,
+    "resume_other": 0,
+    "process_user_input": 1,
+    "input_attachments": 9,
+    "input_hooks": 2,
+    "transcript_persist": 0,
+    "tool_pool_refresh": 2,
+    "init_message": 8,
+    "engine_pickup": 1,
+    "message_prep": 0,
+    "model_config_wait": 1,
+    "autocompact": 1,
+    "query_setup": 0,
+    "model_gates": 0,
+    "tool_schema_build": 7,
+    "message_normalization": 3,
+    "client_creation": 2,
+    "request_build": 5
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 126,
+  "time_to_request_cpu_ms": 266,
+  "time_to_request_major_faults": 4174,
+  "input_attachments_detail": {
+    "slowest_producer": "queued_commands",
+    "slowest_producer_ms": 5,
+    "cpu_ms": 15,
+    "major_faults": 216,
+    "changed_files_reread": 0
+  },
+  "first_content_frame_ms": 1615,
+  "queued_turn_count": 0,
+  "result_index": 0
+}

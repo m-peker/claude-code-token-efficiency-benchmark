@@ -1,0 +1,143 @@
+{
+  "duration_api_ms": 70042,
+  "stop_reason": "end_turn",
+  "session_id": "6c545393-9c0a-44b1-b5be-783b0f897145",
+  "total_cost_usd": 0.18586984000000004,
+  "usage": {
+    "input_tokens": 16,
+    "cache_creation_input_tokens": 16691,
+    "cache_read_input_tokens": 273504,
+    "output_tokens": 4235,
+    "output_tokens_details": {
+      "thinking_tokens": 1238
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 16691,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 378,
+        "cache_read_input_tokens": 39318,
+        "cache_creation_input_tokens": 275,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 275
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1207,
+      "outputTokens": 4255,
+      "thinkingTokens": 1238,
+      "cacheReadInputTokens": 273504,
+      "cacheCreationInputTokens": 16691,
+      "webSearchRequests": 0,
+      "costUSD": 0.008321440000000001,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "canonicalModel": "claude-haiku-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    },
+    "claude-sonnet-5-5": {
+      "inputTokens": 24,
+      "outputTokens": 5213,
+      "thinkingTokens": 235,
+      "cacheReadInputTokens": 241172,
+      "cacheCreationInputTokens": 26232,
+      "webSearchRequests": 0,
+      "costUSD": 0.17754840000000005,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 17,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "The fix is in. Shell completion no longer drops the rest of the command line after an argument containing `#`. The full test suite passes (1909 passed, 102 skipped, 1 xfailed).\n\n**Change:** In `split_arg_string` (`src/click/shell_completion.py`), I set `lex.commenters = \"\"` so `#` is treated as an ordinary character. Before the fix, `cli a #b c` split to `[\"cli\", \"a\"]`. This function is shared by all four shells, so the fix covers bash, zsh, fish and PowerShell.\n\n**Tests:**\n- `tests/test_parser.py`: added `cli a #b c` and `cli a#b`. Both fail without the fix and pass with it.\n- `tests/test_shell_completion.py`: added a bash end-to-end case, `COMP_WORDS=\"a #\"`. Its expected output is a bare newline, which is what the bash path prints when nothing matches. I set the expectation to match that existing behavior.\n\n**Changelog:** `CHANGES.md` has a new \"Unreleased\" section above 8.5.0.\n\nI haven't committed anything. Say the word if you want a commit.",
+  "ttft_ms": 1981,
+  "type": "result",
+  "duration_ms": 40935,
+  "uuid": "e8117ec4-e175-42ab-b216-db991d91697f",
+  "ttft_stream_ms": 1278,
+  "time_to_request_ms": 118,
+  "time_to_request_phases_ms": {
+    "other": 10,
+    "system_prompt": 66,
+    "resume_other": 0,
+    "process_user_input": 2,
+    "input_attachments": 8,
+    "input_hooks": 2,
+    "transcript_persist": 1,
+    "tool_pool_refresh": 1,
+    "init_message": 8,
+    "engine_pickup": 0,
+    "message_prep": 1,
+    "model_config_wait": 1,
+    "autocompact": 1,
+    "query_setup": 0,
+    "model_gates": 0,
+    "tool_schema_build": 7,
+    "message_normalization": 3,
+    "client_creation": 2,
+    "request_build": 5
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 14,
+  "time_to_request_cpu_ms": 188,
+  "time_to_request_major_faults": 3400,
+  "input_attachments_detail": {
+    "slowest_producer": "queued_commands",
+    "slowest_producer_ms": 6,
+    "cpu_ms": 15,
+    "major_faults": 146,
+    "changed_files_reread": 0
+  },
+  "first_content_frame_ms": 1279,
+  "queued_turn_count": 0,
+  "result_index": 0
+}

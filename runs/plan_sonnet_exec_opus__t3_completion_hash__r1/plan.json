@@ -1,0 +1,153 @@
+{
+  "duration_api_ms": 38402,
+  "stop_reason": "end_turn",
+  "session_id": "4e0767d2-de00-48f5-96c0-89f0e837c430",
+  "total_cost_usd": 0.15999040000000003,
+  "usage": {
+    "input_tokens": 8,
+    "cache_creation_input_tokens": 4316,
+    "cache_read_input_tokens": 61055,
+    "output_tokens": 1535,
+    "output_tokens_details": {
+      "thinking_tokens": 63
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 4316,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "global",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 551,
+        "cache_read_input_tokens": 21929,
+        "cache_creation_input_tokens": 825,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 825
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1191,
+      "outputTokens": 18,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.0001281,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 0,
+      "canonicalModel": "claude-haiku-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    },
+    "claude-sonnet-5-5": {
+      "inputTokens": 20,
+      "outputTokens": 5163,
+      "cacheReadInputTokens": 129174,
+      "cacheCreationInputTokens": 27918,
+      "webSearchRequests": 0,
+      "costUSD": 0.1598623,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 648,
+      "canonicalModel": "claude-sonnet-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "origin": {
+    "kind": "task-notification",
+    "producer": "session-task",
+    "runId": "0mv1iotlz-8f024030"
+  },
+  "subagent_stats": {
+    "spawned": 1,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 1
+    },
+    "started_in_background": 1,
+    "max_depth": 1,
+    "spawned_by_subagents": 0,
+    "completed": 1,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {
+      "Explore": 1
+    }
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 5,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "The cause is in `split_arg_string` (`src/click/shell_completion.py:603`). It builds the `shlex` lexer directly, so the default comment character `#` stays active. Everything after a `#` is dropped, for example `cli a#b c` becomes `[\"cli\", \"a\"]`. That shifts the argument and cursor indexes, which gives the wrong completions. Fish can also hit an `IndexError` in the same situation.\n\nI've written the plan to `<home>\\.claude\\plans\\shell-completion-gives-wrong-sleepy-dove.md`. I'm in plan mode, so nothing has been edited yet.\n\n**Planned changes**\n1. In `src/click/shell_completion.py`, add `lex.commenters = \"\"` right after `lex.whitespace_split = True`. This is what `shlex.split` does internally.\n2. In `tests/test_parser.py`, add cases to `test_split_arg_string`:\n   - `\"cli #foo bar\"` \u2192 `[\"cli\", \"#foo\", \"bar\"]`\n   - `\"cli a#b c\"` \u2192 `[\"cli\", \"a#b\", \"c\"]`\n   - `\"cli '#a' b\"` \u2192 `[\"cli\", \"#a\", \"b\"]`\n3. Add a bugfix entry to `CHANGES.rst`.\n\n**Verification:** run `pytest tests/test_parser.py tests/test_shell_completion.py`, and confirm the new cases fail before the fix and pass after.\n\nI couldn't load the plan-approval tool in this session, so please confirm here if you'd like me to go ahead and apply the fix.",
+  "ttft_ms": 1494,
+  "type": "result",
+  "duration_ms": 11473,
+  "uuid": "94fbd9f8-0294-4a2d-9530-77348c01fef3",
+  "ttft_stream_ms": 1183,
+  "time_to_request_ms": 278,
+  "time_to_request_phases_ms": {
+    "other": 5,
+    "system_prompt": 2,
+    "resume_other": 0,
+    "process_user_input": 2,
+    "input_attachments": 2,
+    "input_hooks": 2,
+    "transcript_persist": 1,
+    "tool_pool_refresh": 3,
+    "init_message": 1,
+    "engine_pickup": 1,
+    "message_prep": 1,
+    "model_config_wait": 1,
+    "autocompact": 0,
+    "query_setup": 127,
+    "auto_mode_context_wait": 115,
+    "model_gates": 0,
+    "tool_schema_build": 2,
+    "message_normalization": 2,
+    "client_creation": 5,
+    "request_build": 6
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 1,
+  "time_to_request_loop_lag_ms": 102,
+  "time_to_request_cpu_ms": 125,
+  "time_to_request_major_faults": 460,
+  "input_attachments_detail": {
+    "slowest_producer": "queued_commands",
+    "slowest_producer_ms": 2,
+    "cpu_ms": 0,
+    "major_faults": 0
+  },
+  "first_content_frame_ms": 1184,
+  "queued_turn_count": 0,
+  "result_index": 1
+}

@@ -1,0 +1,96 @@
+diff --git a/src/click/__init__.py b/src/click/__init__.py
+index a34ab02..702da98 100644
+--- a/src/click/__init__.py
++++ b/src/click/__init__.py
+@@ -61,6 +61,7 @@ from .types import FLOAT as FLOAT
+ from .types import FloatRange as FloatRange
+ from .types import INT as INT
+ from .types import IntRange as IntRange
++from .types import KeyValue as KeyValue
+ from .types import ParamType as ParamType
+ from .types import Path as Path
+ from .types import STRING as STRING
+diff --git a/src/click/types.py b/src/click/types.py
+index 22f76f5..287eba0 100644
+--- a/src/click/types.py
++++ b/src/click/types.py
+@@ -1293,6 +1293,40 @@ class Tuple(CompositeParamType[tuple[t.Any, ...]]):
+         )
+ 
+ 
++class KeyValue(ParamType):
++    """A parameter type that parses a ``key=value`` string into a
++    ``(key, value)`` tuple. The string is split on the first ``=``, so the
++    value may itself contain ``=``. The key must not be empty.
++
++    .. code-block:: python
++
++        @click.option("--set", type=click.KeyValue())
++
++    ``--set a=1`` gives ``("a", "1")``.
++
++    .. versionadded:: 8.6
++    """
++
++    name = "key=value"
++
++    def convert(
++        self, value: t.Any, param: Parameter | None, ctx: Context | None
++    ) -> tuple[str, str]:
++        if isinstance(value, tuple):
++            return value
++
++        key, sep, val = str(value).partition("=")
++
++        if not sep or not key:
++            self.fail(
++                _("{value!r} is not a valid key=value pair.").format(value=value),
++                param,
++                ctx,
++            )
++
++        return key, val
++
++
+ def _guess_type(
+     ty: type[t.Any] | ParamType[t.Any] | None,
+     default: t.Any | None,
+diff --git a/tests/test_types.py b/tests/test_types.py
+index 842c426..446296c 100644
+--- a/tests/test_types.py
++++ b/tests/test_types.py
+@@ -328,3 +328,34 @@ def test_param_type_subclass_omitting_input_parameter():
+     doubling = DoublingType()
+     assert doubling("21") == 42
+     assert doubling(None) is None
++
++
++@pytest.mark.parametrize(
++    ("value", "expected"),
++    [
++        ("a=1", ("a", "1")),
++        ("a=", ("a", "")),
++        ("a=b=c", ("a", "b=c")),
++    ],
++)
++def test_key_value_parses_pair(runner, value, expected):
++    @click.command()
++    @click.option("--set", type=click.KeyValue())
++    def cli(set):
++        click.echo(repr(set))
++
++    result = runner.invoke(cli, ["--set", value])
++    assert result.exit_code == 0
++    assert result.output == f"{expected!r}\n"
++
++
++@pytest.mark.parametrize("value", ["abc", "=value", ""])
++def test_key_value_invalid(runner, value):
++    @click.command()
++    @click.option("--set", type=click.KeyValue())
++    def cli(set):
++        pass
++
++    result = runner.invoke(cli, ["--set", value])
++    assert result.exit_code == 2
++    assert "is not a valid key=value pair" in result.output

@@ -1,0 +1,153 @@
+{
+  "duration_api_ms": 43202,
+  "stop_reason": "end_turn",
+  "session_id": "43b7c9b0-8dbf-4b71-a66e-6e536529cb10",
+  "total_cost_usd": 0.1460504,
+  "usage": {
+    "input_tokens": 6,
+    "cache_creation_input_tokens": 3462,
+    "cache_read_input_tokens": 55993,
+    "output_tokens": 757,
+    "output_tokens_details": {
+      "thinking_tokens": 206
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 3462,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 515,
+        "cache_read_input_tokens": 28945,
+        "cache_creation_input_tokens": 1565,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1565
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1190,
+      "outputTokens": 14,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.00012600000000000003,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 0,
+      "canonicalModel": "claude-haiku-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    },
+    "claude-sonnet-5-5": {
+      "inputTokens": 24,
+      "outputTokens": 4556,
+      "cacheReadInputTokens": 209497,
+      "cacheCreationInputTokens": 19159,
+      "webSearchRequests": 0,
+      "costUSD": 0.14592439999999998,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 283,
+      "canonicalModel": "claude-sonnet-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "origin": {
+    "kind": "task-notification",
+    "producer": "session-task",
+    "runId": "0mv6bjqyt-a3c2a8f6"
+  },
+  "subagent_stats": {
+    "spawned": 1,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 1
+    },
+    "started_in_background": 1,
+    "max_depth": 1,
+    "spawned_by_subagents": 0,
+    "completed": 1,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {
+      "Explore": 1
+    }
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 2,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "I couldn't find a bug, so I haven't written a plan yet. The repo is Click, and the `--help` code I read matches upstream Click:\n\n- **Option order:** `format_options` in `src/click/core.py` prints options in the order they were declared, with no sorting. `--help` is always appended last.\n- **Decorators:** `src/click/decorators.py` reverses the stacked decorator params so they come out in top-to-bottom source order.\n- **Subcommands:** a `Group` lists them alphabetically, because `list_commands` returns `sorted(self.commands)`.\n- **Tests:** none of them check the order of options in `--help`.\n\nWhich of these is the \"weird order\" you mean?\n\n1. **Click's own behavior.** For example, you want options sorted alphabetically, `--help` shown first, or required options grouped first. If so, tell me the order you expect.\n2. **A specific CLI in this repo**, such as one under `examples/`. If so, tell me which command, and paste its `--help` output if you can.\n3. **Subcommand order in a group.** If so, tell me whether you want declaration order instead of alphabetical.\n\nOnce I know which one, I'll write the plan.",
+  "ttft_ms": 2357,
+  "type": "result",
+  "duration_ms": 9309,
+  "uuid": "54dc3858-e0e4-4e8d-ad82-ed43c849855f",
+  "ttft_stream_ms": 1713,
+  "time_to_request_ms": 347,
+  "time_to_request_phases_ms": {
+    "other": 5,
+    "system_prompt": 2,
+    "resume_other": 1,
+    "process_user_input": 1,
+    "input_attachments": 6,
+    "input_hooks": 2,
+    "transcript_persist": 1,
+    "tool_pool_refresh": 2,
+    "init_message": 2,
+    "engine_pickup": 0,
+    "message_prep": 1,
+    "model_config_wait": 1,
+    "autocompact": 0,
+    "query_setup": 141,
+    "auto_mode_context_wait": 167,
+    "model_gates": 0,
+    "tool_schema_build": 2,
+    "message_normalization": 3,
+    "client_creation": 3,
+    "request_build": 7
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 1,
+  "time_to_request_loop_lag_ms": 117,
+  "time_to_request_cpu_ms": 140,
+  "time_to_request_major_faults": 455,
+  "input_attachments_detail": {
+    "slowest_producer": "queued_commands",
+    "slowest_producer_ms": 4,
+    "cpu_ms": 0,
+    "major_faults": 2
+  },
+  "first_content_frame_ms": 1714,
+  "queued_turn_count": 0,
+  "result_index": 1
+}

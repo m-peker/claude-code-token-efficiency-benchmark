@@ -1,0 +1,142 @@
+{
+  "duration_api_ms": 91089,
+  "stop_reason": "end_turn",
+  "session_id": "0269958b-e6f4-45bf-8b28-1214d4e8201a",
+  "total_cost_usd": 0.3895033,
+  "usage": {
+    "input_tokens": 10,
+    "cache_creation_input_tokens": 6315,
+    "cache_read_input_tokens": 133467,
+    "output_tokens": 1662,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 6315,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 317,
+        "cache_read_input_tokens": 28736,
+        "cache_creation_input_tokens": 481,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 481
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1193,
+      "outputTokens": 17,
+      "thinkingTokens": 0,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.00012780000000000002,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000
+    },
+    "claude-sonnet-5-5": {
+      "inputTokens": 6586,
+      "outputTokens": 10470,
+      "thinkingTokens": 263,
+      "cacheReadInputTokens": 724085,
+      "cacheCreationInputTokens": 32011,
+      "webSearchRequests": 0,
+      "costUSD": 0.3893755,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "canonicalModel": "claude-sonnet-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 7,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "I added `click.KeyValue`, which parses `key=value` strings into a `(key, value)` tuple. The full test suite passes, but I didn't add tests for `KeyValue` itself.\n\nThe class is in `src/click/types.py` and is exported from `click/__init__.py`. I checked it with a small command using `@click.option('--set', type=click.KeyValue())`:\n\n| Input | Result |\n|---|---|\n| `a=b` | `('a', 'b')` |\n| `a=b=c` | `('a', 'b=c')` (splits on the first `=` only) |\n| `a=` | `('a', '')` (an empty value is allowed) |\n| `=b` | exit code 2: `'=b' is not a valid key=value pair.` |\n| `ab` | exit code 2: `'ab' is not a valid key=value pair.` |\n\nIf a value is already a tuple, it passes through unchanged.\n\nI can add tests to `tests/test_types.py` if you want them.",
+  "ttft_ms": 2837,
+  "type": "result",
+  "duration_ms": 25960,
+  "uuid": "43cff32e-4c23-427f-a090-1cfaabb4ed3d",
+  "ttft_stream_ms": 1914,
+  "time_to_request_ms": 383,
+  "time_to_request_phases_ms": {
+    "other": 148,
+    "system_prompt": 188,
+    "resume_other": 0,
+    "process_user_input": 2,
+    "input_attachments": 18,
+    "input_hooks": 2,
+    "transcript_persist": 1,
+    "tool_pool_refresh": 1,
+    "init_message": 7,
+    "engine_pickup": 1,
+    "message_prep": 0,
+    "model_config_wait": 1,
+    "autocompact": 1,
+    "query_setup": 1,
+    "model_gates": 0,
+    "tool_schema_build": 5,
+    "message_normalization": 1,
+    "client_creation": 2,
+    "request_build": 4
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 126,
+  "time_to_request_cpu_ms": 250,
+  "time_to_request_major_faults": 3359,
+  "input_attachments_detail": {
+    "slowest_producer": "nested_memory",
+    "slowest_producer_ms": 8,
+    "cpu_ms": 31,
+    "major_faults": 347
+  },
+  "first_content_frame_ms": 1914,
+  "queued_turn_count": 0,
+  "result_index": 0
+}

@@ -1,0 +1,42 @@
+diff --git a/src/click/formatting.py b/src/click/formatting.py
+index b123ac4..c4aa2de 100644
+--- a/src/click/formatting.py
++++ b/src/click/formatting.py
+@@ -316,5 +316,5 @@ def join_options(options: cabc.Iterable[str]) -> tuple[str, bool]:
+ 
+         rv.append((len(prefix), opt))
+ 
+-    rv.sort(key=lambda x: x[0], reverse=True)
++    rv.sort(key=lambda x: x[0])
+     return ", ".join(x[1] for x in rv), any_prefix_is_slash
+diff --git a/tests/test_formatting.py b/tests/test_formatting.py
+index 272b075..318bb73 100644
+--- a/tests/test_formatting.py
++++ b/tests/test_formatting.py
+@@ -630,3 +630,26 @@ def test_command_write_usage_no_args(runner, command_kwargs, expected_usage_line
+     cli = click.Command("cli", **command_kwargs)
+     result = runner.invoke(cli, ["--help"])
+     assert result.output.splitlines()[0] == expected_usage_line
++
++
++@pytest.mark.parametrize(
++    ("decls", "expected"),
++    [
++        (("--verbose", "-v"), "-v, --verbose"),
++        (("-v", "--verbose"), "-v, --verbose"),
++        (("--foo/--no-foo", "-f"), "-f, --foo / --no-foo"),
++        (("/debug;/no-debug",), "/debug; /no-debug"),
++    ],
++)
++def test_help_short_options_listed_first(runner, decls, expected):
++    """Option names are listed shortest prefix first, so short options
++    come before long ones regardless of declaration order.
++    """
++
++    @click.command()
++    @click.option(*decls, is_flag=True)
++    def cli(**kwargs):
++        pass
++
++    result = runner.invoke(cli, ["--help"])
++    assert f"  {expected}" in result.output

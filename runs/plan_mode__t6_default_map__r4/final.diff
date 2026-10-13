@@ -1,0 +1,96 @@
+diff --git a/CHANGES.md b/CHANGES.md
+index 3c9a94e..30b00de 100644
+--- a/CHANGES.md
++++ b/CHANGES.md
+@@ -1,3 +1,11 @@
++## Version 8.5.1
++
++Unreleased
++
++- A subcommand context receives the entry of the parent's ``default_map``
++  matching its name instead of the whole parent map, so nested
++  ``default_map`` defaults apply to subcommands again.
++
+ ## Version 8.5.0
+ 
+ Released 2026-08-24
+diff --git a/src/click/core.py b/src/click/core.py
+index d5390bd..de129ec 100644
+--- a/src/click/core.py
++++ b/src/click/core.py
+@@ -389,7 +389,7 @@ class Context:
+             and parent is not None
+             and parent.default_map is not None
+         ):
+-            default_map = parent.default_map
++            default_map = parent.default_map.get(info_name)
+ 
+         self.default_map = default_map
+ 
+diff --git a/tests/test_defaults.py b/tests/test_defaults.py
+index bb2684c..8954ef9 100644
+--- a/tests/test_defaults.py
++++ b/tests/test_defaults.py
+@@ -556,3 +556,62 @@ def test_unset_in_default_map(runner):
+     result = runner.invoke(cli, [])
+     assert result.exit_code == 0
+     assert result.output.strip() == "port=8000"
++
++
++def _port_cli():
++    @click.group()
++    @click.option("--debug", default=False)
++    def cli(debug):
++        pass
++
++    @cli.command()
++    @click.option("--port", default=8000)
++    @click.option("--debug", default="off")
++    @click.pass_context
++    def runserver(ctx, port, debug):
++        src = ctx.get_parameter_source("port").name
++        click.echo(f"{port} {debug} {src}")
++
++    @cli.group()
++    def grp():
++        pass
++
++    @grp.command()
++    @click.option("--port", default=8000)
++    def inner(port):
++        click.echo(f"{port}")
++
++    return cli
++
++
++def test_default_map_subcommand(runner):
++    cli = _port_cli()
++    result = runner.invoke(
++        cli, ["runserver"], default_map={"runserver": {"port": 5000}}
++    )
++    assert result.output.strip() == "5000 off DEFAULT_MAP"
++
++
++def test_default_map_not_leaked_to_subcommand(runner):
++    cli = _port_cli()
++    result = runner.invoke(
++        cli, ["runserver"], default_map={"debug": "on", "port": 1}
++    )
++    assert result.output.strip() == "8000 off DEFAULT"
++
++
++def test_default_map_nested_group(runner):
++    cli = _port_cli()
++    result = runner.invoke(
++        cli, ["grp", "inner"], default_map={"grp": {"inner": {"port": 7}}}
++    )
++    assert result.output.strip() == "7"
++
++
++def test_default_map_context_settings_override(runner):
++    cli = _port_cli()
++    cli.commands["runserver"].context_settings = {"default_map": {"port": 9}}
++    result = runner.invoke(
++        cli, ["runserver"], default_map={"runserver": {"port": 5000}}
++    )
++    assert result.output.strip().startswith("9 ")

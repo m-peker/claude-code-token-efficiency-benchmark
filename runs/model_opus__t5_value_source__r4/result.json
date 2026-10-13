@@ -1,0 +1,145 @@
+{
+  "duration_api_ms": 25828,
+  "stop_reason": "end_turn",
+  "session_id": "7131bcb7-c259-4be8-823e-fbb8e98c01dc",
+  "total_cost_usd": 0.2078395,
+  "usage": {
+    "input_tokens": 8,
+    "cache_creation_input_tokens": 16912,
+    "cache_read_input_tokens": 80816,
+    "output_tokens": 2811,
+    "output_tokens_details": {
+      "thinking_tokens": 116
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 16912,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "global",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1787,
+        "cache_read_input_tokens": 29659,
+        "cache_creation_input_tokens": 1507,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1507
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1203,
+      "outputTokens": 16,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.0001283,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 0,
+      "canonicalModel": "claude-haiku-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    },
+    "claude-opus-5-5": {
+      "inputTokens": 8,
+      "outputTokens": 2811,
+      "cacheReadInputTokens": 80816,
+      "cacheCreationInputTokens": 16912,
+      "webSearchRequests": 0,
+      "costUSD": 0.2077112,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 116,
+      "canonicalModel": "claude-opus-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 8,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "Click resolves an option's value as a fallback chain. It tries each source in turn and stops at the first one that produces a value:\n\n**command line \u2192 environment variable \u2192 `default_map` \u2192 the parameter's `default` \u2192 interactive prompt (if configured)**\n\nEach value is tagged with a `ParameterSource`. You can read it back with `ctx.get_parameter_source(name)`.\n\n## 1. The source enum: `src/click/core.py:169`\n\n```python\nclass ParameterSource(enum.IntEnum):\n    PROMPT = enum.auto()\n    COMMANDLINE = enum.auto()\n    ENVIRONMENT = enum.auto()\n    DEFAULT_MAP = enum.auto()\n    DEFAULT = enum.auto()\n```\n\nIt's an `IntEnum` ordered from most to least explicit, so you can compare sources: `source < ParameterSource.DEFAULT_MAP` means the user supplied the value. Click uses that comparison itself in several places.\n\n## 2. The core chain: `Parameter.consume_value`, `src/click/core.py:2481`\n\nEach step runs only if the value is still `UNSET`:\n\n| Step | Code | Source |\n|---|---|---|\n| Parser output | `opts.get(self.name, UNSET)` (`:2495`) | `COMMANDLINE` |\n| Env var | `self.value_from_envvar(ctx)` (`:2504-2508`) | `ENVIRONMENT` |\n| Context default map | `ctx.lookup_default(self.name)` (`:2510-2519`) | `DEFAULT_MAP` |\n| Parameter default | `self.get_default(ctx)` (`:2521-2525`) | `DEFAULT` |\n\nDetails that matter:\n- **Env var lookup.** `Parameter.resolve_envvar_value` (`:2669`) checks `envvar`, which can be a string or a list where the first non-empty value wins. **An empty env var counts as unset.** `Option.resolve_envvar_value` (`:3517`) adds a fallback to `{ctx.auto_envvar_prefix}_{NAME}`. `Option.value_from_envvar` (`:3541`) splits values for `nargs`/`multiple`, and for non-bool flags it maps truthy/falsy strings to `flag_value`/`False`.\n- **`default_map` lookup.** `Context._default_map_has` and `lookup_default` (`:761`, `:785`) treat a missing key and a `Sentinel.UNSET` value as absent. An explicit `None` still counts as a real `DEFAULT_MAP` value. Callables are called. For `nargs != 1`, string values are split the same way env vars are (`:2518`).\n- **`get_default` (`:2445`).** It also checks `default_map` first, then falls back to `self.default`. That's why `--help` shows the `default_map` value as the default.\n\n## 3. Option-specific layer: `Option.consume_value`, `src/click/core.py:3589`\n\nThis calls the base chain first, then post-processes the result:\n- **Flag used without a value.** If the parser returned `FLAG_NEEDS_VALUE`, the option prompts if `prompt` is set (source `PROMPT`). Otherwise it uses `flag_activation_value` (source `COMMANDLINE`).\n- **Prompt.** If the value is still `UNSET` or came from `DEFAULT_MAP`/`DEFAULT` (`source >= DEFAULT_MAP`, `:3635`), the option has `prompt`, it's `required` or `prompt_required`, and parsing isn't resilient, the user is prompted. Whatever default was found becomes the prompt's suggested value.\n\n  So a prompt can replace a default, but never a command-line or env var value. `PROMPT` sorts first in the enum because a typed answer is the most explicit input, not because prompting runs first.\n\n## 4. Afterwards: `Parameter.handle_parse_result`, `src/click/core.py:2730`\n\n- It calls `consume_value` and records the source with `ctx.set_parameter_source` (`:2758`).\n- It warns about deprecated parameters only when the value was explicit (`source < DEFAULT_MAP`, `:2764`).\n- It runs `process_value` (`:2603`, overridden for options at `:3645`): type conversion, the required check, then the callback. The callback sees the value after source resolution, so it can change the final value no matter where it came from.\n- **Shared names.** When several options write the same variable (feature-switch groups like `--shout/--no-shout` split into separate options), the slot goes to the more explicit source (`source < existing_source`, `:2787-2810`). For example, a flag given on the command line beats a sibling's default.\n\n## Related docs and tests\n- `docs/options.md` around line 616 and `docs/commands-and-groups.md` around line 378 describe the same precedence.\n- `tests/test_defaults.py:245` (`test_default_map_source`) checks CLI > `default_map` > default.\n- `tests/test_options.py:3459` covers interactions between env vars, `auto_envvar_prefix` and `UNSET` entries in `default_map`.\n\nI didn't modify any files.",
+  "ttft_ms": 2179,
+  "type": "result",
+  "duration_ms": 25230,
+  "uuid": "87bc68cb-e930-415b-86e6-e69df882a926",
+  "ttft_stream_ms": 914,
+  "time_to_request_ms": 55,
+  "time_to_request_phases_ms": {
+    "other": 13,
+    "system_prompt": 10,
+    "resume_other": 0,
+    "process_user_input": 2,
+    "input_attachments": 6,
+    "input_hooks": 2,
+    "transcript_persist": 2,
+    "tool_pool_refresh": 1,
+    "init_message": 8,
+    "engine_pickup": 0,
+    "message_prep": 1,
+    "model_config_wait": 1,
+    "autocompact": 0,
+    "query_setup": 1,
+    "model_gates": 0,
+    "tool_schema_build": 3,
+    "message_normalization": 1,
+    "client_creation": 1,
+    "request_build": 3
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 5,
+  "time_to_request_cpu_ms": 62,
+  "time_to_request_major_faults": 1105,
+  "input_attachments_detail": {
+    "slowest_producer": "queued_commands",
+    "slowest_producer_ms": 4,
+    "cpu_ms": 0,
+    "major_faults": 113
+  },
+  "first_content_frame_ms": 914,
+  "queued_turn_count": 0,
+  "result_index": 0
+}

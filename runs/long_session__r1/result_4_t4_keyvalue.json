@@ -1,0 +1,143 @@
+{
+  "duration_api_ms": 46955,
+  "stop_reason": "end_turn",
+  "session_id": "bc36a610-7d09-4054-b744-aee9d24da634",
+  "total_cost_usd": 0.21291659999999998,
+  "usage": {
+    "input_tokens": 12,
+    "cache_creation_input_tokens": 3412,
+    "cache_read_input_tokens": 203964,
+    "output_tokens": 1951,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 3412,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 270,
+        "cache_read_input_tokens": 35838,
+        "cache_creation_input_tokens": 386,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 386
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1193,
+      "outputTokens": 17,
+      "thinkingTokens": 0,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.00012780000000000002,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000
+    },
+    "claude-sonnet-5-5": {
+      "inputTokens": 38,
+      "outputTokens": 4616,
+      "thinkingTokens": 280,
+      "cacheReadInputTokens": 566324,
+      "cacheCreationInputTokens": 13322,
+      "webSearchRequests": 0,
+      "costUSD": 0.2127888,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "canonicalModel": "claude-sonnet-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 9,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "`click.KeyValue` now exists and is exported from `click`. I checked it by running the command through `CliRunner`. The existing test suite passes, but I didn't add tests for the new type.\n\n- **Valid input:** `a=b` gives `('a', 'b')`. It splits at the first `=`, so `a=b=c` gives `('a', 'b=c')`. An empty value is allowed, so `a=` gives `('a', '')`.\n- **Invalid input:** `novalue` and `=v` fail with exit code 2 and `Invalid value for '--set': 'novalue' is not a valid key=value pair.`\n\nThe class is in `src/click/types.py`, and I added the export in `src/click/__init__.py`. I allowed empty values because you only asked for an empty key to fail. Say if you want empty values rejected too.",
+  "ttft_ms": 1951,
+  "type": "result",
+  "duration_ms": 29629,
+  "uuid": "55c31bdb-2cd5-4faf-b621-4a9e4e378b12",
+  "ttft_stream_ms": 1245,
+  "time_to_request_ms": 126,
+  "time_to_request_phases_ms": {
+    "other": 9,
+    "system_prompt": 45,
+    "resume_other": 0,
+    "process_user_input": 2,
+    "input_attachments": 34,
+    "input_hooks": 2,
+    "transcript_persist": 1,
+    "tool_pool_refresh": 2,
+    "init_message": 7,
+    "engine_pickup": 1,
+    "message_prep": 0,
+    "model_config_wait": 1,
+    "autocompact": 1,
+    "query_setup": 0,
+    "model_gates": 1,
+    "tool_schema_build": 8,
+    "message_normalization": 3,
+    "client_creation": 3,
+    "request_build": 6
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 22,
+  "time_to_request_cpu_ms": 204,
+  "time_to_request_major_faults": 2135,
+  "input_attachments_detail": {
+    "slowest_producer": "nested_memory",
+    "slowest_producer_ms": 16,
+    "cpu_ms": 94,
+    "major_faults": 758,
+    "changed_files_reread": 0
+  },
+  "first_content_frame_ms": 1246,
+  "queued_turn_count": 0,
+  "result_index": 0
+}

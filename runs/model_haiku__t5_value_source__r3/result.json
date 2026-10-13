@@ -1,0 +1,131 @@
+{
+  "duration_api_ms": 13411,
+  "stop_reason": "end_turn",
+  "session_id": "7a0a74cd-280e-4be5-a917-571392a13803",
+  "total_cost_usd": 0.00450842,
+  "usage": {
+    "input_tokens": 10,
+    "cache_creation_input_tokens": 8632,
+    "cache_read_input_tokens": 132972,
+    "output_tokens": 2646,
+    "output_tokens_details": {
+      "thinking_tokens": 483
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 8632,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1166,
+        "cache_read_input_tokens": 30584,
+        "cache_creation_input_tokens": 1730,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1730
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1213,
+      "outputTokens": 2662,
+      "cacheReadInputTokens": 132972,
+      "cacheCreationInputTokens": 8632,
+      "webSearchRequests": 0,
+      "costUSD": 0.00450842,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 483,
+      "canonicalModel": "claude-haiku-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 10,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "Click resolves an option's value in this order, highest priority first:\n\n1. **Command line** (`COMMANDLINE`): the parser put a value in `opts`.\n2. **Environment variable** (`ENVIRONMENT`): used only if the command line gave nothing and `envvar` is set and non-empty.\n3. **`default_map`** (`DEFAULT_MAP`): used if the key exists in `ctx.default_map` (and isn't `UNSET`), even when the value is `None`.\n4. **Parameter default** (`DEFAULT`): from `default=` (or its callable/factory form).\n\nTwo extra cases sit on top of that:\n\n- **Prompt** (`PROMPT`): for an option with `prompt=` set, a prompt can replace the value. It fires when the option is required (or `prompt_required` is set) and the value is missing or came from `DEFAULT_MAP`/`DEFAULT`. A flag with `is_flag=False` and `flag_value` can also prompt when used with no value.\n- **`default_map` lookup**: `default_map` is inherited from the parent context unless the child sets its own (`core.py:387-394`).\n\nEach source is recorded, and `ctx.get_parameter_source(name)` returns it. `ParameterSource` is ordered from most to least explicit, so `source < ParameterSource.DEFAULT_MAP` means the user explicitly set the value (`core.py:169-205`).\n\n**Relevant code** (`src\\click\\core.py`):\n\n- `ParameterSource` enum, precedence documented in the docstring: lines 169\u2013205.\n- `Context.default_map` handling and inheritance from the parent: lines 233, 321, 347, 387\u2013394.\n- `Context._default_map_has` (treats `UNSET` as absent) and `Context.lookup_default` (calls callables): lines 761\u2013805.\n- `Parameter.consume_value`, which implements the chain: lines 2481\u20132527.\n  - Command line from `opts` at 2495\u20132502.\n  - Environment at 2504\u20132508.\n  - `default_map` at 2510\u20132519, including splitting a string for `nargs != 1`.\n  - Parameter default at 2521\u20132525.\n- `Parameter.value_from_envvar` and `resolve_envvar_value`: lines 2669\u20132728. The env var is read as a raw string; `nargs != 1` values are split by the type.\n- `Option.consume_value`, which adds the flag and prompt logic: lines 3589\u20133643.\n\nI didn't modify any files.",
+  "ttft_ms": 1518,
+  "type": "result",
+  "duration_ms": 13462,
+  "uuid": "a3373f04-bce3-43f1-82b0-994764bd5ad2",
+  "ttft_stream_ms": 1246,
+  "time_to_request_ms": 521,
+  "time_to_request_phases_ms": {
+    "other": 17,
+    "system_prompt": 91,
+    "resume_other": 0,
+    "process_user_input": 2,
+    "input_attachments": 11,
+    "input_hooks": 2,
+    "transcript_persist": 21,
+    "tool_pool_refresh": 2,
+    "init_message": 40,
+    "engine_pickup": 1,
+    "message_prep": 1,
+    "model_config_wait": 1,
+    "autocompact": 1,
+    "query_setup": 1,
+    "model_gates": 304,
+    "tool_schema_build": 14,
+    "message_normalization": 2,
+    "client_creation": 5,
+    "request_build": 5
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 165,
+  "time_to_request_cpu_ms": 438,
+  "time_to_request_major_faults": 6091,
+  "input_attachments_detail": {
+    "slowest_producer": "model",
+    "slowest_producer_ms": 7,
+    "cpu_ms": 32,
+    "major_faults": 74
+  },
+  "first_content_frame_ms": 1246,
+  "queued_turn_count": 0,
+  "result_index": 0
+}

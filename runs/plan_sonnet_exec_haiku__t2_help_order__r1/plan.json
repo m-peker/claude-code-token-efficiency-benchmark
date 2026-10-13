@@ -1,0 +1,146 @@
+{
+  "duration_api_ms": 22762,
+  "stop_reason": "end_turn",
+  "session_id": "b3f1215f-bf0c-45ea-af49-8f3b65ad345f",
+  "total_cost_usd": 0.116969,
+  "usage": {
+    "input_tokens": 16,
+    "cache_creation_input_tokens": 13347,
+    "cache_read_input_tokens": 175115,
+    "output_tokens": 2840,
+    "output_tokens_details": {
+      "thinking_tokens": 452
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 13347,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "global",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 348,
+        "cache_read_input_tokens": 27093,
+        "cache_creation_input_tokens": 633,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 633
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1190,
+      "outputTokens": 14,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.00012600000000000003,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 0,
+      "canonicalModel": "claude-haiku-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    },
+    "claude-sonnet-5-5": {
+      "inputTokens": 16,
+      "outputTokens": 2840,
+      "cacheReadInputTokens": 175115,
+      "cacheCreationInputTokens": 13347,
+      "webSearchRequests": 0,
+      "costUSD": 0.116843,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 452,
+      "canonicalModel": "claude-sonnet-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 14,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "I found the cause and wrote up a fix, but haven't applied it because plan mode is active.\n\n**Cause:** `join_options()` in `src/click/formatting.py:319` sorts a parameter's option names by prefix length with `reverse=True`. That puts long names first, so `--help, -h` appears instead of `-h, --help`. The existing tests in `tests/test_commands.py:188-190` expect the short name first.\n\n**Fix:** change line 319 to:\n\n```python\nrv.sort(key=lambda x: x[0])\n```\n\n**Verification:** run `pytest tests/test_commands.py tests/test_formatting.py tests/test_options.py`, then the full suite, and check `--help` on one of the examples.\n\nThe plan is saved at `<home>\\.claude\\plans\\the-help-output-looks-resilient-kitten.md`. The plan-approval tool wasn't available in this session, so tell me to go ahead if you'd like me to apply it.",
+  "ttft_ms": 1657,
+  "type": "result",
+  "duration_ms": 25765,
+  "uuid": "72d2f30c-2335-4525-8f0e-ab760731efe7",
+  "ttft_stream_ms": 1290,
+  "time_to_request_ms": 520,
+  "time_to_request_phases_ms": {
+    "other": 19,
+    "system_prompt": 16,
+    "resume_other": 0,
+    "process_user_input": 3,
+    "input_attachments": 8,
+    "input_hooks": 2,
+    "transcript_persist": 4,
+    "tool_pool_refresh": 2,
+    "init_message": 10,
+    "engine_pickup": 0,
+    "message_prep": 1,
+    "model_config_wait": 1,
+    "autocompact": 2,
+    "query_setup": 165,
+    "auto_mode_context_wait": 271,
+    "model_gates": 1,
+    "tool_schema_build": 6,
+    "message_normalization": 1,
+    "client_creation": 2,
+    "request_build": 6
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 185,
+  "time_to_request_cpu_ms": 281,
+  "time_to_request_major_faults": 3102,
+  "input_attachments_detail": {
+    "slowest_producer": "queued_commands",
+    "slowest_producer_ms": 5,
+    "cpu_ms": 0,
+    "major_faults": 198
+  },
+  "first_content_frame_ms": 1290,
+  "queued_turn_count": 0,
+  "result_index": 0
+}

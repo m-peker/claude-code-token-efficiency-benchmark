@@ -1,0 +1,38 @@
+diff --git a/src/click/core.py b/src/click/core.py
+index d5390bd..de129ec 100644
+--- a/src/click/core.py
++++ b/src/click/core.py
+@@ -389,7 +389,7 @@ class Context:
+             and parent is not None
+             and parent.default_map is not None
+         ):
+-            default_map = parent.default_map
++            default_map = parent.default_map.get(info_name)
+ 
+         self.default_map = default_map
+ 
+diff --git a/tests/test_defaults.py b/tests/test_defaults.py
+index bb2684c..ba17ba6 100644
+--- a/tests/test_defaults.py
++++ b/tests/test_defaults.py
+@@ -107,6 +107,20 @@ def test_multiple_flag_default(runner):
+     assert result.return_value == ((True, False), (True,), (1, -1))
+ 
+ 
++def test_default_map_subcommand(runner):
++    @click.group()
++    def cli():
++        pass
++
++    @cli.command()
++    @click.option("--name", default="default")
++    def sub(name):
++        click.echo(name)
++
++    result = runner.invoke(cli, ["sub"], default_map={"sub": {"name": "mapped"}})
++    assert result.output == "mapped\n"
++
++
+ def test_flag_default_map(runner):
+     """test flag with default map"""
+ 

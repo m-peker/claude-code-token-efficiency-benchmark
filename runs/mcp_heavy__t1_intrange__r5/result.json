@@ -1,0 +1,145 @@
+{
+  "duration_api_ms": 9095,
+  "stop_reason": "end_turn",
+  "session_id": "b0ad5b7d-a810-4cb8-b331-16f5892cbf8e",
+  "total_cost_usd": 0.053236599999999995,
+  "usage": {
+    "input_tokens": 10,
+    "cache_creation_input_tokens": 6849,
+    "cache_read_input_tokens": 89364,
+    "output_tokens": 782,
+    "output_tokens_details": {
+      "thinking_tokens": 59
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 6849,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "global",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 115,
+        "cache_read_input_tokens": 20919,
+        "cache_creation_input_tokens": 307,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 307
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1193,
+      "outputTokens": 17,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.00012780000000000002,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 0,
+      "canonicalModel": "claude-haiku-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    },
+    "claude-sonnet-5-5": {
+      "inputTokens": 10,
+      "outputTokens": 782,
+      "cacheReadInputTokens": 89364,
+      "cacheCreationInputTokens": 6849,
+      "webSearchRequests": 0,
+      "costUSD": 0.0531088,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 59,
+      "canonicalModel": "claude-sonnet-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 5,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "Fixed in `src/click/types.py` (`IntRange._clamp`). For open bounds, the clamp moved in the wrong direction (`bound - dir`), so it landed outside the range. For example, `min=0, min_open=True` clamped to `-1` instead of `1`. It now uses `bound + dir`. I didn't run the tests.",
+  "ttft_ms": 1231,
+  "type": "result",
+  "duration_ms": 8789,
+  "uuid": "011701e8-2ef5-4793-a463-c69933d6148a",
+  "ttft_stream_ms": 854,
+  "time_to_request_ms": 66,
+  "time_to_request_phases_ms": {
+    "other": 16,
+    "system_prompt": 7,
+    "resume_other": 0,
+    "process_user_input": 2,
+    "input_attachments": 8,
+    "input_hooks": 2,
+    "transcript_persist": 3,
+    "tool_pool_refresh": 2,
+    "init_message": 10,
+    "engine_pickup": 1,
+    "message_prep": 1,
+    "model_config_wait": 1,
+    "autocompact": 1,
+    "query_setup": 1,
+    "model_gates": 0,
+    "tool_schema_build": 5,
+    "message_normalization": 1,
+    "client_creation": 1,
+    "request_build": 4
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 16,
+  "time_to_request_cpu_ms": 78,
+  "time_to_request_major_faults": 1296,
+  "input_attachments_detail": {
+    "slowest_producer": "queued_commands",
+    "slowest_producer_ms": 5,
+    "cpu_ms": 16,
+    "major_faults": 193
+  },
+  "first_content_frame_ms": 854,
+  "queued_turn_count": 0,
+  "result_index": 0
+}

@@ -1,0 +1,153 @@
+{
+  "duration_api_ms": 42739,
+  "stop_reason": "end_turn",
+  "session_id": "592545de-d73c-4cf2-8a58-40bec33e074c",
+  "total_cost_usd": 0.14393750000000002,
+  "usage": {
+    "input_tokens": 6,
+    "cache_creation_input_tokens": 3464,
+    "cache_read_input_tokens": 56634,
+    "output_tokens": 1507,
+    "output_tokens_details": {
+      "thinking_tokens": 154
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 3464,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 587,
+        "cache_read_input_tokens": 29540,
+        "cache_creation_input_tokens": 1018,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1018
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1191,
+      "outputTokens": 20,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.00012910000000000002,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 0,
+      "canonicalModel": "claude-haiku-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    },
+    "claude-sonnet-5-5": {
+      "inputTokens": 18,
+      "outputTokens": 5083,
+      "cacheReadInputTokens": 154787,
+      "cacheCreationInputTokens": 20558,
+      "webSearchRequests": 0,
+      "costUSD": 0.1438084,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 489,
+      "canonicalModel": "claude-sonnet-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "origin": {
+    "kind": "task-notification",
+    "producer": "session-task",
+    "runId": "0mv6b3a5k-7b861b2b"
+  },
+  "subagent_stats": {
+    "spawned": 1,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 1
+    },
+    "started_in_background": 1,
+    "max_depth": 1,
+    "spawned_by_subagents": 0,
+    "completed": 1,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {
+      "Explore": 1
+    }
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 2,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "I haven't changed any code, because plan mode is on. The plan is written to `<home>\\.claude\\plans\\shell-completion-gives-wrong-twinkling-nautilus.md`. I haven't run any tests. I also couldn't call ExitPlanMode, since it isn't among my available tools, so this message is the request for your approval.\n\n**Cause:** `split_arg_string` in `src/click/shell_completion.py` (around lines 603\u2013635) uses `shlex.shlex`, which treats an unquoted `#` as the start of a comment by default. Everything from the `#` onward is dropped from the words. For example, `prog foo#bar <TAB>` is split as `[\"prog\", \"foo\"]`. The word indexes then no longer match `COMP_CWORD`, so you get wrong or empty completions.\n\n**Planned fix:**\n1. In `split_arg_string`, add `lex.commenters = \"\"` after `lex.whitespace_split = True`.\n2. In the fish branch of `get_completion_args` (around line 494), guard `split_arg_string(incomplete)[0]` against an empty result.\n3. Add tests in `tests/test_shell_completion.py`:\n   - A direct check that `split_arg_string(\"a #b c#d 'e#f'\")` returns `[\"a\", \"#b\", \"c#d\", \"e#f\"]`.\n   - A `test_full_complete` case with `#` in `COMP_WORDS`, run across bash, zsh, fish and PowerShell.\n4. Add a `CHANGES.rst` entry if the repo keeps one.\n\n**Verification:** run `pytest tests/test_shell_completion.py`, where the new tests should fail before the fix and pass after. Then run the full suite.\n\nDo you want me to go ahead and implement this?",
+  "ttft_ms": 2631,
+  "type": "result",
+  "duration_ms": 12284,
+  "uuid": "ecaff008-7a04-4b2e-a40b-aa10b84bf95d",
+  "ttft_stream_ms": 1211,
+  "time_to_request_ms": 215,
+  "time_to_request_phases_ms": {
+    "other": 4,
+    "system_prompt": 2,
+    "resume_other": 0,
+    "process_user_input": 1,
+    "input_attachments": 5,
+    "input_hooks": 2,
+    "transcript_persist": 0,
+    "tool_pool_refresh": 2,
+    "init_message": 1,
+    "engine_pickup": 1,
+    "message_prep": 0,
+    "model_config_wait": 0,
+    "autocompact": 1,
+    "query_setup": 94,
+    "auto_mode_context_wait": 94,
+    "model_gates": 0,
+    "tool_schema_build": 1,
+    "message_normalization": 1,
+    "client_creation": 2,
+    "request_build": 4
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 1,
+  "time_to_request_loop_lag_ms": 64,
+  "time_to_request_cpu_ms": 94,
+  "time_to_request_major_faults": 378,
+  "input_attachments_detail": {
+    "slowest_producer": "queued_commands",
+    "slowest_producer_ms": 4,
+    "cpu_ms": 0,
+    "major_faults": 1
+  },
+  "first_content_frame_ms": 1211,
+  "queued_turn_count": 0,
+  "result_index": 1
+}

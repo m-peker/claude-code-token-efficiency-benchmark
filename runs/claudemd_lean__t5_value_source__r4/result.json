@@ -1,0 +1,145 @@
+{
+  "duration_api_ms": 15378,
+  "stop_reason": "end_turn",
+  "session_id": "f88124ae-b362-438f-8b7f-0127a742aec1",
+  "total_cost_usd": 0.063861,
+  "usage": {
+    "input_tokens": 8,
+    "cache_creation_input_tokens": 7683,
+    "cache_read_input_tokens": 69336,
+    "output_tokens": 1909,
+    "output_tokens_details": {
+      "thinking_tokens": 83
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 7683,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "global",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 917,
+        "cache_read_input_tokens": 21236,
+        "cache_creation_input_tokens": 826,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 826
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1203,
+      "outputTokens": 71,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.00015580000000000002,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 55,
+      "canonicalModel": "claude-haiku-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    },
+    "claude-sonnet-5-5": {
+      "inputTokens": 8,
+      "outputTokens": 1909,
+      "cacheReadInputTokens": 69336,
+      "cacheCreationInputTokens": 7683,
+      "webSearchRequests": 0,
+      "costUSD": 0.0637052,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 83,
+      "canonicalModel": "claude-sonnet-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 7,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "An option's value comes from the first of these sources that supplies one, in this order:\n\n1. **Command line.** The parser puts what the user typed into `opts`. This is `ParameterSource.COMMANDLINE`.\n2. **Environment variable.** This is `ENVIRONMENT`.\n   - It checks the explicit `envvar=` first.\n   - For options it then falls back to `{auto_envvar_prefix}_{NAME}` when `allow_from_autoenv` is set (`Option.resolve_envvar_value`, `core.py:3517`).\n3. **`Context.default_map`.** This is `DEFAULT_MAP`. Click uses it if the key is present, even when the mapped value is `None` (`ctx._default_map_has`). Strings are split for `nargs != 1`.\n4. **The parameter's own `default`.** This is `DEFAULT`, via `self.get_default(ctx)`.\n\nIf none of these supplies a value, the result is the `UNSET` sentinel.\n\n**Prompt (options only).** `Option.consume_value` (`core.py:3589`) runs after the base logic and can override it. It prompts when:\n- the value is `UNSET` or came from `DEFAULT_MAP`/`DEFAULT`,\n- `prompt` is set and the option is required or has `prompt_required`, and\n- the context is not in resilient parsing mode.\n\nThe source then becomes `PROMPT`. A flag given without a value (`FLAG_NEEDS_VALUE`) also prompts if a prompt is configured. Otherwise it takes `flag_activation_value` and the source is `COMMANDLINE`.\n\n**Where to look in `src/click/core.py`**\n- `Parameter.consume_value` (`:2481`) holds the core precedence chain above. Its docstring states the order: environment, default map, default.\n- `Option.consume_value` (`:3589`) adds the prompt and flag-activation handling.\n- `Parameter.handle_parse_result` (`:2730`) calls `consume_value`, records the source with `ctx.set_parameter_source`, and then runs `process_value` for type conversion. Conversion applies to every source. This method also arbitrates when several options write to the same variable name (feature-switch groups).\n- `ParameterSource` (`:169`) is an `IntEnum` ordered from most to least explicit: `PROMPT`, `COMMANDLINE`, `ENVIRONMENT`, `DEFAULT_MAP`, `DEFAULT`. That is why checks like `source < ParameterSource.DEFAULT_MAP` mean \"explicitly set by the user\". The deprecation warning uses such a check.\n- `Context.get_parameter_source(name)` lets a command see which source was used.\n\nI didn't modify any files.",
+  "ttft_ms": 2101,
+  "type": "result",
+  "duration_ms": 14852,
+  "uuid": "e49318ac-d6a5-415d-802c-df15f85016c4",
+  "ttft_stream_ms": 1079,
+  "time_to_request_ms": 58,
+  "time_to_request_phases_ms": {
+    "other": 13,
+    "system_prompt": 14,
+    "resume_other": 0,
+    "process_user_input": 1,
+    "input_attachments": 6,
+    "input_hooks": 2,
+    "transcript_persist": 2,
+    "tool_pool_refresh": 2,
+    "init_message": 6,
+    "engine_pickup": 1,
+    "message_prep": 1,
+    "model_config_wait": 0,
+    "autocompact": 1,
+    "query_setup": 1,
+    "model_gates": 0,
+    "tool_schema_build": 3,
+    "message_normalization": 1,
+    "client_creation": 1,
+    "request_build": 3
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 8,
+  "time_to_request_cpu_ms": 63,
+  "time_to_request_major_faults": 1965,
+  "input_attachments_detail": {
+    "slowest_producer": "queued_commands",
+    "slowest_producer_ms": 4,
+    "cpu_ms": 16,
+    "major_faults": 129
+  },
+  "first_content_frame_ms": 1079,
+  "queued_turn_count": 0,
+  "result_index": 0
+}

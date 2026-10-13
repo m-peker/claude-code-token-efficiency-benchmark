@@ -1,0 +1,81 @@
+diff --git a/src/click/core.py b/src/click/core.py
+index d5390bd..de129ec 100644
+--- a/src/click/core.py
++++ b/src/click/core.py
+@@ -389,7 +389,7 @@ class Context:
+             and parent is not None
+             and parent.default_map is not None
+         ):
+-            default_map = parent.default_map
++            default_map = parent.default_map.get(info_name)
+ 
+         self.default_map = default_map
+ 
+diff --git a/tests/test_defaults.py b/tests/test_defaults.py
+index bb2684c..3439bbb 100644
+--- a/tests/test_defaults.py
++++ b/tests/test_defaults.py
+@@ -556,3 +556,63 @@ def test_unset_in_default_map(runner):
+     result = runner.invoke(cli, [])
+     assert result.exit_code == 0
+     assert result.output.strip() == "port=8000"
++
++
++def test_default_map_subcommand(runner):
++    @click.group()
++    def cli():
++        pass
++
++    @cli.command()
++    @click.option("--opt", default=1)
++    def sub(opt):
++        click.echo(f"opt={opt}")
++
++    @cli.command()
++    @click.option("--opt", default=1)
++    def other(opt):
++        click.echo(f"opt={opt}")
++
++    result = runner.invoke(cli, ["sub"], default_map={"sub": {"opt": 42}})
++    assert result.output.strip() == "opt=42"
++
++    # Subcommand missing from the map falls back to the parameter default.
++    result = runner.invoke(cli, ["other"], default_map={"sub": {"opt": 42}})
++    assert result.output.strip() == "opt=1"
++
++
++def test_default_map_nested_groups(runner):
++    @click.group()
++    def cli():
++        pass
++
++    @cli.group()
++    def grp():
++        pass
++
++    @grp.command()
++    @click.option("--opt", default=1)
++    def sub(opt):
++        click.echo(f"opt={opt}")
++
++    result = runner.invoke(
++        cli, ["grp", "sub"], default_map={"grp": {"sub": {"opt": 7}}}
++    )
++    assert result.output.strip() == "opt=7"
++
++
++def test_default_map_group_option_and_subcommand(runner):
++    @click.group()
++    @click.option("--verbose", default="no")
++    def cli(verbose):
++        click.echo(f"verbose={verbose}")
++
++    @cli.command()
++    @click.option("--opt", default=1)
++    def sub(opt):
++        click.echo(f"opt={opt}")
++
++    result = runner.invoke(
++        cli, ["sub"], default_map={"verbose": "yes", "sub": {"opt": 5}}
++    )
++    assert result.output.split() == ["verbose=yes", "opt=5"]

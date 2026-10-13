@@ -1,0 +1,143 @@
+{
+  "duration_api_ms": 33410,
+  "stop_reason": "end_turn",
+  "session_id": "e0029e8f-ac73-4f7a-9eb4-c325d94f5c97",
+  "total_cost_usd": 0.15350860000000002,
+  "usage": {
+    "input_tokens": 12,
+    "cache_creation_input_tokens": 4604,
+    "cache_read_input_tokens": 207228,
+    "output_tokens": 1594,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 4604,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 228,
+        "cache_read_input_tokens": 36305,
+        "cache_creation_input_tokens": 349,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 349
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1190,
+      "outputTokens": 20,
+      "thinkingTokens": 0,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.00012900000000000002,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000
+    },
+    "claude-sonnet-5-5": {
+      "inputTokens": 22,
+      "outputTokens": 3277,
+      "thinkingTokens": 164,
+      "cacheReadInputTokens": 347548,
+      "cacheCreationInputTokens": 12764,
+      "webSearchRequests": 0,
+      "costUSD": 0.1533796,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "canonicalModel": "claude-sonnet-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 14,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "Defaults set through `default_map` now apply to subcommands. The full test suite passes: 1908 passed, 102 skipped, 1 xfailed. I didn't commit anything.\n\n- **Fix:** in `src/click/core.py`, a subcommand's context now takes `parent.default_map.get(info_name)`. Before, it copied the parent's whole map and never found its own entry.\n- **Tests:** I added two tests to `tests/test_defaults.py`. One covers a subcommand, including the case where the map has no entry for it. The other covers a nested group.\n- **Changelog:** I added an entry under 8.5.0 in `CHANGES.md`. It has no issue or PR number.",
+  "ttft_ms": 4188,
+  "type": "result",
+  "duration_ms": 37803,
+  "uuid": "a1940e0c-7f67-4789-bbe8-0d1ed5ec6a23",
+  "ttft_stream_ms": 2974,
+  "time_to_request_ms": 364,
+  "time_to_request_phases_ms": {
+    "other": 14,
+    "system_prompt": 281,
+    "resume_other": 0,
+    "process_user_input": 5,
+    "input_attachments": 12,
+    "input_hooks": 4,
+    "transcript_persist": 1,
+    "tool_pool_refresh": 2,
+    "init_message": 11,
+    "engine_pickup": 1,
+    "message_prep": 1,
+    "model_config_wait": 1,
+    "autocompact": 2,
+    "query_setup": 0,
+    "model_gates": 1,
+    "tool_schema_build": 12,
+    "message_normalization": 4,
+    "client_creation": 5,
+    "request_build": 7
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 156,
+  "time_to_request_cpu_ms": 267,
+  "time_to_request_major_faults": 4092,
+  "input_attachments_detail": {
+    "slowest_producer": "queued_commands",
+    "slowest_producer_ms": 8,
+    "cpu_ms": 16,
+    "major_faults": 403,
+    "changed_files_reread": 0
+  },
+  "first_content_frame_ms": 2975,
+  "queued_turn_count": 0,
+  "result_index": 0
+}

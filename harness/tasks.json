@@ -1,0 +1,56 @@
+[
+  {
+    "id": "t1_intrange",
+    "kind": "bugfix",
+    "vague": "Some users report that integer range options with clamping return values outside the allowed range. Please fix it.",
+    "specific": "Bug: IntRange._clamp in src/click/types.py moves in the wrong direction for open bounds. click.IntRange(0, min_open=True, clamp=True).convert('0', None, None) returns -1 but should return 1. Fix it, add regression cases to the clamp parametrize list at the top of tests/test_types.py, and verify with: python -m pytest tests/test_types.py -q",
+    "hidden_test": "test_hidden_t1_intrange.py"
+  },
+  {
+    "id": "t2_help_order",
+    "kind": "bugfix",
+    "vague": "The --help output looks wrong: options are listed in a weird order. Please fix it.",
+    "specific": "Bug: in --help output an option declared as @click.option('--verbose', '-v') is rendered as '--verbose, -v' but should be '-v, --verbose' (shorter prefixes first). The ordering happens in join_options in src/click/formatting.py. Fix it and verify with: python -m pytest tests/test_formatting.py tests/test_options.py -q",
+    "hidden_test": "test_hidden_t2_help_order.py"
+  },
+  {
+    "id": "t3_completion_hash",
+    "kind": "bugfix",
+    "vague": "Shell completion gives wrong results when an argument contains a # character. Please fix it.",
+    "specific": "Bug: split_arg_string in src/click/shell_completion.py treats '#' as the start of a comment, so split_arg_string('cmd a#b') returns ['cmd', 'a'] instead of ['cmd', 'a#b']. Fix the shlex lexer configuration there, add a test to tests/test_shell_completion.py, and verify with: python -m pytest tests/test_shell_completion.py -q",
+    "hidden_test": "test_hidden_t3_completion_hash.py"
+  },
+  {
+    "id": "t4_keyvalue",
+    "kind": "feature",
+    "vague": "Add a new parameter type class click.KeyValue, used like @click.option('--set', type=click.KeyValue()), that parses 'key=value' strings into a (key, value) tuple. Input without '=' or with an empty key must fail with an error message containing 'is not a valid key=value pair'.",
+    "specific": "Add a new parameter type class click.KeyValue, used like @click.option('--set', type=click.KeyValue()), that parses 'key=value' strings into a (key, value) tuple. Input without '=' or with an empty key must fail with an error message containing 'is not a valid key=value pair'. Implement it as a ParamType subclass in src/click/types.py next to UUIDParameterType (name attribute, convert() calling self.fail(...)); split on the first '=' only. Export the class itself (not an instance) from src/click/__init__.py, add tests to tests/test_types.py, and verify with: python -m pytest tests/test_types.py -q",
+    "hidden_test": "test_hidden_t4_keyvalue.py"
+  },
+  {
+    "id": "t6_default_map",
+    "kind": "bugfix",
+    "vague": "Defaults configured through default_map are ignored for subcommands. Please fix it.",
+    "specific": "Bug: per-subcommand defaults in default_map are ignored. With @click.group() cli and a subcommand foo having @click.option('--name', default='normal'), invoking cli with default_map={'foo': {'name': 'changed'}} prints 'normal' instead of 'changed'. A child Context should take its section of the parent's default_map, keyed by info_name, in Context.__init__ in src/click/core.py. Fix it, add a regression test to tests/test_commands.py, and verify with: python -m pytest tests/test_commands.py tests/test_defaults.py -q",
+    "hidden_test": "test_hidden_t6_default_map.py"
+  },
+  {
+    "id": "t5_value_source",
+    "kind": "question",
+    "vague": "How does click decide where an option's value comes from? Explain the precedence and point me to the relevant code. Do not modify any files.",
+    "specific": "In src/click/core.py, explain the order in which Parameter.consume_value resolves a parameter's value (command line, environment variable, default_map, default) and how the result is recorded with ParameterSource. Answer in under 200 words and do not modify any files.",
+    "answer_must_mention": [
+      [
+        "consume_value"
+      ],
+      [
+        "default_map"
+      ],
+      [
+        "ParameterSource",
+        "COMMANDLINE",
+        "ENVIRONMENT"
+      ]
+    ]
+  }
+]

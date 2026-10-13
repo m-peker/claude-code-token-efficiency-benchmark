@@ -1,0 +1,94 @@
+diff --git a/docs/api.md b/docs/api.md
+index df62cf5..b44772f 100644
+--- a/docs/api.md
++++ b/docs/api.md
+@@ -256,6 +256,10 @@ classes and functions.
+ .. autoclass:: DateTime
+ ```
+ 
++```{eval-rst}
++.. autoclass:: KeyValue
++```
++
+ ```{eval-rst}
+ .. autoclass:: Tuple
+ ```
+diff --git a/src/click/__init__.py b/src/click/__init__.py
+index a34ab02..702da98 100644
+--- a/src/click/__init__.py
++++ b/src/click/__init__.py
+@@ -61,6 +61,7 @@ from .types import FLOAT as FLOAT
+ from .types import FloatRange as FloatRange
+ from .types import INT as INT
+ from .types import IntRange as IntRange
++from .types import KeyValue as KeyValue
+ from .types import ParamType as ParamType
+ from .types import Path as Path
+ from .types import STRING as STRING
+diff --git a/src/click/types.py b/src/click/types.py
+index 0eb8462..3f5282e 100644
+--- a/src/click/types.py
++++ b/src/click/types.py
+@@ -896,6 +896,38 @@ class UUIDParameterType(ParamType[uuid.UUID]):
+         return "UUID"
+ 
+ 
++class KeyValue(ParamType[tuple[str, str]]):
++    """Parses a ``key=value`` string into a ``(key, value)`` tuple. The
++    string is split on the first ``=``, so the value may itself contain
++    ``=``. The key must not be empty; the value may be.
++    """
++
++    name = "key=value"
++
++    def convert(
++        self,
++        value: tuple[str, str] | str,
++        param: Parameter | None,
++        ctx: Context | None,
++    ) -> tuple[str, str]:
++        if not isinstance(value, str):
++            return (value[0], value[1])
++
++        key, sep, val = value.partition("=")
++
++        if not sep or not key:
++            self.fail(
++                _("{value!r} is not a valid key=value pair.").format(value=value),
++                param,
++                ctx,
++            )
++
++        return key, val
++
++    def __repr__(self) -> str:
++        return "KEY_VALUE"
++
++
+ class FileInfoDict(ParamTypeInfoDict):
+     mode: str
+     encoding: str | None
+diff --git a/tests/test_types.py b/tests/test_types.py
+index 842c426..c89ef38 100644
+--- a/tests/test_types.py
++++ b/tests/test_types.py
+@@ -328,3 +328,19 @@ def test_param_type_subclass_omitting_input_parameter():
+     doubling = DoublingType()
+     assert doubling("21") == 42
+     assert doubling(None) is None
++
++
++def test_key_value(runner):
++    @click.command()
++    @click.option("--set", "pair", type=click.KeyValue())
++    def cli(pair):
++        click.echo(repr(pair))
++
++    result = runner.invoke(cli, ["--set", "a=b=c"])
++    assert result.output == "('a', 'b=c')\n"
++    assert runner.invoke(cli, ["--set", "a="]).output == "('a', '')\n"
++
++    for bad in ("abc", "=v", ""):
++        result = runner.invoke(cli, ["--set", bad])
++        assert result.exit_code == 2
++        assert "is not a valid key=value pair" in result.output

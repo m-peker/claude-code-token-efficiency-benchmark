@@ -1,0 +1,54 @@
+diff --git a/CHANGES.md b/CHANGES.md
+index 3c9a94e..fd199dc 100644
+--- a/CHANGES.md
++++ b/CHANGES.md
+@@ -1,3 +1,10 @@
++## Version 8.5.1
++
++Unreleased
++
++- Shell completion no longer treats `#` in an argument as the start of a
++  comment, so arguments containing `#` complete correctly.
++
+ ## Version 8.5.0
+ 
+ Released 2026-08-24
+diff --git a/src/click/shell_completion.py b/src/click/shell_completion.py
+index 42e8885..e071a63 100644
+--- a/src/click/shell_completion.py
++++ b/src/click/shell_completion.py
+@@ -622,6 +622,8 @@ def split_arg_string(string: str) -> list[str]:
+ 
+     lex = shlex.shlex(string, posix=True)
+     lex.whitespace_split = True
++    # Don't treat "#" as a comment start, it is a valid part of an argument.
++    lex.commenters = ""
+     out: list[str] = []
+ 
+     try:
+diff --git a/tests/test_shell_completion.py b/tests/test_shell_completion.py
+index 10d5cfa..e1a41a0 100644
+--- a/tests/test_shell_completion.py
++++ b/tests/test_shell_completion.py
+@@ -16,6 +16,7 @@ from click.shell_completion import FishComplete
+ from click.shell_completion import PowerShellComplete
+ from click.shell_completion import shell_complete
+ from click.shell_completion import ShellComplete
++from click.shell_completion import split_arg_string
+ from click.types import Choice
+ from click.types import File
+ from click.types import Path
+@@ -76,6 +77,13 @@ def test_nested_group(args: list[str], word: str, expect: list[str]) -> None:
+     assert _get_words(cli, args, word) == expect
+ 
+ 
++def test_hash_in_arg_is_not_comment():
++    assert split_arg_string("a b#c d") == ["a", "b#c", "d"]
++    assert split_arg_string("a #b") == ["a", "#b"]
++    cli = Group("cli", commands=[Command("x", params=[Option(["-a"])])])
++    assert _get_words(cli, ["x", "b#c"], "-") == ["-a", "--help"]
++
++
+ def test_group_command_same_option():
+     cli = Group(
+         "cli", params=[Option(["-a"])], commands=[Command("x", params=[Option(["-a"])])]

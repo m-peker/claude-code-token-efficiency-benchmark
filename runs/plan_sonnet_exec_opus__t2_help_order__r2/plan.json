@@ -1,0 +1,146 @@
+{
+  "duration_api_ms": 22207,
+  "stop_reason": "end_turn",
+  "session_id": "55c27e87-2ce9-4251-a3cd-6cc9c722f997",
+  "total_cost_usd": 0.1042306,
+  "usage": {
+    "input_tokens": 16,
+    "cache_creation_input_tokens": 11204,
+    "cache_read_input_tokens": 171683,
+    "output_tokens": 2492,
+    "output_tokens_details": {
+      "thinking_tokens": 359
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 11204,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "global",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 349,
+        "cache_read_input_tokens": 25463,
+        "cache_creation_input_tokens": 120,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 120
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1190,
+      "outputTokens": 14,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.00012600000000000003,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 0,
+      "canonicalModel": "claude-haiku-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    },
+    "claude-sonnet-5-5": {
+      "inputTokens": 16,
+      "outputTokens": 2492,
+      "cacheReadInputTokens": 171683,
+      "cacheCreationInputTokens": 11204,
+      "webSearchRequests": 0,
+      "costUSD": 0.10410459999999999,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 359,
+      "canonicalModel": "claude-sonnet-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 12,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "I've written the plan, but I couldn't call ExitPlanMode because it isn't available in this session, so nothing has been changed yet.\n\n**Cause:** `join_options` in `src/click/formatting.py:319` sorts an option's names with `reverse=True`. Long names (`--verbose`) therefore come before short ones (`-v`), instead of the usual `-v, --verbose`.\n\n**Fix:** remove `reverse=True` from that `rv.sort(...)` call. The sort is stable, so names with the same prefix length keep their declaration order.\n\n**Verification:**\n- Run `tests/test_formatting.py`, `tests/test_options.py` and `tests/test_basic.py`. Some expected-output strings may encode the old order.\n- Check that `--help` for a command with `@click.option(\"--verbose\", \"-v\")` shows `-v, --verbose`.\n\nThe full plan is at `<home>\\.claude\\plans\\the-help-output-looks-sparkling-storm.md`. Tell me to proceed and I'll make the edit.",
+  "ttft_ms": 1991,
+  "type": "result",
+  "duration_ms": 23918,
+  "uuid": "6953f44b-b54b-4dd2-97c9-357512474ea4",
+  "ttft_stream_ms": 1072,
+  "time_to_request_ms": 306,
+  "time_to_request_phases_ms": {
+    "other": 12,
+    "system_prompt": 9,
+    "resume_other": 0,
+    "process_user_input": 2,
+    "input_attachments": 5,
+    "input_hooks": 1,
+    "transcript_persist": 2,
+    "tool_pool_refresh": 1,
+    "init_message": 7,
+    "engine_pickup": 1,
+    "message_prep": 0,
+    "model_config_wait": 1,
+    "autocompact": 1,
+    "query_setup": 112,
+    "auto_mode_context_wait": 144,
+    "model_gates": 0,
+    "tool_schema_build": 4,
+    "message_normalization": 1,
+    "client_creation": 1,
+    "request_build": 2
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 111,
+  "time_to_request_cpu_ms": 141,
+  "time_to_request_major_faults": 1379,
+  "input_attachments_detail": {
+    "slowest_producer": "queued_commands",
+    "slowest_producer_ms": 3,
+    "cpu_ms": 0,
+    "major_faults": 53
+  },
+  "first_content_frame_ms": 1072,
+  "queued_turn_count": 0,
+  "result_index": 0
+}

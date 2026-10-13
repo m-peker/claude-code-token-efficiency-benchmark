@@ -1,0 +1,146 @@
+{
+  "duration_api_ms": 17068,
+  "stop_reason": "end_turn",
+  "session_id": "3068b920-869a-41aa-9cd7-0b12e0aa4203",
+  "total_cost_usd": 0.0665364,
+  "usage": {
+    "input_tokens": 10,
+    "cache_creation_input_tokens": 6204,
+    "cache_read_input_tokens": 132563,
+    "output_tokens": 1506,
+    "output_tokens_details": {
+      "thinking_tokens": 146
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 6204,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 458,
+        "cache_read_input_tokens": 28864,
+        "cache_creation_input_tokens": 840,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 840
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1193,
+      "outputTokens": 17,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.00012780000000000002,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 0,
+      "canonicalModel": "claude-haiku-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    },
+    "claude-sonnet-5-5": {
+      "inputTokens": 10,
+      "outputTokens": 1506,
+      "cacheReadInputTokens": 132563,
+      "cacheCreationInputTokens": 6204,
+      "webSearchRequests": 0,
+      "costUSD": 0.0664086,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 146,
+      "canonicalModel": "claude-sonnet-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 6,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "I found the bug and wrote a fix plan, but I haven't changed any code because plan mode is on. The tool for requesting plan approval isn't available in this session, so I'm asking here instead.\n\n**Cause:** `IntRange._clamp` in `src/click/types.py:754` returns `bound - dir` when the bound is open (`min_open` or `max_open`). `convert` passes `dir=1` for values below the minimum and `dir=-1` for values above the maximum, so `dir` points into the range. Subtracting it moves the result out of the range instead.\n\nFor example, `IntRange(min=0, min_open=True, clamp=True)` given `-5` returns `-1`, which is invalid. It should return `1`.\n\n**Planned fix:**\n- Change `bound - dir` to `bound + dir` at `src/click/types.py:754`.\n- Add tests in `tests/test_types.py` for clamped `IntRange` with open bounds. For example, `min=0` open should give `1`, and `max=10` open should give `9`.\n- Run `pytest tests/test_types.py tests/test_info_dict.py`.\n\nThe plan is saved at `<home>\\.claude\\plans\\some-users-report-that-lexical-alpaca.md`. Tell me to proceed and I'll make the change.",
+  "ttft_ms": 1952,
+  "type": "result",
+  "duration_ms": 18011,
+  "uuid": "1d723ac8-02a2-428a-89ea-6a21f9b409b5",
+  "ttft_stream_ms": 1575,
+  "time_to_request_ms": 524,
+  "time_to_request_phases_ms": {
+    "other": 14,
+    "system_prompt": 80,
+    "resume_other": 0,
+    "process_user_input": 2,
+    "input_attachments": 7,
+    "input_hooks": 1,
+    "transcript_persist": 2,
+    "tool_pool_refresh": 2,
+    "init_message": 6,
+    "engine_pickup": 1,
+    "message_prep": 0,
+    "model_config_wait": 1,
+    "autocompact": 1,
+    "query_setup": 148,
+    "auto_mode_context_wait": 248,
+    "model_gates": 0,
+    "tool_schema_build": 6,
+    "message_normalization": 1,
+    "client_creation": 1,
+    "request_build": 3
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 249,
+  "time_to_request_cpu_ms": 375,
+  "time_to_request_major_faults": 6121,
+  "input_attachments_detail": {
+    "slowest_producer": "model",
+    "slowest_producer_ms": 5,
+    "cpu_ms": 0,
+    "major_faults": 76
+  },
+  "first_content_frame_ms": 1576,
+  "queued_turn_count": 0,
+  "result_index": 0
+}

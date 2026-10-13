@@ -1,0 +1,37 @@
+diff --git a/src/click/shell_completion.py b/src/click/shell_completion.py
+index 42e8885..9f95424 100644
+--- a/src/click/shell_completion.py
++++ b/src/click/shell_completion.py
+@@ -622,6 +622,8 @@ def split_arg_string(string: str) -> list[str]:
+ 
+     lex = shlex.shlex(string, posix=True)
+     lex.whitespace_split = True
++    # Disable comment handling, otherwise "#" starts a comment and drops the rest of the line.
++    lex.commenters = ""
+     out: list[str] = []
+ 
+     try:
+diff --git a/tests/test_shell_completion.py b/tests/test_shell_completion.py
+index 10d5cfa..8fed6e8 100644
+--- a/tests/test_shell_completion.py
++++ b/tests/test_shell_completion.py
+@@ -365,6 +365,19 @@ def test_full_source_powershell(runner):
+     assert "powershell_complete" in result.output
+ 
+ 
++@pytest.mark.parametrize(
++    ("value", "expect"),
++    [
++        ("a#b c", ["a#b", "c"]),
++        ("a #b c", ["a", "#b", "c"]),
++        ('a "b#c" d', ["a", "b#c", "d"]),
++        ("a 'b file", ["a", "b file"]),
++    ],
++)
++def test_split_arg_string_hash(value, expect):
++    assert click.shell_completion.split_arg_string(value) == expect
++
++
+ @pytest.mark.parametrize(
+     ("shell", "env", "expect"),
+     [

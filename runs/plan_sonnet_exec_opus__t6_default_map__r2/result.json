@@ -1,0 +1,154 @@
+{
+  "duration_api_ms": 75662,
+  "stop_reason": "end_turn",
+  "session_id": "7131eb47-e046-42c3-bf63-82cf7063aa9c",
+  "total_cost_usd": 0.5681975,
+  "usage": {
+    "input_tokens": 8,
+    "cache_creation_input_tokens": 36025,
+    "cache_read_input_tokens": 102630,
+    "output_tokens": 2384,
+    "output_tokens_details": {
+      "thinking_tokens": 44
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 36025,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 486,
+        "cache_read_input_tokens": 35637,
+        "cache_creation_input_tokens": 388,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 388
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1190,
+      "outputTokens": 20,
+      "thinkingTokens": 0,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.00012900000000000002,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000
+    },
+    "claude-sonnet-5-5": {
+      "inputTokens": 22,
+      "outputTokens": 6677,
+      "thinkingTokens": 430,
+      "cacheReadInputTokens": 203050,
+      "cacheCreationInputTokens": 35871,
+      "webSearchRequests": 0,
+      "costUSD": 0.21163050000000003,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000
+    },
+    "claude-opus-5-5": {
+      "inputTokens": 8,
+      "outputTokens": 2384,
+      "cacheReadInputTokens": 102630,
+      "cacheCreationInputTokens": 36025,
+      "webSearchRequests": 0,
+      "costUSD": 0.3564380000000001,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 44,
+      "canonicalModel": "claude-opus-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 10,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "Subcommands now pick up their defaults from `default_map`. All four new tests failed before the change and pass after it. The full test suite passes: 1910 passed, 102 skipped, 1 expected failure. Pytest also reported 31,000 tests as deselected; that comes from how the test run is configured, not from these tests, and I didn't look into it further.\n\n**The fix** (`src/click/core.py:392`): a subcommand now uses its own entry in the parent's `default_map` (`parent.default_map.get(info_name)`) instead of the parent's whole map. So `{\"sub\": {\"port\": 5000}}` gives `port=5000` to `sub`. A subcommand with no entry falls back to its own defaults.\n\n**Tests added** in `tests/test_defaults.py`:\n- A group's map sets a subcommand option, whether it comes from `context_settings` or `invoke(default_map=...)`. The option's source is reported as `DEFAULT_MAP`.\n- A sibling subcommand with no entry keeps its own default.\n- Nested groups (group, then group, then command) each read their own level of the map.\n- In a chained group, each subcommand gets its own entry.\n\n**Changelog:** 8.5.0 was already released, so I added a new \"Version 8.5.1 / Unreleased\" section at the top of `CHANGES.md`. There's no issue or PR number in the entry; add one if you have it.\n\nNothing is committed yet. Tell me if you want a commit or a PR.",
+  "ttft_ms": 2957,
+  "type": "result",
+  "duration_ms": 42773,
+  "uuid": "38834b17-3efe-4f68-bdd9-24b48fcd7ced",
+  "ttft_stream_ms": 1571,
+  "time_to_request_ms": 351,
+  "time_to_request_phases_ms": {
+    "other": 9,
+    "system_prompt": 32,
+    "resume_other": 0,
+    "process_user_input": 2,
+    "input_attachments": 9,
+    "input_hooks": 2,
+    "transcript_persist": 1,
+    "tool_pool_refresh": 1,
+    "init_message": 7,
+    "engine_pickup": 0,
+    "message_prep": 1,
+    "model_config_wait": 267,
+    "autocompact": 1,
+    "query_setup": 0,
+    "model_gates": 0,
+    "tool_schema_build": 7,
+    "message_normalization": 4,
+    "client_creation": 3,
+    "request_build": 5
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 152,
+  "time_to_request_cpu_ms": 360,
+  "time_to_request_major_faults": 3296,
+  "input_attachments_detail": {
+    "slowest_producer": "model",
+    "slowest_producer_ms": 5,
+    "cpu_ms": 0,
+    "major_faults": 92,
+    "changed_files_reread": 0
+  },
+  "first_content_frame_ms": 1572,
+  "queued_turn_count": 0,
+  "result_index": 0
+}

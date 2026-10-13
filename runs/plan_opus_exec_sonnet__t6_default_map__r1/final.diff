@@ -1,0 +1,55 @@
+diff --git a/src/click/core.py b/src/click/core.py
+index d5390bd..de129ec 100644
+--- a/src/click/core.py
++++ b/src/click/core.py
+@@ -389,7 +389,7 @@ class Context:
+             and parent is not None
+             and parent.default_map is not None
+         ):
+-            default_map = parent.default_map
++            default_map = parent.default_map.get(info_name)
+ 
+         self.default_map = default_map
+ 
+diff --git a/tests/test_defaults.py b/tests/test_defaults.py
+index bb2684c..95efe7e 100644
+--- a/tests/test_defaults.py
++++ b/tests/test_defaults.py
+@@ -556,3 +556,37 @@ def test_unset_in_default_map(runner):
+     result = runner.invoke(cli, [])
+     assert result.exit_code == 0
+     assert result.output.strip() == "port=8000"
++
++
++def test_default_map_nested_subcommands(runner):
++    """``default_map`` entries are looked up by subcommand name, per level."""
++
++    @click.group()
++    def cli():
++        pass
++
++    @cli.command()
++    @click.option("--name", default="x")
++    def sub(name):
++        click.echo(name)
++
++    @cli.group()
++    def a():
++        pass
++
++    @a.command()
++    @click.option("--name", default="x")
++    def b(name):
++        click.echo(name)
++
++    result = runner.invoke(cli, ["sub"], default_map={"sub": {"name": "from-map"}})
++    assert result.output == "from-map\n"
++
++    result = runner.invoke(
++        cli, ["a", "b"], default_map={"a": {"b": {"name": "nested"}}}
++    )
++    assert result.output == "nested\n"
++
++    # A top-level key must not leak into the subcommand.
++    result = runner.invoke(cli, ["sub"], default_map={"name": "leak"})
++    assert result.output == "x\n"

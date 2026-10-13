@@ -1,0 +1,72 @@
+diff --git a/docs/api.md b/docs/api.md
+index df62cf5..51e9bf2 100644
+--- a/docs/api.md
++++ b/docs/api.md
+@@ -231,6 +231,10 @@ classes and functions.
+ .. autodata:: UNPROCESSED
+ ```
+ 
++```{eval-rst}
++.. autoclass:: KeyValue
++```
++
+ ```{eval-rst}
+ .. autoclass:: File
+ ```
+diff --git a/src/click/__init__.py b/src/click/__init__.py
+index a34ab02..f1e7640 100644
+--- a/src/click/__init__.py
++++ b/src/click/__init__.py
+@@ -66,6 +66,7 @@ from .types import Path as Path
+ from .types import STRING as STRING
+ from .types import Tuple as Tuple
+ from .types import UNPROCESSED as UNPROCESSED
++from .types import KeyValue as KeyValue
+ from .types import UUID as UUID
+ from .utils import echo as echo
+ from .utils import format_filename as format_filename
+diff --git a/src/click/types.py b/src/click/types.py
+index 22f76f5..098a601 100644
+--- a/src/click/types.py
++++ b/src/click/types.py
+@@ -896,6 +896,40 @@ class UUIDParameterType(ParamType[uuid.UUID]):
+         return "UUID"
+ 
+ 
++class KeyValue(ParamType[tuple[str, str]]):
++    """Parses a ``key=value`` string into a ``(key, value)`` tuple. The
++    string is split on the first ``=``, so the value may contain further
++    ``=`` characters. The key must not be empty.
++
++    .. versionadded:: 8.4
++    """
++
++    name = "key=value"
++
++    def convert(
++        self,
++        value: tuple[str, str] | str,
++        param: Parameter | None,
++        ctx: Context | None,
++    ) -> tuple[str, str]:
++        if isinstance(value, tuple):
++            return value
++
++        key, sep, val = value.partition("=")
++
++        if not sep or not key:
++            self.fail(
++                _("{value!r} is not a valid key=value pair.").format(value=value),
++                param,
++                ctx,
++            )
++
++        return key, val
++
++    def __repr__(self) -> str:
++        return "KEYVALUE"
++
++
+ class FileInfoDict(ParamTypeInfoDict):
+     mode: str
+     encoding: str | None

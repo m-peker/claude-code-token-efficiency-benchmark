@@ -1,0 +1,143 @@
+{
+  "duration_api_ms": 76161,
+  "stop_reason": "end_turn",
+  "session_id": "fc0bcf32-58bb-4cb7-826b-96454a72e227",
+  "total_cost_usd": 0.17063037000000003,
+  "usage": {
+    "input_tokens": 20,
+    "cache_creation_input_tokens": 16934,
+    "cache_read_input_tokens": 347507,
+    "output_tokens": 5123,
+    "output_tokens_details": {
+      "thinking_tokens": 682
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 16934,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 509,
+        "cache_read_input_tokens": 39195,
+        "cache_creation_input_tokens": 641,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 641
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1279,
+      "outputTokens": 5143,
+      "thinkingTokens": 682,
+      "cacheReadInputTokens": 347507,
+      "cacheCreationInputTokens": 16934,
+      "webSearchRequests": 0,
+      "costUSD": 0.00956127,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "canonicalModel": "claude-haiku-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    },
+    "claude-sonnet-5-5": {
+      "inputTokens": 20,
+      "outputTokens": 6780,
+      "thinkingTokens": 269,
+      "cacheReadInputTokens": 177543,
+      "cacheCreationInputTokens": 18281,
+      "webSearchRequests": 0,
+      "costUSD": 0.16106910000000002,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 16,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "I added `click.KeyValue`, following the approved plan. The full test suite passes: 1915 passed, 102 skipped, 1 xfailed, 0 failed.\n\n`click.KeyValue()` parses `key=value` into a `(key, value)` tuple:\n- It splits on the first `=`, so `a=b=c` gives `(\"a\", \"b=c\")`, and `a=` gives `(\"a\", \"\")`.\n- Input with no `=` or an empty key fails with `'abc' is not a valid key=value pair.`, which is shown as a usage error with exit code 2.\n- An already-converted tuple, such as a default, passes through unchanged.\n\nChanges:\n- **`src/click/types.py`**: the `KeyValue` class, placed after `UUIDParameterType`.\n- **`src/click/__init__.py`**: the export.\n- **`tests/test_types.py`**: tests for valid inputs, failure cases, and a `multiple=True` option.\n- **`tests/test_info_dict.py`**: an info-dict case.\n- **`docs/api.md`** and **`docs/parameter-types.md`**: documentation entries.\n- **`CHANGES.md`**: a changelog entry under a new \"Unreleased\" heading. I first put it under 8.5.0, which was already released, and corrected that.\n\nI didn't commit anything, since you didn't ask for a commit.",
+  "ttft_ms": 2076,
+  "type": "result",
+  "duration_ms": 41220,
+  "uuid": "85704772-8c6f-4681-8a5d-d65957a92997",
+  "ttft_stream_ms": 1561,
+  "time_to_request_ms": 219,
+  "time_to_request_phases_ms": {
+    "other": 9,
+    "system_prompt": 166,
+    "resume_other": 0,
+    "process_user_input": 2,
+    "input_attachments": 8,
+    "input_hooks": 2,
+    "transcript_persist": 0,
+    "tool_pool_refresh": 2,
+    "init_message": 8,
+    "engine_pickup": 1,
+    "message_prep": 1,
+    "model_config_wait": 0,
+    "autocompact": 1,
+    "query_setup": 1,
+    "model_gates": 0,
+    "tool_schema_build": 7,
+    "message_normalization": 2,
+    "client_creation": 4,
+    "request_build": 5
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 105,
+  "time_to_request_cpu_ms": 265,
+  "time_to_request_major_faults": 3050,
+  "input_attachments_detail": {
+    "slowest_producer": "model",
+    "slowest_producer_ms": 5,
+    "cpu_ms": 0,
+    "major_faults": 197,
+    "changed_files_reread": 0
+  },
+  "first_content_frame_ms": 1562,
+  "queued_turn_count": 0,
+  "result_index": 0
+}

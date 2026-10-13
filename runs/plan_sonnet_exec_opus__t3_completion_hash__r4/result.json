@@ -1,0 +1,154 @@
+{
+  "duration_api_ms": 103532,
+  "stop_reason": "end_turn",
+  "session_id": "c0e3513c-e25c-41b5-bdb5-a413b44fd92e",
+  "total_cost_usd": 0.5250305000000001,
+  "usage": {
+    "input_tokens": 24,
+    "cache_creation_input_tokens": 19218,
+    "cache_read_input_tokens": 442812,
+    "output_tokens": 5521,
+    "output_tokens_details": {
+      "thinking_tokens": 645
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 19218,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 545,
+        "cache_read_input_tokens": 41479,
+        "cache_creation_input_tokens": 641,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 641
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1191,
+      "outputTokens": 20,
+      "thinkingTokens": 0,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.00012910000000000002,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000
+    },
+    "claude-sonnet-5-5": {
+      "inputTokens": 22,
+      "outputTokens": 5510,
+      "thinkingTokens": 585,
+      "cacheReadInputTokens": 212695,
+      "cacheCreationInputTokens": 25355,
+      "webSearchRequests": 0,
+      "costUSD": 0.172079,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000
+    },
+    "claude-opus-5-5": {
+      "inputTokens": 24,
+      "outputTokens": 5521,
+      "cacheReadInputTokens": 442812,
+      "cacheCreationInputTokens": 19218,
+      "webSearchRequests": 0,
+      "costUSD": 0.3528224000000001,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 645,
+      "canonicalModel": "claude-opus-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 17,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "Shell completion now handles arguments containing `#` correctly, and the full test suite passes (1914 passed, 102 skipped, 1 expected failure).\n\n**The cause:** the function that splits the command line for completion treated an unquoted `#` as the start of a comment. Everything from the `#` onward was dropped, so `cli a#b c` became `['cli', 'a']`. All four shells (bash, zsh, fish, PowerShell) use that function. The result was wrong arguments and the wrong word being completed, and in fish a crash when the current word started with `#`.\n\n**The fix:** one line in `split_arg_string` in `src/click/shell_completion.py` (`lex.commenters = \"\"`), so `#` is treated as an ordinary character. This matches how Python's standard `shlex.split()` behaves.\n\n**Tests and changelog:**\n- `tests/test_parser.py`: three new splitting cases with `#` in different positions.\n- `tests/test_shell_completion.py`: a new `test_full_complete_with_hash` test covering all four shells, plus the fish case where the word being completed is just `#`.\n- `CHANGES.md`: a new \"Version 8.5.1 \u2013 Unreleased\" entry, since 8.5.0 is already released.\n\nWith the fix temporarily removed, 8 of the new tests fail, so they do catch this bug. The fish `#` case outputs a single blank line, which is what fish completion prints when nothing matches.\n\nThis only fixes the Python side. In bash, zsh and fish, an unquoted `#` at the start of a word may still be treated as a comment by the shell itself before it reaches Click.\n\nNothing is committed yet.",
+  "ttft_ms": 2877,
+  "type": "result",
+  "duration_ms": 87902,
+  "uuid": "7eaa834d-94a1-4d23-a91d-4c1c94b90da2",
+  "ttft_stream_ms": 1755,
+  "time_to_request_ms": 441,
+  "time_to_request_phases_ms": {
+    "other": 14,
+    "system_prompt": 359,
+    "resume_other": 0,
+    "process_user_input": 3,
+    "input_attachments": 12,
+    "input_hooks": 3,
+    "transcript_persist": 1,
+    "tool_pool_refresh": 2,
+    "init_message": 13,
+    "engine_pickup": 1,
+    "message_prep": 1,
+    "model_config_wait": 1,
+    "autocompact": 1,
+    "query_setup": 1,
+    "model_gates": 0,
+    "tool_schema_build": 12,
+    "message_normalization": 4,
+    "client_creation": 5,
+    "request_build": 8
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 139,
+  "time_to_request_cpu_ms": 562,
+  "time_to_request_major_faults": 4368,
+  "input_attachments_detail": {
+    "slowest_producer": "model",
+    "slowest_producer_ms": 8,
+    "cpu_ms": 48,
+    "major_faults": 227,
+    "changed_files_reread": 0
+  },
+  "first_content_frame_ms": 1756,
+  "queued_turn_count": 0,
+  "result_index": 0
+}

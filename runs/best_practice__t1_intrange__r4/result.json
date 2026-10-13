@@ -1,0 +1,145 @@
+{
+  "duration_api_ms": 11494,
+  "stop_reason": "end_turn",
+  "session_id": "738a326d-8a4f-47a8-8e05-2399dfcc1699",
+  "total_cost_usd": 0.05666089999999999,
+  "usage": {
+    "input_tokens": 8,
+    "cache_creation_input_tokens": 6029,
+    "cache_read_input_tokens": 105095,
+    "output_tokens": 1137,
+    "output_tokens_details": {
+      "thinking_tokens": 49
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 6029,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 331,
+        "cache_read_input_tokens": 28798,
+        "cache_creation_input_tokens": 133,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 133
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1294,
+      "outputTokens": 21,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.0001399,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 0,
+      "canonicalModel": "claude-haiku-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    },
+    "claude-sonnet-5-5": {
+      "inputTokens": 8,
+      "outputTokens": 1137,
+      "cacheReadInputTokens": 105095,
+      "cacheCreationInputTokens": 6029,
+      "webSearchRequests": 0,
+      "costUSD": 0.056520999999999995,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 49,
+      "canonicalModel": "claude-sonnet-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 6,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "I fixed the bug. `IntRange(0, min_open=True, clamp=True).convert('0', None, None)` now returns 1 instead of -1. `python -m pytest tests/test_types.py -q` gives 43 passed and 2 skipped.\n\n- **Fix:** In `IntRange._clamp` in `src/click/types.py`, I changed `bound - dir` to `bound + dir`. The caller passes `dir=1` for the min bound and `dir=-1` for the max bound, meaning the direction to move into the range. The old subtraction moved the value out of the range for both bounds.\n- **Tests:** I added two cases to the clamp parametrize list at the top of `tests/test_types.py`. One is `IntRange(0, min_open=True, clamp=True)` with `\"0\"`, expecting 1. The other is `IntRange(max=5, max_open=True, clamp=True)` with `\"5\"`, expecting 4.\n\nI did not run the full suite, only `tests/test_types.py`.",
+  "ttft_ms": 2539,
+  "type": "result",
+  "duration_ms": 13418,
+  "uuid": "325fba86-085c-4c20-8d63-f798b9217040",
+  "ttft_stream_ms": 1331,
+  "time_to_request_ms": 161,
+  "time_to_request_phases_ms": {
+    "other": 18,
+    "system_prompt": 46,
+    "resume_other": 0,
+    "process_user_input": 2,
+    "input_attachments": 11,
+    "input_hooks": 2,
+    "transcript_persist": 48,
+    "tool_pool_refresh": 2,
+    "init_message": 10,
+    "engine_pickup": 1,
+    "message_prep": 1,
+    "model_config_wait": 2,
+    "autocompact": 1,
+    "query_setup": 1,
+    "model_gates": 0,
+    "tool_schema_build": 8,
+    "message_normalization": 1,
+    "client_creation": 3,
+    "request_build": 4
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 30,
+  "time_to_request_cpu_ms": 250,
+  "time_to_request_major_faults": 3409,
+  "input_attachments_detail": {
+    "slowest_producer": "model",
+    "slowest_producer_ms": 8,
+    "cpu_ms": 31,
+    "major_faults": 81
+  },
+  "first_content_frame_ms": 1332,
+  "queued_turn_count": 0,
+  "result_index": 0
+}

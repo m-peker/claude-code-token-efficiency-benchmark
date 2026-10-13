@@ -1,0 +1,146 @@
+{
+  "duration_api_ms": 13739,
+  "stop_reason": "end_turn",
+  "session_id": "5821eaad-f9e4-41d3-83bd-3441303cbabb",
+  "total_cost_usd": 0.056402600000000004,
+  "usage": {
+    "input_tokens": 8,
+    "cache_creation_input_tokens": 6748,
+    "cache_read_input_tokens": 70628,
+    "output_tokens": 1514,
+    "output_tokens_details": {
+      "thinking_tokens": 160
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 6748,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "global",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 348,
+        "cache_read_input_tokens": 20152,
+        "cache_creation_input_tokens": 975,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 975
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1190,
+      "outputTokens": 20,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.00012900000000000002,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 0,
+      "canonicalModel": "claude-haiku-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    },
+    "claude-sonnet-5-5": {
+      "inputTokens": 8,
+      "outputTokens": 1514,
+      "cacheReadInputTokens": 70628,
+      "cacheCreationInputTokens": 6748,
+      "webSearchRequests": 0,
+      "costUSD": 0.0562736,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 160,
+      "canonicalModel": "claude-sonnet-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 6,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "I've written the plan but haven't changed any code, because plan mode is active and the tool for requesting approval to leave it isn't available in this session.\n\n**Cause:** In `src/click/core.py:392`, a child context copies the parent's whole `default_map` (`default_map = parent.default_map`). A subcommand's defaults live under `parent.default_map[info_name]`, so the subcommand looks up its parameters in the wrong dict and finds nothing.\n\n**Fix:** Change that line to `default_map = parent.default_map.get(info_name)`. A missing entry gives `None`, which `lookup_default` and `_default_map_has` already handle.\n\n**Verification:**\n- Add tests for a group with a subcommand, a nested group, and a subcommand with no entry in the map.\n- Run `pytest -k default_map`, then the full suite.\n\nThe full plan is at `<home>\\.claude\\plans\\defaults-configured-through-default-map-sunny-spring.md`. Tell me to proceed and I'll apply the fix and add the tests.",
+  "ttft_ms": 2043,
+  "type": "result",
+  "duration_ms": 14773,
+  "uuid": "c528e092-9d0a-44d7-b7e7-ded10f6e6985",
+  "ttft_stream_ms": 1656,
+  "time_to_request_ms": 589,
+  "time_to_request_phases_ms": {
+    "other": 20,
+    "system_prompt": 14,
+    "resume_other": 0,
+    "process_user_input": 2,
+    "input_attachments": 9,
+    "input_hooks": 2,
+    "transcript_persist": 2,
+    "tool_pool_refresh": 2,
+    "init_message": 10,
+    "engine_pickup": 1,
+    "message_prep": 0,
+    "model_config_wait": 1,
+    "autocompact": 2,
+    "query_setup": 200,
+    "auto_mode_context_wait": 295,
+    "model_gates": 1,
+    "tool_schema_build": 9,
+    "message_normalization": 5,
+    "client_creation": 3,
+    "request_build": 11
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 223,
+  "time_to_request_cpu_ms": 344,
+  "time_to_request_major_faults": 4654,
+  "input_attachments_detail": {
+    "slowest_producer": "queued_commands",
+    "slowest_producer_ms": 6,
+    "cpu_ms": 16,
+    "major_faults": 385
+  },
+  "first_content_frame_ms": 1656,
+  "queued_turn_count": 0,
+  "result_index": 0
+}

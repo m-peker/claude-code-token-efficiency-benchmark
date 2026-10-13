@@ -1,0 +1,143 @@
+{
+  "duration_api_ms": 50500,
+  "stop_reason": "end_turn",
+  "session_id": "80218d52-b259-45a2-a1ad-cc8cc9bf215a",
+  "total_cost_usd": 0.3058064,
+  "usage": {
+    "input_tokens": 6,
+    "cache_creation_input_tokens": 3065,
+    "cache_read_input_tokens": 94914,
+    "output_tokens": 1627,
+    "output_tokens_details": {
+      "thinking_tokens": 71
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 3065,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 345,
+        "cache_read_input_tokens": 32722,
+        "cache_creation_input_tokens": 1133,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1133
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1190,
+      "outputTokens": 20,
+      "thinkingTokens": 0,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.00012900000000000002,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000
+    },
+    "claude-sonnet-5-5": {
+      "inputTokens": 26,
+      "outputTokens": 6621,
+      "thinkingTokens": 439,
+      "cacheReadInputTokens": 248227,
+      "cacheCreationInputTokens": 55595,
+      "webSearchRequests": 0,
+      "costUSD": 0.30567740000000004,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "canonicalModel": "claude-sonnet-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 9,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "Subcommand contexts now get their own entry from the parent's `default_map`, so nested maps like `{\"sub\": {\"opt\": \"x\"}}` take effect. The full suite passes: 1908 passed, 102 skipped, 1 xfailed. I didn't run the new tests against the old code, so I haven't confirmed they fail without the fix.\n\n- **Fix:** `src/click/core.py:392` now uses `parent.default_map.get(info_name)`. A subcommand with no matching key gets no defaults and falls back to the option's own default.\n- **Tests:** I added `test_default_map_subcommand` and `test_default_map_nested_groups` to `tests/test_defaults.py`. The first covers both a subcommand with an entry and one without; the second covers a two-level group.\n- **Docs:** the `default_map` parameter docstring now describes the nested lookup. I added a `CHANGES.md` entry under a new \"Version 8.5.1 \u2013 Unreleased\" heading; I made up that version number, since 8.5.0 is already marked released.",
+  "ttft_ms": 2047,
+  "type": "result",
+  "duration_ms": 22643,
+  "uuid": "91b34eaa-2129-4d05-8a29-f0637a364eda",
+  "ttft_stream_ms": 1119,
+  "time_to_request_ms": 111,
+  "time_to_request_phases_ms": {
+    "other": 11,
+    "system_prompt": 60,
+    "resume_other": 0,
+    "process_user_input": 2,
+    "input_attachments": 7,
+    "input_hooks": 2,
+    "transcript_persist": 1,
+    "tool_pool_refresh": 1,
+    "init_message": 6,
+    "engine_pickup": 1,
+    "message_prep": 1,
+    "model_config_wait": 1,
+    "autocompact": 0,
+    "query_setup": 1,
+    "model_gates": 0,
+    "tool_schema_build": 7,
+    "message_normalization": 2,
+    "client_creation": 3,
+    "request_build": 5
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 8,
+  "time_to_request_cpu_ms": 156,
+  "time_to_request_major_faults": 2745,
+  "input_attachments_detail": {
+    "slowest_producer": "queued_commands",
+    "slowest_producer_ms": 5,
+    "cpu_ms": 0,
+    "major_faults": 194,
+    "changed_files_reread": 0
+  },
+  "first_content_frame_ms": 1119,
+  "queued_turn_count": 0,
+  "result_index": 0
+}

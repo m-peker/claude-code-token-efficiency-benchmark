@@ -1,0 +1,154 @@
+{
+  "duration_api_ms": 38634,
+  "stop_reason": "end_turn",
+  "session_id": "bda17297-b19a-4bd6-b8ac-f6e16280954a",
+  "total_cost_usd": 0.5323422000000001,
+  "usage": {
+    "input_tokens": 8,
+    "cache_creation_input_tokens": 36635,
+    "cache_read_input_tokens": 104345,
+    "output_tokens": 2254,
+    "output_tokens_details": {
+      "thinking_tokens": 134
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 36635,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 454,
+        "cache_read_input_tokens": 36162,
+        "cache_creation_input_tokens": 473,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 473
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1190,
+      "outputTokens": 20,
+      "thinkingTokens": 0,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.00012900000000000002,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000
+    },
+    "claude-sonnet-5-5": {
+      "inputTokens": 10,
+      "outputTokens": 2041,
+      "thinkingTokens": 329,
+      "cacheReadInputTokens": 116771,
+      "cacheCreationInputTokens": 32342,
+      "webSearchRequests": 0,
+      "costUSD": 0.1731522,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000
+    },
+    "claude-opus-5-5": {
+      "inputTokens": 8,
+      "outputTokens": 2254,
+      "cacheReadInputTokens": 104345,
+      "cacheCreationInputTokens": 36635,
+      "webSearchRequests": 0,
+      "costUSD": 0.3590610000000001,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 134,
+      "canonicalModel": "claude-opus-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 12,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "I've fixed it: values in a nested `default_map` now apply to subcommands. The new test fails on the old code and passes with the fix, and the full test suite passes (1907 passed, 102 skipped, 1 expected failure).\n\n**What changed:**\n- **`src/click/core.py:392`:** a subcommand used to get the parent's whole `default_map`. It now gets only `parent.default_map.get(info_name)`, the entry under its own name. If that entry is `UNSET`, it's treated as missing.\n- **`tests/test_defaults.py`:** added `test_default_map_subcommands`. It checks four cases:\n  - a direct subcommand (`runserver` gets `port=5000`);\n  - a nested group (`db migrate` gets its `url`);\n  - a subcommand with no entry, which falls back to the option's own default;\n  - an entry set to `UNSET`, which also falls back.\n- **`CHANGES.md`:** added a 8.5.1 (unreleased) section with an entry for this fix.\n\nThe fix also changes how a subcommand without its own `default_map` entry behaves. It used to pick up top-level keys from the parent's map, which only worked by accident. It now gets no defaults from the map. `docs/commands.md` already documents the nested form, so that's the intended behaviour, but any code that relied on the old flattening would change.\n\nNothing is committed yet.",
+  "ttft_ms": 2523,
+  "type": "result",
+  "duration_ms": 43248,
+  "uuid": "8fa9dc8f-a46c-4649-bef0-8b9d5fc34a59",
+  "ttft_stream_ms": 1172,
+  "time_to_request_ms": 371,
+  "time_to_request_phases_ms": {
+    "other": 10,
+    "system_prompt": 16,
+    "resume_other": 0,
+    "process_user_input": 2,
+    "input_attachments": 8,
+    "input_hooks": 2,
+    "transcript_persist": 1,
+    "tool_pool_refresh": 1,
+    "init_message": 7,
+    "engine_pickup": 1,
+    "message_prep": 0,
+    "model_config_wait": 302,
+    "autocompact": 1,
+    "query_setup": 1,
+    "model_gates": 0,
+    "tool_schema_build": 7,
+    "message_normalization": 4,
+    "client_creation": 2,
+    "request_build": 6
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 143,
+  "time_to_request_cpu_ms": 203,
+  "time_to_request_major_faults": 3187,
+  "input_attachments_detail": {
+    "slowest_producer": "queued_commands",
+    "slowest_producer_ms": 5,
+    "cpu_ms": 31,
+    "major_faults": 182,
+    "changed_files_reread": 0
+  },
+  "first_content_frame_ms": 1172,
+  "queued_turn_count": 0,
+  "result_index": 0
+}

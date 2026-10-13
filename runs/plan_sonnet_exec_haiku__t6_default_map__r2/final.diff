@@ -1,0 +1,141 @@
+diff --git a/CHANGES.md b/CHANGES.md
+index 3c9a94e..7b39b8c 100644
+--- a/CHANGES.md
++++ b/CHANGES.md
+@@ -1,3 +1,11 @@
++## Version 8.5.1
++
++Unreleased
++
++- A `default_map` keyed by subcommand name now supplies defaults to that
++  subcommand. Previously the parent's whole map was passed down, so
++  subcommand defaults were ignored.
++
+ ## Version 8.5.0
+ 
+ Released 2026-08-24
+diff --git a/src/click/core.py b/src/click/core.py
+index d5390bd..23b3c93 100644
+--- a/src/click/core.py
++++ b/src/click/core.py
+@@ -389,7 +389,10 @@ class Context:
+             and parent is not None
+             and parent.default_map is not None
+         ):
+-            default_map = parent.default_map
++            default_map = parent.default_map.get(info_name)
++
++            if default_map is UNSET:
++                default_map = None
+ 
+         self.default_map = default_map
+ 
+diff --git a/tests/test_defaults.py b/tests/test_defaults.py
+index bb2684c..7a2450a 100644
+--- a/tests/test_defaults.py
++++ b/tests/test_defaults.py
+@@ -263,6 +263,104 @@ def test_default_map_source(runner, args, default_map, expected_value, expected_
+     assert f"source={expected_source}" in result.output
+ 
+ 
++def test_default_map_applies_to_subcommand(runner):
++    """A ``default_map`` keyed by subcommand name supplies that subcommand's
++    defaults, not the parent's.
++    """
++
++    @click.group()
++    def cli():
++        pass
++
++    @cli.command()
++    @click.option("--opt", default=0)
++    @click.pass_context
++    def sub(ctx, opt):
++        click.echo(f"opt={opt} source={ctx.get_parameter_source('opt').name}")
++
++    result = runner.invoke(cli, ["sub"], default_map={"sub": {"opt": 1}})
++    assert not result.exception
++    assert "opt=1 source=DEFAULT_MAP" in result.output
++
++
++def test_default_map_nested_subcommands(runner):
++    """Nested ``default_map`` entries are narrowed at each level."""
++
++    @click.group()
++    def cli():
++        pass
++
++    @cli.group()
++    def outer():
++        pass
++
++    @outer.command()
++    @click.option("--opt", default=0)
++    def inner(opt):
++        click.echo(f"opt={opt}")
++
++    result = runner.invoke(
++        cli, ["outer", "inner"], default_map={"outer": {"inner": {"opt": 2}}}
++    )
++    assert not result.exception
++    assert "opt=2" in result.output
++
++
++def test_default_map_subcommand_option_named_like_subcommand(runner):
++    """A subcommand option named after the subcommand does not receive the
++    subcommand's whole default dict.
++    """
++
++    @click.group()
++    def cli():
++        pass
++
++    @cli.command()
++    @click.option("--sub", default="original")
++    def sub(sub):
++        click.echo(f"sub={sub!r}")
++
++    result = runner.invoke(cli, ["sub"], default_map={"sub": {"opt": 1}})
++    assert not result.exception
++    assert "sub='original'" in result.output
++
++
++def test_default_map_missing_subcommand_key(runner):
++    """A subcommand with no ``default_map`` entry uses its parameter defaults."""
++
++    @click.group()
++    def cli():
++        pass
++
++    @cli.command()
++    @click.option("--opt", default=0)
++    @click.pass_context
++    def sub(ctx, opt):
++        click.echo(f"opt={opt} source={ctx.get_parameter_source('opt').name}")
++
++    result = runner.invoke(cli, ["sub"], default_map={"other": {"opt": 1}})
++    assert not result.exception
++    assert "opt=0 source=DEFAULT" in result.output
++
++
++def test_default_map_unset_subcommand_value(runner):
++    """An ``UNSET`` sub-dict is treated as no defaults for that subcommand."""
++
++    @click.group()
++    def cli():
++        pass
++
++    @cli.command()
++    @click.option("--opt", default=0)
++    @click.pass_context
++    def sub(ctx, opt):
++        click.echo(f"opt={opt} source={ctx.get_parameter_source('opt').name}")
++
++    result = runner.invoke(cli, ["sub"], default_map={"sub": UNSET})
++    assert not result.exception
++    assert "opt=0 source=DEFAULT" in result.output
++
++
+ def test_parameter_source_during_paramtype_convert(runner):
+     """``get_parameter_source()`` is available during ``ParamType.convert``.
+ 

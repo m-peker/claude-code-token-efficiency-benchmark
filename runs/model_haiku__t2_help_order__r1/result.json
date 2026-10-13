@@ -1,0 +1,131 @@
+{
+  "duration_api_ms": 56869,
+  "stop_reason": "end_turn",
+  "session_id": "37c78048-84b9-4c90-ba26-bd3ec3359fad",
+  "total_cost_usd": 0.01534444,
+  "usage": {
+    "input_tokens": 30,
+    "cache_creation_input_tokens": 24363,
+    "cache_read_input_tokens": 515034,
+    "output_tokens": 10385,
+    "output_tokens_details": {
+      "thinking_tokens": 5497
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 24363,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 1469,
+        "cache_read_input_tokens": 46156,
+        "cache_creation_input_tokens": 1889,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 1889
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1220,
+      "outputTokens": 10399,
+      "cacheReadInputTokens": 515034,
+      "cacheCreationInputTokens": 24363,
+      "webSearchRequests": 0,
+      "costUSD": 0.01534444,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 5497,
+      "canonicalModel": "claude-haiku-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 21,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "I've checked every path that could reorder option rows, and none of them reorder declared options. I'm stopping here rather than changing code, because I couldn't reproduce a defect and any change would alter upstream Click behavior.\n\nI couldn't reproduce a wrong option order, so I haven't changed anything. The repo is still clean.\n\n**What I checked**\n- `get_params` appends `--help` last, and `format_options` writes options in declaration order.\n- Decorator options are reversed correctly, so stacked `@click.option`s come out in the order you wrote them.\n- `write_dl`, `measure_table`, `iter_rows`, and the group formatter don't reorder rows.\n- The full test suite passes: 1906 passed, 102 skipped, 1 xfailed.\n- I ran sample CLIs with `--help` against the local `src/`. Options came out in declaration order, and `--help` was last.\n\n**The one thing that looks unusual**\nWithin a single option, the long name is printed before the short one, regardless of how you declared it:\n\n```\n  --verbose, -v          multi long     # declared as \"-v\", \"--verbose\"\n  --mu, --mike, -m TEXT  three names    # declared as \"--mu\", \"-m\", \"--mike\"\n```\n\nThis comes from `join_options` in `src/click/formatting.py:319`, which sorts by prefix length with `reverse=True`. That is how upstream Click works, so it's probably intentional. If this is the \"weird order\" you meant, I can switch it to declaration order. That would change the output for every option that has both short and long names.\n\nCould you paste the `--help` output you saw, or a small example of the declaration that produced it? That would tell me whether the problem is this one or something I haven't reproduced.",
+  "ttft_ms": 2007,
+  "type": "result",
+  "duration_ms": 69976,
+  "uuid": "07d2c3fc-c47b-43e8-bf27-ff1767380639",
+  "ttft_stream_ms": 1391,
+  "time_to_request_ms": 506,
+  "time_to_request_phases_ms": {
+    "other": 19,
+    "system_prompt": 182,
+    "resume_other": 0,
+    "process_user_input": 4,
+    "input_attachments": 15,
+    "input_hooks": 4,
+    "transcript_persist": 238,
+    "tool_pool_refresh": 3,
+    "init_message": 17,
+    "engine_pickup": 1,
+    "message_prep": 1,
+    "model_config_wait": 1,
+    "autocompact": 1,
+    "query_setup": 1,
+    "model_gates": 0,
+    "tool_schema_build": 9,
+    "message_normalization": 2,
+    "client_creation": 2,
+    "request_build": 6
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 155,
+  "time_to_request_cpu_ms": 563,
+  "time_to_request_major_faults": 5369,
+  "input_attachments_detail": {
+    "slowest_producer": "model",
+    "slowest_producer_ms": 9,
+    "cpu_ms": 0,
+    "major_faults": 36
+  },
+  "first_content_frame_ms": 1392,
+  "queued_turn_count": 0,
+  "result_index": 0
+}

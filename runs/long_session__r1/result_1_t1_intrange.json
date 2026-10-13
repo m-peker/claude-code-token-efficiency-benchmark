@@ -1,0 +1,145 @@
+{
+  "duration_api_ms": 11701,
+  "stop_reason": "end_turn",
+  "session_id": "bc36a610-7d09-4054-b744-aee9d24da634",
+  "total_cost_usd": 0.0530658,
+  "usage": {
+    "input_tokens": 10,
+    "cache_creation_input_tokens": 4644,
+    "cache_read_input_tokens": 124760,
+    "output_tokens": 939,
+    "output_tokens_details": {
+      "thinking_tokens": 131
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 4644,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 234,
+        "cache_read_input_tokens": 27037,
+        "cache_creation_input_tokens": 509,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 509
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1193,
+      "outputTokens": 17,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.00012780000000000002,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 0,
+      "canonicalModel": "claude-haiku-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    },
+    "claude-sonnet-5-5": {
+      "inputTokens": 10,
+      "outputTokens": 939,
+      "cacheReadInputTokens": 124760,
+      "cacheCreationInputTokens": 4644,
+      "webSearchRequests": 0,
+      "costUSD": 0.052938,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 131,
+      "canonicalModel": "claude-sonnet-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 6,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "I fixed it in `IntRange._clamp` in `src/click/types.py`. The direction sign was inverted, so clamping an open bound moved the value the wrong way. It returned `bound - dir` instead of `bound + dir`.\n\nFor example, `IntRange(min=0, min_open=True, clamp=True)` given `-5` returned `-1`, which is outside the range. It now returns `1`. The same applies to `max_open`.\n\n`tests/test_types.py` passes (41 passed, 2 skipped). I didn't add a test for this case.\n\nOne case I left alone: if both bounds are open and adjacent, such as `min=0, max=1`, no integer is valid, so clamping can't produce an in-range value.",
+  "ttft_ms": 1777,
+  "type": "result",
+  "duration_ms": 14099,
+  "uuid": "68f62d2b-88c8-49ae-908b-0b90f6705457",
+  "ttft_stream_ms": 973,
+  "time_to_request_ms": 130,
+  "time_to_request_phases_ms": {
+    "other": 12,
+    "system_prompt": 72,
+    "resume_other": 0,
+    "process_user_input": 2,
+    "input_attachments": 7,
+    "input_hooks": 1,
+    "transcript_persist": 5,
+    "tool_pool_refresh": 2,
+    "init_message": 7,
+    "engine_pickup": 0,
+    "message_prep": 1,
+    "model_config_wait": 1,
+    "autocompact": 1,
+    "query_setup": 0,
+    "model_gates": 4,
+    "tool_schema_build": 8,
+    "message_normalization": 1,
+    "client_creation": 3,
+    "request_build": 3
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 27,
+  "time_to_request_cpu_ms": 250,
+  "time_to_request_major_faults": 4805,
+  "input_attachments_detail": {
+    "slowest_producer": "model",
+    "slowest_producer_ms": 5,
+    "cpu_ms": 16,
+    "major_faults": 99
+  },
+  "first_content_frame_ms": 973,
+  "queued_turn_count": 0,
+  "result_index": 0
+}

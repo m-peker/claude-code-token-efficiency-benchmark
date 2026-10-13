@@ -1,0 +1,146 @@
+{
+  "duration_api_ms": 19791,
+  "stop_reason": "end_turn",
+  "session_id": "7d8a9e89-1d1a-4b6d-9875-6b0077668fde",
+  "total_cost_usd": 0.097657,
+  "usage": {
+    "input_tokens": 10,
+    "cache_creation_input_tokens": 11890,
+    "cache_read_input_tokens": 149090,
+    "output_tokens": 2013,
+    "output_tokens_details": {
+      "thinking_tokens": 262
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 11890,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 343,
+        "cache_read_input_tokens": 34904,
+        "cache_creation_input_tokens": 876,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 876
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1190,
+      "outputTokens": 20,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.00012900000000000002,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 0,
+      "canonicalModel": "claude-haiku-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    },
+    "claude-sonnet-5-5": {
+      "inputTokens": 10,
+      "outputTokens": 2013,
+      "cacheReadInputTokens": 149090,
+      "cacheCreationInputTokens": 11890,
+      "webSearchRequests": 0,
+      "costUSD": 0.09752799999999999,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 262,
+      "canonicalModel": "claude-sonnet-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 8,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "I found the cause and wrote a plan, but I haven't changed any code. I couldn't call `ExitPlanMode`, so I'm asking for approval here instead.\n\n**Cause:** `Context.__init__` in `src/click/core.py:386-394` hands the subcommand the parent's whole `default_map`. The docs show defaults nested under the subcommand name, such as `{'runserver': {'port': 5000}}`. So the subcommand looks for `port` at the top level, doesn't find it, and ignores the default.\n\n**Fix:** change line 392 to `default_map = parent.default_map.get(info_name)`. If the nested value is `UNSET`, treat it as no map.\n\n**Tests:** I'd add a test in `tests/test_defaults.py` for a group with a subcommand. It would check three things:\n- The nested default is applied.\n- A CLI argument overrides it.\n- A missing key falls back to the option's own default.\n\nI'd also add a line to `CHANGES.md`.\n\nApprove and I'll implement it, then run the test suite.",
+  "ttft_ms": 2457,
+  "type": "result",
+  "duration_ms": 21672,
+  "uuid": "e6d2b52b-be59-4786-95ed-948e471abc0f",
+  "ttft_stream_ms": 1782,
+  "time_to_request_ms": 1056,
+  "time_to_request_phases_ms": {
+    "other": 23,
+    "system_prompt": 235,
+    "resume_other": 0,
+    "process_user_input": 3,
+    "input_attachments": 15,
+    "input_hooks": 3,
+    "transcript_persist": 7,
+    "tool_pool_refresh": 4,
+    "init_message": 274,
+    "engine_pickup": 2,
+    "message_prep": 1,
+    "model_config_wait": 1,
+    "autocompact": 2,
+    "query_setup": 191,
+    "auto_mode_context_wait": 264,
+    "model_gates": 0,
+    "tool_schema_build": 15,
+    "message_normalization": 2,
+    "client_creation": 4,
+    "request_build": 10
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 490,
+  "time_to_request_cpu_ms": 952,
+  "time_to_request_major_faults": 6565,
+  "input_attachments_detail": {
+    "slowest_producer": "model",
+    "slowest_producer_ms": 11,
+    "cpu_ms": 16,
+    "major_faults": 170
+  },
+  "first_content_frame_ms": 1783,
+  "queued_turn_count": 0,
+  "result_index": 0
+}

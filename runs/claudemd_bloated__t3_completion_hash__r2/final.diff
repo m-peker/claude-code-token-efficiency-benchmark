@@ -1,0 +1,33 @@
+diff --git a/src/click/shell_completion.py b/src/click/shell_completion.py
+index 42e8885..c9e2897 100644
+--- a/src/click/shell_completion.py
++++ b/src/click/shell_completion.py
+@@ -622,6 +622,8 @@ def split_arg_string(string: str) -> list[str]:
+ 
+     lex = shlex.shlex(string, posix=True)
+     lex.whitespace_split = True
++    # The shell has already handled comments; "#" is a literal character.
++    lex.commenters = ""
+     out: list[str] = []
+ 
+     try:
+diff --git a/tests/test_shell_completion.py b/tests/test_shell_completion.py
+index 10d5cfa..d0e6829 100644
+--- a/tests/test_shell_completion.py
++++ b/tests/test_shell_completion.py
+@@ -615,3 +615,15 @@ def test_powershell_format_completion_escapes_help():
+     # produced by ZshComplete.
+     item = CompletionItem("--at")
+     assert pc.format_completion(item) == "plain\n--at\n_"
++
++
++@pytest.mark.parametrize(
++    ("value", "expect"),
++    [
++        ("cli a#b", ["cli", "a#b"]),
++        ("cli #tag", ["cli", "#tag"]),
++        ("cli a #b", ["cli", "a", "#b"]),
++    ],
++)
++def test_split_arg_string_hash(value, expect):
++    assert click.shell_completion.split_arg_string(value) == expect

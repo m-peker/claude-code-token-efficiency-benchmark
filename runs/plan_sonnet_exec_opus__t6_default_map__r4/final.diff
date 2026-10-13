@@ -1,0 +1,87 @@
+diff --git a/CHANGES.md b/CHANGES.md
+index 3c9a94e..5431db7 100644
+--- a/CHANGES.md
++++ b/CHANGES.md
+@@ -1,3 +1,11 @@
++## Version 8.5.1
++
++Unreleased
++
++- Subcommand contexts look up their own entry in the parent's
++  `default_map` instead of inheriting the whole parent map, so nested
++  `default_map` values apply to subcommand parameters again.
++
+ ## Version 8.5.0
+ 
+ Released 2026-08-24
+diff --git a/src/click/core.py b/src/click/core.py
+index d5390bd..23b3c93 100644
+--- a/src/click/core.py
++++ b/src/click/core.py
+@@ -389,7 +389,10 @@ class Context:
+             and parent is not None
+             and parent.default_map is not None
+         ):
+-            default_map = parent.default_map
++            default_map = parent.default_map.get(info_name)
++
++            if default_map is UNSET:
++                default_map = None
+ 
+         self.default_map = default_map
+ 
+diff --git a/tests/test_defaults.py b/tests/test_defaults.py
+index bb2684c..b76478a 100644
+--- a/tests/test_defaults.py
++++ b/tests/test_defaults.py
+@@ -556,3 +556,50 @@ def test_unset_in_default_map(runner):
+     result = runner.invoke(cli, [])
+     assert result.exit_code == 0
+     assert result.output.strip() == "port=8000"
++
++
++def test_default_map_subcommands(runner):
++    """Nested ``default_map`` entries apply to subcommands, nested groups,
++    and missing entries fall back to the parameter's own default.
++    """
++
++    @click.group()
++    @click.option("--debug/--no-debug", default=False)
++    def cli(debug):
++        click.echo(f"debug={debug}")
++
++    @cli.command()
++    @click.option("--port", default=8000)
++    def runserver(port):
++        click.echo(f"port={port}")
++
++    @cli.group()
++    def db():
++        pass
++
++    @db.command()
++    @click.option("--url", default="sqlite://")
++    def migrate(url):
++        click.echo(f"url={url}")
++
++    default_map = {
++        "debug": True,
++        "runserver": {"port": 5000},
++        "db": {"migrate": {"url": "postgres://"}},
++    }
++
++    result = runner.invoke(cli, ["runserver"], default_map=default_map)
++    assert result.exit_code == 0, result.output
++    assert result.output.splitlines() == ["debug=True", "port=5000"]
++
++    result = runner.invoke(cli, ["db", "migrate"], default_map=default_map)
++    assert result.exit_code == 0, result.output
++    assert result.output.splitlines() == ["debug=True", "url=postgres://"]
++
++    result = runner.invoke(cli, ["runserver"], default_map={"debug": True})
++    assert result.exit_code == 0, result.output
++    assert result.output.splitlines() == ["debug=True", "port=8000"]
++
++    result = runner.invoke(cli, ["runserver"], default_map={"runserver": UNSET})
++    assert result.exit_code == 0, result.output
++    assert result.output.splitlines() == ["debug=False", "port=8000"]

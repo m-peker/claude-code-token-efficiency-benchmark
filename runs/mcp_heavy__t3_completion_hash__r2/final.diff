@@ -1,0 +1,34 @@
+diff --git a/src/click/shell_completion.py b/src/click/shell_completion.py
+index 42e8885..c2cb47c 100644
+--- a/src/click/shell_completion.py
++++ b/src/click/shell_completion.py
+@@ -622,6 +622,9 @@ def split_arg_string(string: str) -> list[str]:
+ 
+     lex = shlex.shlex(string, posix=True)
+     lex.whitespace_split = True
++    # Don't treat "#" as the start of a comment, it's a valid character
++    # in an argument.
++    lex.commenters = ""
+     out: list[str] = []
+ 
+     try:
+diff --git a/tests/test_shell_completion.py b/tests/test_shell_completion.py
+index 10d5cfa..b9bd52e 100644
+--- a/tests/test_shell_completion.py
++++ b/tests/test_shell_completion.py
+@@ -16,6 +16,7 @@ from click.shell_completion import FishComplete
+ from click.shell_completion import PowerShellComplete
+ from click.shell_completion import shell_complete
+ from click.shell_completion import ShellComplete
++from click.shell_completion import split_arg_string
+ from click.types import Choice
+ from click.types import File
+ from click.types import Path
+@@ -615,3 +616,7 @@ def test_powershell_format_completion_escapes_help():
+     # produced by ZshComplete.
+     item = CompletionItem("--at")
+     assert pc.format_completion(item) == "plain\n--at\n_"
++
++
++def test_split_arg_string_hash():
++    assert split_arg_string("cmd a#b #c") == ["cmd", "a#b", "#c"]

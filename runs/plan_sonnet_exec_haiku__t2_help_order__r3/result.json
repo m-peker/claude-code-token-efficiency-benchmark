@@ -1,0 +1,143 @@
+{
+  "duration_api_ms": 52351,
+  "stop_reason": "end_turn",
+  "session_id": "0be32258-21de-45a8-97ec-b4461d92063c",
+  "total_cost_usd": 0.19047833,
+  "usage": {
+    "input_tokens": 4,
+    "cache_creation_input_tokens": 10670,
+    "cache_read_input_tokens": 55993,
+    "output_tokens": 658,
+    "output_tokens_details": {
+      "thinking_tokens": 294
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 10670,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 277,
+        "cache_read_input_tokens": 33091,
+        "cache_creation_input_tokens": 481,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 481
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1194,
+      "outputTokens": 674,
+      "thinkingTokens": 294,
+      "cacheReadInputTokens": 55993,
+      "cacheCreationInputTokens": 10670,
+      "webSearchRequests": 0,
+      "costUSD": 0.0031503300000000002,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "canonicalModel": "claude-haiku-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    },
+    "claude-sonnet-5-5": {
+      "inputTokens": 24,
+      "outputTokens": 5943,
+      "thinkingTokens": 346,
+      "cacheReadInputTokens": 230135,
+      "cacheCreationInputTokens": 27322,
+      "webSearchRequests": 0,
+      "costUSD": 0.18732800000000002,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 6,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "I can't implement yet. No plan file exists, and I never presented a concrete plan for you to approve. My last message asked which ordering problem you meant, and I didn't get an answer to that.\n\nThe options I listed were:\n\n1. **Alphabetical options:** sort the \"Options\" section by name.\n2. **`--help` placement:** move `--help` to the top instead of the bottom.\n3. **Section order:** show \"Options\" before \"Positional arguments\".\n4. **A specific command:** something in your own CLI or `examples/` looks wrong. Tell me which command and paste the output you're seeing.\n\nTell me which one you mean, or paste the output and the order you expected. I'll then write the plan and make the change. The fix will also need updated assertions in `tests/test_formatting.py` and `tests/test_arguments.py`, and I'll run the test suite afterward.",
+  "ttft_ms": 3155,
+  "type": "result",
+  "duration_ms": 4992,
+  "uuid": "6748a104-8452-461d-b654-d5a6062c1faa",
+  "ttft_stream_ms": 1498,
+  "time_to_request_ms": 265,
+  "time_to_request_phases_ms": {
+    "other": 10,
+    "system_prompt": 207,
+    "resume_other": 0,
+    "process_user_input": 2,
+    "input_attachments": 9,
+    "input_hooks": 2,
+    "transcript_persist": 1,
+    "tool_pool_refresh": 2,
+    "init_message": 10,
+    "engine_pickup": 1,
+    "message_prep": 0,
+    "model_config_wait": 1,
+    "autocompact": 1,
+    "query_setup": 0,
+    "model_gates": 1,
+    "tool_schema_build": 8,
+    "message_normalization": 2,
+    "client_creation": 3,
+    "request_build": 5
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 133,
+  "time_to_request_cpu_ms": 235,
+  "time_to_request_major_faults": 2912,
+  "input_attachments_detail": {
+    "slowest_producer": "queued_commands",
+    "slowest_producer_ms": 6,
+    "cpu_ms": 16,
+    "major_faults": 161,
+    "changed_files_reread": 0
+  },
+  "first_content_frame_ms": 1498,
+  "queued_turn_count": 0,
+  "result_index": 0
+}

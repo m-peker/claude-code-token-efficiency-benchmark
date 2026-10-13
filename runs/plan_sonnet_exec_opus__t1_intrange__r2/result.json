@@ -1,0 +1,154 @@
+{
+  "duration_api_ms": 23164,
+  "stop_reason": "end_turn",
+  "session_id": "55566528-c89b-434b-b74e-c7a01ae766a0",
+  "total_cost_usd": 0.18201520000000002,
+  "usage": {
+    "input_tokens": 6,
+    "cache_creation_input_tokens": 10710,
+    "cache_read_input_tokens": 62281,
+    "output_tokens": 1026,
+    "output_tokens_details": {
+      "thinking_tokens": 22
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 10710,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "global",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 314,
+        "cache_read_input_tokens": 24470,
+        "cache_creation_input_tokens": 619,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 619
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1193,
+      "outputTokens": 17,
+      "thinkingTokens": 0,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.00012780000000000002,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000
+    },
+    "claude-sonnet-5-5": {
+      "inputTokens": 8,
+      "outputTokens": 1635,
+      "thinkingTokens": 175,
+      "cacheReadInputTokens": 72366,
+      "cacheCreationInputTokens": 8092,
+      "webSearchRequests": 0,
+      "costUSD": 0.0632072,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000
+    },
+    "claude-opus-5-5": {
+      "inputTokens": 6,
+      "outputTokens": 1026,
+      "cacheReadInputTokens": 62281,
+      "cacheCreationInputTokens": 10710,
+      "webSearchRequests": 0,
+      "costUSD": 0.11868020000000001,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 22,
+      "canonicalModel": "claude-opus-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 10,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "I've fixed it: `IntRange` with `clamp=True` and an open bound now returns a value inside the range. The relevant tests pass (71 passed, 2 skipped).\n\n- **Fix:** In `src/click/types.py:754`, `IntRange._clamp` now returns `bound + dir` instead of `bound - dir`. The old code stepped one past the open bound, outside the range.\n- **Tests:** I added two cases to `tests/test_types.py`:\n  - `IntRange(0, min_open=True, clamp=True)` given `\"-5\"` now returns `1` (it used to return `-1`).\n  - `IntRange(max=5, max_open=True, clamp=True)` given `\"10\"` now returns `4` (it used to return `6`).\n\nI ran `tests/test_types.py` and `tests/test_info_dict.py`, not the full test suite. Nothing is committed.",
+  "ttft_ms": 1977,
+  "type": "result",
+  "duration_ms": 13861,
+  "uuid": "d917d7e4-d617-4eb4-b4ea-e850da8191e7",
+  "ttft_stream_ms": 975,
+  "time_to_request_ms": 65,
+  "time_to_request_phases_ms": {
+    "other": 9,
+    "system_prompt": 23,
+    "resume_other": 0,
+    "process_user_input": 1,
+    "input_attachments": 7,
+    "input_hooks": 1,
+    "transcript_persist": 1,
+    "tool_pool_refresh": 1,
+    "init_message": 6,
+    "engine_pickup": 0,
+    "message_prep": 1,
+    "model_config_wait": 1,
+    "autocompact": 0,
+    "query_setup": 1,
+    "model_gates": 0,
+    "tool_schema_build": 5,
+    "message_normalization": 2,
+    "client_creation": 2,
+    "request_build": 4
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 15,
+  "time_to_request_cpu_ms": 110,
+  "time_to_request_major_faults": 930,
+  "input_attachments_detail": {
+    "slowest_producer": "queued_commands",
+    "slowest_producer_ms": 4,
+    "cpu_ms": 16,
+    "major_faults": 118,
+    "changed_files_reread": 0
+  },
+  "first_content_frame_ms": 975,
+  "queued_turn_count": 0,
+  "result_index": 0
+}

@@ -1,0 +1,153 @@
+{
+  "duration_api_ms": 47301,
+  "stop_reason": "end_turn",
+  "session_id": "6c545393-9c0a-44b1-b5be-783b0f897145",
+  "total_cost_usd": 0.17767750000000004,
+  "usage": {
+    "input_tokens": 8,
+    "cache_creation_input_tokens": 4098,
+    "cache_read_input_tokens": 87248,
+    "output_tokens": 1475,
+    "output_tokens_details": {
+      "thinking_tokens": 71
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 4098,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 567,
+        "cache_read_input_tokens": 30339,
+        "cache_creation_input_tokens": 863,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 863
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1191,
+      "outputTokens": 20,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.00012910000000000002,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 0,
+      "canonicalModel": "claude-haiku-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    },
+    "claude-sonnet-5-5": {
+      "inputTokens": 24,
+      "outputTokens": 5213,
+      "cacheReadInputTokens": 241172,
+      "cacheCreationInputTokens": 26232,
+      "webSearchRequests": 0,
+      "costUSD": 0.17754840000000005,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 235,
+      "canonicalModel": "claude-sonnet-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "origin": {
+    "kind": "task-notification",
+    "producer": "session-task",
+    "runId": "0mv6b39y6-a7e22cc0"
+  },
+  "subagent_stats": {
+    "spawned": 1,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 1
+    },
+    "started_in_background": 1,
+    "max_depth": 1,
+    "spawned_by_subagents": 0,
+    "completed": 1,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {
+      "Explore": 1
+    }
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 4,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "I've written the plan but haven't changed any code, because plan mode is on. I couldn't call ExitPlanMode (it isn't available here), so I'm asking for approval in this message instead.\n\n**Cause:** `split_arg_string` in `src/click/shell_completion.py:623` builds a `shlex.shlex` lexer. shlex treats `#` as a comment start by default, so everything after an unquoted `#` is dropped. For example, `cli a #foo b` becomes `[\"cli\", \"a\"]`. All four shells (bash, zsh, fish, powershell) go through this function, so all of them are affected. I haven't run it; this comes from reading the code and shlex's documented behavior.\n\n**Planned fix:**\n1. Add `lex.commenters = \"\"` after `lex.whitespace_split = True` in `split_arg_string`.\n2. Add a `CHANGES.md` entry.\n3. Add regression tests:\n   - Cases in `tests/test_parser.py::test_split_arg_string`: `\"cli a #b c\"` and `\"cli a#b\"`.\n   - An end-to-end case in `tests/test_shell_completion.py::test_full_complete`.\n4. Verify by running `pytest tests/test_parser.py tests/test_shell_completion.py`, and confirm the new tests fail without the fix.\n\nI'm leaving out the fact that the shell scripts don't escape `#` or commas in completion values. That's a separate issue.\n\nThe full plan is in `<home>\\.claude\\plans\\shell-completion-gives-wrong-zazzy-glacier.md`. Reply to approve it and I'll implement it.",
+  "ttft_ms": 3923,
+  "type": "result",
+  "duration_ms": 14249,
+  "uuid": "51949374-787d-4d36-bb53-d952c1cf7fb2",
+  "ttft_stream_ms": 2784,
+  "time_to_request_ms": 307,
+  "time_to_request_phases_ms": {
+    "other": 6,
+    "system_prompt": 3,
+    "resume_other": 0,
+    "process_user_input": 2,
+    "input_attachments": 6,
+    "input_hooks": 4,
+    "transcript_persist": 0,
+    "tool_pool_refresh": 3,
+    "init_message": 1,
+    "engine_pickup": 1,
+    "message_prep": 0,
+    "model_config_wait": 1,
+    "autocompact": 0,
+    "query_setup": 130,
+    "auto_mode_context_wait": 139,
+    "model_gates": 0,
+    "tool_schema_build": 2,
+    "message_normalization": 2,
+    "client_creation": 2,
+    "request_build": 5
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 1,
+  "time_to_request_loop_lag_ms": 108,
+  "time_to_request_cpu_ms": 172,
+  "time_to_request_major_faults": 437,
+  "input_attachments_detail": {
+    "slowest_producer": "queued_commands",
+    "slowest_producer_ms": 5,
+    "cpu_ms": 0,
+    "major_faults": 5
+  },
+  "first_content_frame_ms": 2784,
+  "queued_turn_count": 0,
+  "result_index": 1
+}

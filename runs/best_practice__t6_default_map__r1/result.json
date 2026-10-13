@@ -1,0 +1,145 @@
+{
+  "duration_api_ms": 14278,
+  "stop_reason": "end_turn",
+  "session_id": "99caa7c5-baa0-4123-84e5-55595db354cc",
+  "total_cost_usd": 0.065684,
+  "usage": {
+    "input_tokens": 12,
+    "cache_creation_input_tokens": 5199,
+    "cache_read_input_tokens": 155091,
+    "output_tokens": 1370,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 5199,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 243,
+        "cache_read_input_tokens": 27395,
+        "cache_creation_input_tokens": 706,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 706
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1353,
+      "outputTokens": 21,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.00014580000000000002,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 0,
+      "canonicalModel": "claude-haiku-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    },
+    "claude-sonnet-5-5": {
+      "inputTokens": 12,
+      "outputTokens": 1370,
+      "cacheReadInputTokens": 155091,
+      "cacheCreationInputTokens": 5199,
+      "webSearchRequests": 0,
+      "costUSD": 0.0655382,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 0,
+      "canonicalModel": "claude-sonnet-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 8,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "Fixed. `Context.__init__` in `src/click/core.py` now gives a child context its own section of the parent's `default_map`, keyed by `info_name`. Before, it inherited the whole parent map, so `{'foo': {'name': 'changed'}}` never matched the `name` option.\n\nThe change is `parent.default_map.get(info_name)`. If the parent has no entry for that name, the child gets `None`.\n\nI added `test_group_default_map_subcommand_section` to `tests/test_commands.py`. It checks that `foo` prints `changed` with the default map and `normal` without it. Running `python -m pytest tests/test_commands.py tests/test_defaults.py -q` gives 145 passed. I did not run the full suite.",
+  "ttft_ms": 1996,
+  "type": "result",
+  "duration_ms": 18238,
+  "uuid": "00dd5283-8b9a-47da-8f9d-22b2cf541500",
+  "ttft_stream_ms": 1357,
+  "time_to_request_ms": 206,
+  "time_to_request_phases_ms": {
+    "other": 18,
+    "system_prompt": 47,
+    "resume_other": 0,
+    "process_user_input": 2,
+    "input_attachments": 101,
+    "input_hooks": 2,
+    "transcript_persist": 2,
+    "tool_pool_refresh": 2,
+    "init_message": 12,
+    "engine_pickup": 1,
+    "message_prep": 0,
+    "model_config_wait": 2,
+    "autocompact": 1,
+    "query_setup": 0,
+    "model_gates": 1,
+    "tool_schema_build": 8,
+    "message_normalization": 1,
+    "client_creation": 1,
+    "request_build": 5
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 32,
+  "time_to_request_cpu_ms": 329,
+  "time_to_request_major_faults": 4651,
+  "input_attachments_detail": {
+    "slowest_producer": "at_mentioned_files",
+    "slowest_producer_ms": 58,
+    "cpu_ms": 172,
+    "major_faults": 1459
+  },
+  "first_content_frame_ms": 1358,
+  "queued_turn_count": 0,
+  "result_index": 0
+}

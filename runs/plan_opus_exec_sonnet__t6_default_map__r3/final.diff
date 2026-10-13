@@ -1,0 +1,73 @@
+diff --git a/src/click/core.py b/src/click/core.py
+index d5390bd..de129ec 100644
+--- a/src/click/core.py
++++ b/src/click/core.py
+@@ -389,7 +389,7 @@ class Context:
+             and parent is not None
+             and parent.default_map is not None
+         ):
+-            default_map = parent.default_map
++            default_map = parent.default_map.get(info_name)
+ 
+         self.default_map = default_map
+ 
+diff --git a/tests/test_defaults.py b/tests/test_defaults.py
+index bb2684c..c9129fb 100644
+--- a/tests/test_defaults.py
++++ b/tests/test_defaults.py
+@@ -556,3 +556,55 @@ def test_unset_in_default_map(runner):
+     result = runner.invoke(cli, [])
+     assert result.exit_code == 0
+     assert result.output.strip() == "port=8000"
++
++
++def test_default_map_subcommand(runner):
++    @click.group()
++    def cli():
++        pass
++
++    @cli.command()
++    @click.option("--opt", default="orig")
++    def sub(opt):
++        click.echo(opt)
++
++    result = runner.invoke(cli, ["sub"], default_map={"sub": {"opt": "x"}})
++    assert result.output == "x\n"
++
++    # Parent-level keys do not leak into the subcommand.
++    result = runner.invoke(cli, ["sub"], default_map={"opt": "z"})
++    assert result.output == "orig\n"
++
++
++def test_default_map_nested_groups(runner):
++    @click.group()
++    def cli():
++        pass
++
++    @cli.group()
++    def grp():
++        pass
++
++    @grp.command()
++    @click.option("--opt", default="orig")
++    def cmd(opt):
++        click.echo(opt)
++
++    result = runner.invoke(
++        cli, ["grp", "cmd"], default_map={"grp": {"cmd": {"opt": "y"}}}
++    )
++    assert result.output == "y\n"
++
++
++def test_default_map_subcommand_context_settings_wins(runner):
++    @click.group()
++    def cli():
++        pass
++
++    @cli.command(context_settings={"default_map": {"opt": "own"}})
++    @click.option("--opt", default="orig")
++    def sub(opt):
++        click.echo(opt)
++
++    result = runner.invoke(cli, ["sub"], default_map={"sub": {"opt": "x"}})
++    assert result.output == "own\n"

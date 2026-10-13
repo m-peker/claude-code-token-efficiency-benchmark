@@ -1,0 +1,146 @@
+{
+  "duration_api_ms": 28626,
+  "stop_reason": "end_turn",
+  "session_id": "cd7bc421-e967-4b2c-b74d-771aa7f8b044",
+  "total_cost_usd": 0.20344890000000002,
+  "usage": {
+    "input_tokens": 16,
+    "cache_creation_input_tokens": 12597,
+    "cache_read_input_tokens": 238999,
+    "output_tokens": 2734,
+    "output_tokens_details": {
+      "thinking_tokens": 333
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 12597,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "not_available",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 635,
+        "cache_read_input_tokens": 35254,
+        "cache_creation_input_tokens": 120,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 120
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "modelUsage": {
+    "claude-haiku-5-5": {
+      "inputTokens": 1191,
+      "outputTokens": 20,
+      "cacheReadInputTokens": 0,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.00012910000000000002,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 0,
+      "canonicalModel": "claude-haiku-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    },
+    "claude-opus-5-5": {
+      "inputTokens": 16,
+      "outputTokens": 2734,
+      "cacheReadInputTokens": 238999,
+      "cacheCreationInputTokens": 12597,
+      "webSearchRequests": 0,
+      "costUSD": 0.20331980000000002,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 333,
+      "canonicalModel": "claude-opus-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+    "spawned": 0,
+    "requested": {
+      "background": 0,
+      "foreground": 0,
+      "unset": 0
+    },
+    "started_in_background": 0,
+    "max_depth": 0,
+    "spawned_by_subagents": 0,
+    "completed": 0,
+    "failed": 0,
+    "killed": {
+      "parent": 0,
+      "user": 0,
+      "system": 0
+    },
+    "refused": {
+      "depth_limit": 0,
+      "concurrency_limit": 0,
+      "budget": 0
+    },
+    "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 10,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "I found the cause and wrote a plan. I haven't changed any code yet because plan mode is on. I also couldn't submit the plan for approval: the plan-approval tool isn't available in this session.\n\n**Cause:** Every shell's completion (bash, zsh, fish, PowerShell) splits the command line with `split_arg_string` in `src/click/shell_completion.py:603`. That function uses Python's `shlex.shlex`, which by default treats `#` as the start of a comment and drops everything after it. So `cli a#b c` is read as `[\"cli\", \"a\"]` instead of `[\"cli\", \"a#b\", \"c\"]`, and completion works from the wrong arguments.\n\n**Plan** (saved to `<home>\\.claude\\plans\\shell-completion-gives-wrong-atomic-trinket.md`):\n1. **The fix:** in `split_arg_string`, add `lex.commenters = \"\"` after `lex.whitespace_split = True` so `#` is treated as a normal character.\n2. **Tests:** add three cases to `test_split_arg_string` in `tests/test_parser.py`:\n   - `\"cli a#b c\"` should give `[\"cli\", \"a#b\", \"c\"]`\n   - `\"cli #a\"` should give `[\"cli\", \"#a\"]`\n   - `\"cli 'a#b\"` (missing closing quote) should give `[\"cli\", \"a#b\"]`\n3. **Changelog:** 8.5.0 has already been released, so add a new \"Unreleased\" section to the top of `CHANGES.md` with a note about this fix.\n\n**How I'll check it:** run `pytest tests/test_parser.py tests/test_shell_completion.py`, then confirm directly that `split_arg_string('cli a#b c')` returns `['cli', 'a#b', 'c']`.\n\nTell me to go ahead and I'll make the changes.",
+  "ttft_ms": 2192,
+  "type": "result",
+  "duration_ms": 31473,
+  "uuid": "c7a821d0-1a1c-437b-94c2-fe1e13d6fd25",
+  "ttft_stream_ms": 1442,
+  "time_to_request_ms": 589,
+  "time_to_request_phases_ms": {
+    "other": 21,
+    "system_prompt": 113,
+    "resume_other": 0,
+    "process_user_input": 2,
+    "input_attachments": 12,
+    "input_hooks": 3,
+    "transcript_persist": 10,
+    "tool_pool_refresh": 2,
+    "init_message": 16,
+    "engine_pickup": 1,
+    "message_prep": 0,
+    "model_config_wait": 1,
+    "autocompact": 2,
+    "query_setup": 167,
+    "auto_mode_context_wait": 218,
+    "model_gates": 0,
+    "tool_schema_build": 11,
+    "message_normalization": 2,
+    "client_creation": 2,
+    "request_build": 6
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 171,
+  "time_to_request_cpu_ms": 564,
+  "time_to_request_major_faults": 6988,
+  "input_attachments_detail": {
+    "slowest_producer": "model",
+    "slowest_producer_ms": 8,
+    "cpu_ms": 31,
+    "major_faults": 283
+  },
+  "first_content_frame_ms": 1443,
+  "queued_turn_count": 0,
+  "result_index": 0
+}
